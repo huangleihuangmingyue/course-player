@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>课程连播</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+  :root{
+    --bg:#f4f6f9;--panel:#fff;--text:#1f2937;--sub:#6b7280;--line:#e5e7eb;
+    --accent:#2563eb;--accent-soft:#dbeafe;--accent-soft2:#eff6ff;--ok:#059669;
+  }
+  html,body{height:100%;overflow:hidden}
+  body{
+    font-family:"PingFang SC","Microsoft YaHei","Segoe UI",system-ui,-apple-system,sans-serif;
+    background:var(--bg);color:var(--text);
+  }
+  #app{display:flex;height:100vh;height:100dvh;width:100vw}
+
+  /* ---------- 侧栏 ---------- */
+  #sidebar{
+    width:330px;flex:0 0 330px;background:var(--panel);border-right:1px solid var(--line);
+    display:flex;flex-direction:column;transition:margin-left .25s ease;z-index:30;
+  }
+  #sHead{padding:16px 16px 12px;border-bottom:1px solid var(--line)}
+  #sTitle{font-size:15px;font-weight:600;line-height:1.4;letter-spacing:.2px}
+  #sSub{font-size:12px;color:var(--sub);margin-top:5px;line-height:1.6;word-break:break-all}
+  #sStats{display:flex;gap:8px;margin-top:11px;flex-wrap:wrap}
+  #sStats span{background:var(--accent-soft2);color:var(--accent);padding:3px 9px;border-radius:20px;font-size:12px;font-weight:500}
+  #sOpts{display:flex;flex-wrap:wrap;gap:6px 16px;margin-top:11px;padding-top:11px;
+    border-top:1px dashed var(--line)}
+  #sBtns{display:flex;gap:8px;margin-top:11px}
+  .btn{
+    border:1px solid var(--line);background:#fff;color:var(--text);font-size:13px;
+    padding:7px 12px;border-radius:8px;cursor:pointer;font-family:inherit;transition:.15s;white-space:nowrap
+  }
+  .btn:hover{background:var(--accent-soft2);border-color:#c7d7f5}
+  .btn.primary{background:var(--accent);border-color:var(--accent);color:#fff;font-weight:500}
+  .btn.primary:hover{background:#1d4ed8}
+  .btn.sm{font-size:12px;padding:5px 9px;color:var(--sub)}
+
+  #list{flex:1;overflow-y:auto;padding:8px;overscroll-behavior:contain}
+  #list::-webkit-scrollbar{width:8px}
+  #list::-webkit-scrollbar-thumb{background:#d6dbe3;border-radius:4px}
+  .item{display:flex;gap:9px;align-items:flex-start;padding:9px 10px;border-radius:8px;
+    cursor:pointer;margin-bottom:2px;border-left:3px solid transparent}
+  .item:hover{background:var(--accent-soft2)}
+  .item.active{background:var(--accent-soft);border-left-color:var(--accent)}
+  .item .no{font-size:11px;color:var(--sub);min-width:24px;text-align:right;
+    font-variant-numeric:tabular-nums;padding-top:2px;flex:0 0 24px}
+  .item.active .no{color:var(--accent);font-weight:700}
+  .item .nm{font-size:13px;line-height:1.5;flex:1;word-break:break-all}
+  .item .dir{font-size:11px;color:#9aa3af;margin-top:2px}
+  .item .dot{width:6px;height:6px;border-radius:50%;background:var(--ok);
+    margin-top:7px;flex:0 0 6px;opacity:0}
+  .item.watched .dot{opacity:1}
+
+  /* ---------- 主区 ---------- */
+  #main{flex:1;display:flex;flex-direction:column;min-width:0;position:relative}
+  #stage{flex:1;background:#0f1115;display:flex;align-items:center;justify-content:center;
+    position:relative;min-height:0}
+  #video{width:100%;height:100%;object-fit:contain;background:#0f1115;display:none}
+  #video.on{display:block}
+
+  #empty{text-align:center;color:#9aa3af;padding:36px;max-width:600px}
+  #empty h1{font-size:19px;color:#e5e7eb;font-weight:600;margin-bottom:12px}
+  #empty p{font-size:13px;line-height:2}
+  #empty code{background:#1f232b;color:#93b4f7;padding:2px 7px;border-radius:5px;
+    font-family:Consolas,Menlo,monospace;font-size:12.5px}
+  #empty .kbd{display:inline-block;background:#1f232b;border:1px solid #2d323c;color:#c8cdd6;
+    border-radius:5px;padding:1px 6px;font-size:12px;margin:0 2px}
+
+  #toast{position:absolute;left:50%;bottom:88px;transform:translateX(-50%) translateY(10px);
+    background:rgba(17,24,39,.94);color:#fff;font-size:13px;padding:9px 16px;border-radius:8px;
+    opacity:0;pointer-events:none;transition:.25s;max-width:86%;text-align:center;z-index:12}
+  #toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+  /* 首屏"点一下开始"遮罩：绕过浏览器自动播放限制 */
+  #startMask{position:absolute;inset:0;background:rgba(15,17,21,.82);display:none;
+    align-items:center;justify-content:center;flex-direction:column;gap:16px;z-index:15;cursor:pointer}
+  #startMask.show{display:flex}
+  #bigPlay{width:78px;height:78px;border-radius:50%;background:rgba(255,255,255,.14);
+    border:2px solid rgba(255,255,255,.7);display:flex;align-items:center;justify-content:center}
+  #bigPlay svg{width:32px;height:32px;fill:#fff;margin-left:4px}
+  #startTip{color:#e5e7eb;font-size:14px;letter-spacing:.5px}
+
+  /* ---------- 控制条 ---------- */
+  #bar{background:var(--panel);border-top:1px solid var(--line);padding:9px 14px 11px;
+    padding-bottom:calc(11px + env(safe-area-inset-bottom))}
+  #seekwrap{display:flex;align-items:center;gap:9px;font-size:12px;color:var(--sub)}
+  #seek{flex:1;-webkit-appearance:none;appearance:none;height:5px;border-radius:3px;
+    background:#e3e7ee;outline:none;cursor:pointer}
+  #seek::-webkit-slider-thumb{-webkit-appearance:none;width:13px;height:13px;border-radius:50%;
+    background:var(--accent);border:2px solid #fff;box-shadow:0 1px 3px rgba(0,0,0,.25)}
+  #seek::-moz-range-thumb{width:13px;height:13px;border-radius:50%;background:var(--accent);
+    border:2px solid #fff;cursor:pointer}
+  .tm{font-variant-numeric:tabular-nums;min-width:42px;text-align:center}
+  #ctrls{display:flex;align-items:center;gap:4px;margin-top:7px}
+  .cbtn{border:none;background:transparent;color:var(--text);cursor:pointer;width:36px;height:36px;
+    border-radius:8px;display:flex;align-items:center;justify-content:center;transition:.15s;font-family:inherit}
+  .cbtn:hover{background:var(--accent-soft2)}
+  .cbtn svg{width:18px;height:18px;fill:currentColor}
+  .cbtn.wide{width:auto;padding:0 9px;font-size:13px;color:var(--sub)}
+  .cbtn.wide:hover{color:var(--accent)}
+  #nowTitle{flex:1;font-size:13px;color:var(--sub);overflow:hidden;text-overflow:ellipsis;
+    white-space:nowrap;padding:0 8px;min-width:0}
+  #nowTitle b{color:var(--text);font-weight:500}
+  .switch{display:flex;align-items:center;gap:5px;font-size:12px;color:var(--sub);
+    cursor:pointer;user-select:none;padding:0 5px;white-space:nowrap}
+  .switch input{accent-color:var(--accent);width:14px;height:14px;cursor:pointer}
+  #sidebarToggle{position:absolute;left:11px;top:11px;z-index:20;background:rgba(255,255,255,.92);
+    color:#374151;border:1px solid rgba(0,0,0,.09);width:34px;height:34px;display:none}
+  #sidebarToggle:hover{background:#fff}
+  #mask{display:none;position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:25}
+
+  /* ---------- 窄屏 / 平板 / 电视 ---------- */
+  @media (max-width:820px){
+    #sidebar{position:fixed;left:0;top:0;bottom:0;margin-left:-330px;
+      box-shadow:4px 0 20px rgba(0,0,0,.12)}
+    body.sidebar-open #sidebar{margin-left:0}
+    body.sidebar-open #mask{display:block}
+    #sidebarToggle{display:flex}
+    #bar{padding:7px 10px 9px;padding-bottom:calc(9px + env(safe-area-inset-bottom))}
+    #nowTitle{font-size:12px}
+    .cbtn{width:34px;height:34px}
+  }
+</style>
+</head>
+<body>
+<div id="app">
+  <aside id="sidebar">
+    <div id="sHead">
+      <div id="sTitle">正在加载课程…</div>
+      <div id="sSub"></div>
+      <div id="sStats">
+        <span id="statTotal">0 节</span>
+        <span id="statWatched">已看 0</span>
+        <span id="statPos">—</span>
+      </div>
+      <div id="sOpts">
+        <label class="switch" title="一节播完自动播下一节">
+          <input type="checkbox" id="autoNext" checked> 自动连播
+        </label>
+        <label class="switch" title="打开后只播没看过的课，已看的自动跳过去">
+          <input type="checkbox" id="skipWatched"> 跳过已看过的课
+        </label>
+      </div>
+      <div id="sBtns">
+        <button class="btn primary" id="resumeBtn">从上次继续</button>
+        <button class="btn sm" id="refreshBtn" title="重新读取课程清单">刷新列表</button>
+        <button class="btn sm" id="resetBtn" title="清除本机观看记录">清进度</button>
+      </div>
+    </div>
+    <div id="list"></div>
+  </aside>
+
+  <main id="main">
+    <div id="stage">
+      <button class="cbtn" id="sidebarToggle" title="显示/隐藏目录">
+        <svg viewBox="0 0 24 24"><path d="M3 6h18v2H3V6zm0 5h18v2H3v-2zm0 5h18v2H3v-2z"/></svg>
+      </button>
+      <video id="video" playsinline preload="metadata"></video>
+      <div id="empty">
+        <h1>整个学期的课，一条线播到底</h1>
+        <p id="emptyMsg">正在读取课程清单…</p>
+        <p style="margin-top:16px">
+          <span class="kbd">空格</span> 播放/暂停　<span class="kbd">← →</span> ±5 秒　
+          <span class="kbd">↑ ↓</span> 上下节　<span class="kbd">F</span> 全屏
+        </p>
+      </div>
+      <div id="startMask">
+        <div id="bigPlay"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7L8 5z"/></svg></div>
+        <div id="startTip">点一下开始上课</div>
+      </div>
+      <div id="toast"></div>
+    </div>
+
+    <div id="bar">
+      <div id="seekwrap">
+        <span class="tm" id="tCur">00:00</span>
+        <input type="range" id="seek" min="0" max="1000" value="0" step="1">
+        <span class="tm" id="tDur">00:00</span>
+      </div>
+      <div id="ctrls">
+        <button class="cbtn" id="prevBtn" title="上一节">
+          <svg viewBox="0 0 24 24"><path d="M6 6h2v12H6V6zm3.5 6l8.5 6V6l-8.5 6z"/></svg>
+        </button>
+        <button class="cbtn" id="playBtn" title="播放/暂停">
+          <svg viewBox="0 0 24 24" id="playIcon"><path d="M8 5v14l11-7L8 5z"/></svg>
+        </button>
+        <button class="cbtn" id="nextBtn" title="下一节">
+          <svg viewBox="0 0 24 24"><path d="M16 6h2v12h-2V6zM6 18l8.5-6L6 6v12z"/></svg>
+        </button>
+        <button class="cbtn wide" id="speedBtn" title="播放速度">1.0×</button>
+        <button class="cbtn" id="muteBtn" title="静音">
+          <svg viewBox="0 0 24 24" id="volIcon"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3a4.5 4.5 0 00-2.5-4v8a4.5 4.5 0 002.5-4z"/></svg>
+        </button>
+        <div id="nowTitle">未载入课程</div>
+        <button class="cbtn" id="fsBtn" title="全屏">
+          <svg viewBox="0 0 24 24"><path d="M4 4h6v2H6v4H4V4zm10 0h6v6h-2V6h-4V4zM4 14h2v4h4v2H4v-6zm14 0h2v6h-6v-2h4v-4z"/></svg>
+        </button>
+      </div>
+    </div>
+  </main>
+</div>
+<div id="mask"></div>
+
+<script>
+(function(){
+'use strict';
+
+var $ = function(id){ return document.getElementById(id); };
+var video=$('video'), listEl=$('list'), emptyEl=$('empty'), emptyMsg=$('emptyMsg'),
+    toastEl=$('toast'), seek=$('seek'), tCur=$('tCur'), tDur=$('tDur'),
+    playIcon=$('playIcon'), speedBtn=$('speedBtn'), autoNextEl=$('autoNext'),
+    nowTitle=$('nowTitle'), statTotal=$('statTotal'), statWatched=$('statWatched'),
+    statPos=$('statPos'), sTitle=$('sTitle'), sSub=$('sSub'), volIcon=$('volIcon'),
+    skipEl=$('skipWatched'), startMask=$('startMask');
+
+var items=[];          // {path,name,dir,no,watched}
+var idx=-1;
+var store={index:0,times:{},watched:{}};
+var speed=1, jumping=false, toastTimer=null, saveTimer=null, dirty=false;
+var KEY='cp_cloud_v1';
+var pendingStart=false;
+
+/* ---------------- 工具 ---------------- */
+function fmt(s){
+  if(!isFinite(s)||s<0) s=0;
+  s=Math.floor(s);
+  var h=Math.floor(s/3600), m=Math.floor((s%3600)/60), x=s%60;
+  return (h?h+':':'') + ((h&&m<10?'0':'')+m) + ':' + (x<10?'0':'')+x;
+}
+function toast(msg,ms){
+  toastEl.textContent=msg;
+  toastEl.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer=setTimeout(function(){ toastEl.classList.remove('show'); }, ms||2600);
+}
+
+/* ---------------- 进度：存在本机浏览器 ---------------- */
+function loadStore(){
+  try{
+    var raw=localStorage.getItem(KEY);
+    if(!raw) return;
+    var d=JSON.parse(raw);
+    if(d && typeof d==='object'){
+      store={ index:d.index||0, times:d.times||{}, watched:d.watched||{} };
+    }
+  }catch(err){}
+}
+function saveStore(){
+  try{ localStorage.setItem(KEY, JSON.stringify(store)); }catch(err){}
+}
+function markDirty(){
+  dirty=true;
+  clearTimeout(saveTimer);
+  saveTimer=setTimeout(saveStore,1500);
+}
+
+/* ---------------- 跳过已看过的课 ---------------- */
+function isSkipping(){ return !!(skipEl && skipEl.checked); }
+
+function nextIndexFrom(from){
+  for(var k=from+1;k<items.length;k++){
+    if(!isSkipping() || !items[k].watched) return k;
+  }
+  return -1;
+}
+
+function resolveStart(){
+  var n=items.length;
+  if(!n) return {i:0,skipped:0};
+  var s=(store.index>=0 && store.index<n)?store.index:0;
+  if(!isSkipping()) return {i:s,skipped:0};
+  for(var k=s;k<n;k++) if(!items[k].watched) return {i:k,skipped:k-s};
+  for(var k=0;k<s;k++) if(!items[k].watched) return {i:k,skipped:n-s+k};
+  return {i:s,skipped:0};
+}
+
+function startPlay(resumeNotice){
+  if(!items.length) return;
+  var r=resolveStart();
+  playAt(r.i,true);
+  if(r.skipped>0){
+    setTimeout(function(){
+      toast('已跳过 '+r.skipped+' 节看过的课，从第 '+(r.i+1)+' 节开始',3400);
+    },600);
+  }else if(resumeNotice){
+    toast('从第 '+(r.i+1)+' 节继续',2000);
+  }
+}
+
+/* ---------------- 载入清单 ---------------- */
+function loadList(auto){
+  emptyEl.style.display='';
+  video.classList.remove('on');
+  emptyMsg.textContent='正在读取课程清单…';
+
+  fetch('videos.json?t='+Date.now(),{cache:'no-store'})
+    .then(function(r){
+      if(!r.ok) throw new Error('HTTP '+r.status);
+      return r.json();
+    })
+    .then(function(data){
+      items = data.items || [];
+      sTitle.textContent = data.title || '课程连播';
+      sSub.textContent = data.sub || '';
+      document.title = (data.title||'课程连播') + ' · 连播';
+
+      items.forEach(function(it){
+        it.watched = !!store.watched[it.path];
+      });
+      statTotal.textContent = items.length + ' 节';
+      render();
+      updateStats();
+
+      if(!items.length){
+        emptyEl.style.display='';
+        emptyMsg.innerHTML='课程清单是空的。<br>请重新运行「一键上传」，把视频传上去。';
+        nowTitle.textContent='未载入课程';
+        return;
+      }
+      emptyEl.style.display='none';
+      video.classList.add('on');
+      if(auto!==false) startPlay(false);
+    })
+    .catch(function(e){
+      emptyEl.style.display='';
+      emptyMsg.innerHTML='<b style="color:#f87171">读不到课程清单</b><br>'+
+        '文件 <code>videos.json</code> 没有找到，或者刚上传还在部署中。<br>'+
+        '等 1~2 分钟刷新一次。';
+      nowTitle.textContent='未载入课程';
+    });
+}
+
+/* ---------------- 渲染 ---------------- */
+function render(){
+  var frag=document.createDocumentFragment();
+  items.forEach(function(it,i){
+    var d=document.createElement('div');
+    d.className='item'+(i===idx?' active':'')+(it.watched?' watched':'');
+    d.dataset.i=i;
+    var no=document.createElement('div'); no.className='no'; no.textContent=it.no;
+    var nm=document.createElement('div'); nm.className='nm'; nm.textContent=it.name;
+    if(it.dir){
+      var dd=document.createElement('div'); dd.className='dir'; dd.textContent=it.dir;
+      nm.appendChild(dd);
+    }
+    var dot=document.createElement('div'); dot.className='dot';
+    d.appendChild(no); d.appendChild(nm); d.appendChild(dot);
+    frag.appendChild(d);
+  });
+  listEl.innerHTML='';
+  listEl.appendChild(frag);
+  markActive();
+}
+function markActive(){
+  var nodes=listEl.querySelectorAll('.item');
+  for(var i=0;i<nodes.length;i++){
+    var k=+nodes[i].dataset.i;
+    nodes[i].classList.toggle('active',k===idx);
+    if(items[k]) nodes[i].classList.toggle('watched',!!items[k].watched);
+  }
+  var cur=listEl.querySelector('.item.active');
+  if(cur){
+    var r=cur.getBoundingClientRect(), lr=listEl.getBoundingClientRect();
+    if(r.top<lr.top+8||r.bottom>lr.bottom-8){
+      listEl.scrollTop += (r.top-lr.top) - lr.height/2 + r.height/2;
+    }
+  }
+  updateStats();
+}
+function updateStats(){
+  var w=items.filter(function(x){ return x.watched; }).length;
+  statWatched.textContent='已看 '+w+' · 剩 '+(items.length-w);
+  statPos.textContent = idx>=0 ? ('第 '+(idx+1)+' 节') : '—';
+}
+
+/* ---------------- 播放 ---------------- */
+function playAt(i,autoplay){
+  if(i<0||i>=items.length) return;
+  if(idx>=0 && items[idx] && video.currentTime) store.times[items[idx].path]=video.currentTime||0;
+
+  idx=i;
+  var it=items[i];
+  video.src=it.path;
+  video.playbackRate=speed;
+  jumping=true;
+  startMask.classList.remove('show');
+
+  var resume=store.times[it.path]||0;
+  var onMeta=function(){
+    video.removeEventListener('loadedmetadata',onMeta);
+    jumping=false;
+    var d=video.duration;
+    if(resume>5 && d && resume < d-10){
+      video.currentTime=resume;
+      toast('从上次位置继续：'+fmt(resume),2400);
+    }
+    if(autoplay!==false) attemptPlay();
+  };
+  video.addEventListener('loadedmetadata',onMeta);
+
+  nowTitle.innerHTML='<b>'+it.no+'/'+items.length+'</b>　'+it.name;
+  markActive();
+  store.index=i;
+  markDirty();
+  document.title=it.name;
+}
+
+function attemptPlay(){
+  var p=video.play();
+  if(p&&p.catch){
+    p.catch(function(){
+      // 浏览器拦了带声音的自动播放：给一个明显的"点一下开始"
+      startMask.classList.add('show');
+      setPlayIcon(false);
+    });
+  }
+}
+function setPlayIcon(playing){
+  playIcon.innerHTML = playing
+    ? '<path d="M6 5h4v14H6V5zm8 0h4v14h-4V5z"/>'
+    : '<path d="M8 5v14l11-7L8 5z"/>';
+}
+
+startMask.addEventListener('click',function(){
+  startMask.classList.remove('show');
+  if(idx<0 && items.length) playAt(0,true);
+  else attemptPlay();
+});
+
+video.addEventListener('play',function(){ setPlayIcon(true); startMask.classList.remove('show'); });
+video.addEventListener('pause',function(){ setPlayIcon(false); });
+
+var lastSave=0;
+video.addEventListener('timeupdate',function(){
+  if(jumping||!video.duration) return;
+  tCur.textContent=fmt(video.currentTime);
+  seek.value=Math.round(video.currentTime/video.duration*1000);
+
+  if(idx>=0){
+    store.times[items[idx].path]=video.currentTime;
+    var now=Date.now();
+    if(now-lastSave>4000){ lastSave=now; saveStore(); }
+  }
+  if(idx>=0 && video.duration>30 && video.currentTime/video.duration>0.92 && !items[idx].watched){
+    items[idx].watched=true;
+    store.watched[items[idx].path]=true;
+    markActive(); markDirty();
+  }
+});
+video.addEventListener('loadedmetadata',function(){ tDur.textContent=fmt(video.duration); });
+
+video.addEventListener('ended',function(){
+  if(idx>=0){
+    items[idx].watched=true;
+    store.watched[items[idx].path]=true;
+    store.times[items[idx].path]=0;
+    markActive();
+  }
+  if(autoNextEl.checked){
+    var n=nextIndexFrom(idx);
+    if(n>=0){
+      var jump=n-idx-1;
+      playAt(n,true);
+      if(jump>0) toast('跳过 '+jump+' 节已看过的课',2400);
+    }else{
+      var left=items.filter(function(x){ return !x.watched; }).length;
+      if(isSkipping() && left>0){
+        toast('后面的课都看过了，前面还剩 '+left+' 节没看，点「从上次继续」可以接着看',5200);
+      }else{
+        toast('整个学期的课程已经播完了 🎉',5000);
+      }
+      saveStore();
+    }
+  }else if(idx>=items.length-1){
+    toast('整个学期的课程已经播完了 🎉',4200);
+    saveStore();
+  }
+});
+
+video.addEventListener('error',function(){
+  if(!video.src||video.src==='') return;
+  var nm = idx>=0 ? items[idx].name : '';
+  var code = video.error ? video.error.code : 0;
+  toast('「'+nm+'」加载失败（'+(code===4?'文件不存在或格式不支持':'网络中断')+'），1.5 秒后跳过',4600);
+  jumping=false;
+  setTimeout(function(){
+    if(autoNextEl.checked && idx<items.length-1) playAt(idx+1,true);
+  },1800);
+});
+
+/* ---------------- 控件 ---------------- */
+$('playBtn').addEventListener('click',function(){
+  if(idx<0){ if(items.length) playAt(0,true); return; }
+  if(video.paused) attemptPlay(); else video.pause();
+});
+$('prevBtn').addEventListener('click',function(){
+  if(video.currentTime>4){ video.currentTime=0; return; }
+  if(idx>0) playAt(idx-1,true);
+});
+$('nextBtn').addEventListener('click',function(){
+  var n=nextIndexFrom(idx);
+  if(n>=0) playAt(n,true);
+  else toast('已经是最后一节了',2000);
+});
+seek.addEventListener('input',function(){
+  if(!video.duration) return;
+  video.currentTime=seek.value/1000*video.duration;
+  tCur.textContent=fmt(video.currentTime);
+});
+speedBtn.addEventListener('click',function(){
+  var steps=[1,1.25,1.5,1.75,2,0.75];
+  var i=steps.indexOf(speed);
+  speed=steps[(i+1)%steps.length];
+  video.playbackRate=speed;
+  speedBtn.textContent=(String(speed).indexOf('.')<0?speed.toFixed(1):String(speed))+'×';
+});
+$('muteBtn').addEventListener('click',function(){
+  video.muted=!video.muted;
+  volIcon.innerHTML = video.muted
+    ? '<path d="M3 9v6h4l5 5V4L7 9H3zm13.6 3l2.4-2.4-1.1-1.1L15.5 11l-2.4-2.5-1.1 1.1L14.4 12l-2.4 2.4 1.1 1.1 2.4-2.4 2.4 2.4 1.1-1.1L16.6 12z"/>'
+    : '<path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3a4.5 4.5 0 00-2.5-4v8a4.5 4.5 0 002.5-4z"/>';
+});
+$('fsBtn').addEventListener('click',function(){
+  var st=$('stage');
+  if(document.fullscreenElement) document.exitFullscreen();
+  else if(st.requestFullscreen) st.requestFullscreen();
+  else if(video.webkitEnterFullscreen) video.webkitEnterFullscreen();
+});
+$('sidebarToggle').addEventListener('click',function(){
+  document.body.classList.toggle('sidebar-open');
+});
+$('mask').addEventListener('click',function(){
+  document.body.classList.remove('sidebar-open');
+});
+
+listEl.addEventListener('click',function(e){
+  var t=e.target;
+  while(t && t!==listEl && !(t.className&&(' '+t.className+' ').indexOf(' item ')>-1)) t=t.parentNode;
+  if(!t||t===listEl) return;
+  playAt(+t.dataset.i,true);
+  document.body.classList.remove('sidebar-open');
+});
+
+$('resumeBtn').addEventListener('click',function(){ startPlay(true); });
+$('refreshBtn').addEventListener('click',function(){
+  loadStore();
+  loadList(true);
+  toast('列表已刷新',1800);
+});
+$('resetBtn').addEventListener('click',function(){
+  if(!confirm('清除这台电脑上的观看记录？（视频文件不受影响，其他设备上的记录也不变）')) return;
+  store={index:0,times:{},watched:{}};
+  items.forEach(function(it){ it.watched=false; });
+  saveStore();
+  markActive();
+  toast('观看记录已清除',2000);
+});
+
+/* ---------------- 快捷键 ---------------- */
+document.addEventListener('keydown',function(e){
+  if(e.target.tagName==='INPUT'&&e.target.type!=='range') return;
+  switch(e.key){
+    case ' ': e.preventDefault(); if(video.paused) attemptPlay(); else video.pause(); break;
+    case 'ArrowLeft': e.preventDefault(); video.currentTime=Math.max(0,video.currentTime-5); break;
+    case 'ArrowRight': e.preventDefault(); video.currentTime=Math.min(video.duration||0,video.currentTime+5); break;
+    case 'ArrowUp': e.preventDefault(); if(idx>0) playAt(idx-1,true); break;
+    case 'ArrowDown':
+      e.preventDefault();
+      var _n=nextIndexFrom(idx);
+      if(_n>=0) playAt(_n,true);
+      break;
+    case 'f': case 'F':
+      if(document.fullscreenElement) document.exitFullscreen();
+      else $('stage').requestFullscreen();
+      break;
+    case 'm': case 'M': video.muted=!video.muted; break;
+  }
+});
+
+/* ---------------- 开关状态记忆 ---------------- */
+try{
+  if(localStorage.getItem('cp_skip_watched')==='1') skipEl.checked=true;
+  if(localStorage.getItem('cp_auto_next')==='0') autoNextEl.checked=false;
+}catch(err){}
+
+skipEl.addEventListener('change',function(){
+  try{ localStorage.setItem('cp_skip_watched', skipEl.checked?'1':'0'); }catch(err){}
+  if(!items.length) return;
+  if(skipEl.checked){
+    var left=items.filter(function(x){ return !x.watched; }).length;
+    if(left===0) toast('这个学期的课都已经看过了',2600);
+    else toast('已开启跳过：这台电脑上还剩 '+left+' 节没看',3000);
+  }else{
+    toast('已关闭跳过，会按顺序全部播放',2200);
+  }
+});
+
+autoNextEl.addEventListener('change',function(){
+  try{ localStorage.setItem('cp_auto_next', autoNextEl.checked?'1':'0'); }catch(err){}
+});
+
+/* ---------------- 启动 ---------------- */
+loadStore();
+loadList(true);
+})();
+</script>
+</body>
+</html>
