@@ -63,6 +63,7 @@
     position:relative;min-height:0}
   #video{width:100%;height:100%;object-fit:contain;background:#0f1115;display:none}
   #video.on{display:block}
+  #video::cue{background:rgba(0,0,0,.72);color:#fff;font-size:1.05em;line-height:1.4}
 
   #empty{text-align:center;color:#9aa3af;padding:36px;max-width:600px}
   #empty h1{font-size:19px;color:#e5e7eb;font-weight:600;margin-bottom:12px}
@@ -380,6 +381,16 @@ function updateStats(){
 }
 
 /* ---------------- 播放 ---------------- */
+function loadSubs(it){
+  var trs=video.querySelectorAll('track');
+  for(var k=0;k<trs.length;k++) trs[k].parentNode.removeChild(trs[k]);
+  if(!it.vtt) return;
+  var t=document.createElement('track');
+  t.kind='subtitles'; t.label='字幕'; t.srclang='zh'; t.src=it.vtt; t.default=true;
+  t.addEventListener('error',function(){ if(t.parentNode) t.parentNode.removeChild(t); });
+  video.appendChild(t);
+}
+
 function playAt(i,autoplay){
   if(i<0||i>=items.length) return;
   if(idx>=0 && items[idx] && video.currentTime) store.times[items[idx].path]=video.currentTime||0;
@@ -387,6 +398,7 @@ function playAt(i,autoplay){
   idx=i;
   var it=items[i];
   video.src=it.path;
+  loadSubs(it);
   video.playbackRate=speed;
   jumping=true;
   startMask.classList.remove('show');
