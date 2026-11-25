@@ -32,6 +32,10 @@
   #sOpts{display:flex;flex-wrap:wrap;gap:6px 16px;margin-top:11px;padding-top:11px;
     border-top:1px dashed var(--line)}
   #sBtns{display:flex;gap:8px;margin-top:11px}
+  #coursewareLink{display:block;margin-top:10px;padding:8px 12px;border-radius:8px;
+    background:#eff6ff;border:1px solid #dbeafe;color:#2563eb;font-size:13px;
+    font-weight:500;text-decoration:none;text-align:center;transition:.15s}
+  #coursewareLink:hover{background:#dbeafe;border-color:#bfdbfe}
   .btn{
     border:1px solid var(--line);background:#fff;color:var(--text);font-size:13px;
     padding:7px 12px;border-radius:8px;cursor:pointer;font-family:inherit;transition:.15s;white-space:nowrap
@@ -153,6 +157,7 @@
         <button class="btn sm" id="refreshBtn" title="重新读取课程清单">刷新列表</button>
         <button class="btn sm" id="resetBtn" title="清除本机观看记录">清进度</button>
       </div>
+      <a id="coursewareLink" href="courseware/" title="打开网页版教学课件">📘 教学课件</a>
     </div>
     <div id="list"></div>
   </aside>
