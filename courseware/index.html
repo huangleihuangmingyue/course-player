@@ -10,30 +10,35 @@
   *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
   body{font-family:"PingFang SC","Microsoft YaHei","Segoe UI",system-ui,sans-serif;
     background:#f4f6f9;color:#1f2937;line-height:1.6;padding:0 0 60px}
-  .wrap{max-width:920px;margin:0 auto;padding:0 18px}
-  header{background:#fff;border-bottom:1px solid #e5e7eb;padding:26px 0 22px;margin-bottom:26px}
+  .wrap{max-width:960px;margin:0 auto;padding:0 18px}
+  header{background:#fff;border-bottom:1px solid #e5e7eb;padding:26px 0 22px;margin-bottom:8px}
   header .wrap{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;flex-wrap:wrap}
   h1{font-size:23px;font-weight:600;letter-spacing:.3px}
   .sub{color:#6b7280;font-size:14px;margin-top:6px}
   .back{display:inline-flex;align-items:center;gap:6px;border:1px solid #e5e7eb;background:#fff;
     color:#2563eb;font-size:14px;padding:9px 15px;border-radius:9px;text-decoration:none;cursor:pointer}
   .back:hover{background:#eff6ff;border-color:#c7d7f5}
-  h2{font-size:17px;font-weight:600;margin:30px 0 14px;display:flex;align-items:center;gap:9px}
+  h2{font-size:17px;font-weight:600;margin:28px 0 14px;display:flex;align-items:center;gap:9px}
   h2::before{content:"";width:4px;height:17px;background:#2563eb;border-radius:2px}
-  .card{display:flex;gap:18px;background:#fff;border:1px solid #e5e7eb;border-radius:14px;
-    padding:22px;align-items:center;transition:.15s}
+  .chapter{margin:26px 0 12px;display:flex;align-items:center;gap:10px}
+  .chapter .cn{background:#176B87;color:#fff;font-size:12px;font-weight:500;
+    padding:3px 10px;border-radius:6px;letter-spacing:.5px}
+  .chapter .ct{font-size:15px;font-weight:600;color:#374151}
+  .chapter .cnt{font-size:12px;color:#9aa3af}
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:14px}
+  .card{display:flex;gap:14px;background:#fff;border:1px solid #e5e7eb;border-radius:12px;
+    padding:16px;align-items:center;transition:.15s}
   .card:hover{border-color:#c7d7f5;box-shadow:0 6px 22px rgba(37,99,235,.09)}
-  .thumb{flex:0 0 104px;height:104px;border-radius:10px;background:#176B87;color:#fff;
-    display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:3px}
-  .thumb b{font-size:15px;font-weight:600;line-height:1.35;padding:0 8px}
-  .thumb span{font-size:12px;opacity:.82}
+  .thumb{flex:0 0 62px;height:62px;border-radius:9px;background:#176B87;color:#fff;
+    display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:600}
   .info{flex:1;min-width:0}
-  .info h3{font-size:18px;font-weight:600;margin-bottom:5px}
-  .info .meta{font-size:13px;color:#6b7280;margin-bottom:12px}
-  .info .desc{font-size:13.5px;color:#4b5563;margin-bottom:15px;line-height:1.7}
-  .open{display:inline-block;background:#2563eb;color:#fff;text-decoration:none;font-size:14px;
-    font-weight:500;padding:10px 20px;border-radius:9px;cursor:pointer}
+  .info h3{font-size:15px;font-weight:600;margin-bottom:3px;line-height:1.45}
+  .info .meta{font-size:12px;color:#9aa3af;margin-bottom:11px}
+  .open{display:inline-block;background:#2563eb;color:#fff;text-decoration:none;font-size:13px;
+    font-weight:500;padding:7px 15px;border-radius:8px;cursor:pointer}
   .open:hover{background:#1d4ed8}
+  .empty{background:#fff;border:1px dashed #d6dbe3;border-radius:12px;padding:36px;
+    text-align:center;color:#9aa3af;font-size:14px}
   .guide{background:#fff;border:1px solid #e5e7eb;border-radius:14px;padding:22px 24px}
   .guide .row{display:flex;gap:12px;align-items:flex-start;padding:11px 0;border-bottom:1px dashed #eef0f3}
   .guide .row:last-child{border-bottom:none}
@@ -45,8 +50,7 @@
     font-size:13px;color:#1e40af;margin-top:20px;line-height:1.8}
   footer{text-align:center;color:#9aa3af;font-size:12px;margin-top:34px}
   @media (max-width:640px){
-    .card{flex-direction:column;align-items:flex-start;padding:18px}
-    .thumb{flex:none;width:100%;height:74px;flex-direction:row;gap:12px}
+    .card{padding:14px}
     .guide .row{flex-direction:column;gap:6px}
     kbd{min-width:0;text-align:left}
   }
@@ -56,8 +60,8 @@
 <header>
   <div class="wrap">
     <div>
-      <h1>教学课件 · 九年级化学上册</h1>
-      <div class="sub">打开就能放映，不用带 U 盘、不用安装软件</div>
+      <h1 id="pageTitle">教学课件 · 九年级化学上册</h1>
+      <div class="sub">按课本章节课题顺序排列 · 打开就能放映，不用带 U 盘</div>
     </div>
     <a class="back" href="../">← 返回视频连播</a>
   </div>
@@ -65,15 +69,7 @@
 
 <div class="wrap">
   <h2>课件列表</h2>
-  <div class="card">
-    <div class="thumb"><b>质量守恒<br>定律</b><span>化学方程式</span></div>
-    <div class="info">
-      <h3>质量守恒定律与化学方程式</h3>
-      <div class="meta">14 页 · 上册 · 人教版 · 网页互动课件</div>
-      <div class="desc">一个式子胜过一大段话：从"质"与"量"两个角度认识化学方程式，走完"写、配、注、等、查"五步，并用五个错例巩固。</div>
-      <a class="open" href="mass-conservation.html" target="_blank">打开课件 →</a>
-    </div>
-  </div>
+  <div id="courseList"></div>
 
   <h2>上课怎么操作</h2>
   <div class="guide">
@@ -88,11 +84,60 @@
   </div>
 
   <div class="note">
-    上课前：用教室电脑浏览器打开本页 → 点"打开课件" → 按 <b>F</b> 全屏即可。<br>
+    上课前：用教室电脑浏览器打开本页 → 点「打开课件」→ 按 <b>F</b> 全屏即可。<br>
     网络不好时请提前一两天打开一次，浏览器会缓存页面；本课件不含任何学生姓名、照片或成绩信息。
   </div>
 
-  <footer>九年级化学 · 教学课件中心</footer>
+  <footer id="footNote">九年级化学 · 教学课件中心</footer>
 </div>
+
+<script id="courseData" type="application/json">{"groups":[{"chapter":"第五单元化学方程式","items":[{"no":"01","title":"质量守恒定律与化学方程式","path":"05-第五单元化学方程式/01-质量守恒定律与化学方程式.html","size":19829}]}],"total":1,"generated":"2026-11-25"}</script>
+<script>
+(function () {
+  var box = document.getElementById('courseList');
+  var data;
+  try {
+    data = JSON.parse(document.getElementById('courseData').textContent);
+  } catch (e) {
+    data = { groups: [], total: 0 };
+  }
+  var groups = data.groups || [];
+  var total = data.total || 0;
+  if (!groups.length) {
+    box.innerHTML = '<div class="empty">课件清单还没有生成。<br>在本地运行一次「一键发布课件.bat」后，这里会自动列出全部课件。</div>';
+    return;
+  }
+  document.getElementById('footNote').textContent =
+    '九年级化学 · 教学课件中心 · 共 ' + total + ' 个课件' +
+    (data.generated ? ' · 更新于 ' + data.generated : '');
+  var html = '';
+  groups.forEach(function (g, gi) {
+    html += '<div class="chapter"><span class="cn">' + (gi + 1) + '</span>' +
+            '<span class="ct">' + esc(g.chapter) + '</span>' +
+            '<span class="cnt">' + g.items.length + ' 个</span></div>';
+    html += '<div class="grid">';
+    g.items.forEach(function (it) {
+      var href = encodeURI(it.path);
+      html += '<div class="card"><div class="thumb">' + esc(it.no) + '</div>' +
+        '<div class="info"><h3>' + esc(it.title) + '</h3>' +
+        '<div class="meta">第 ' + esc(it.no) + ' 个课件 · ' + fmtSize(it.size) + '</div>' +
+        '<a class="open" href="' + href + '" target="_blank">打开课件 →</a></div></div>';
+    });
+    html += '</div>';
+  });
+  box.innerHTML = html;
+
+  function esc(s) {
+    return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) {
+      return ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c];
+    });
+  }
+  function fmtSize(n) {
+    if (!n) return '';
+    return n >= 1048576 ? (n / 1048576).toFixed(1) + ' MB' :
+           n >= 1024 ? Math.round(n / 1024) + ' KB' : n + ' B';
+  }
+})();
+</script>
 </body>
 </html>
