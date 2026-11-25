@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>课题2 化学实验与科学探究 · 翻页课件</title>
+<style>
+  :root{--ink:#1a2230;--muted:#6b7280;--line:#e5e7eb;--soft:#f6f8fb;--accent:#0f766e;--accent-soft:#ecfdf5;--max:1000px;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html,body{height:100%;}
+  body{background:#fff;color:var(--ink);overflow:hidden;font-family:"PingFang SC","Microsoft YaHei","Hiragino Sans GB","Source Han Sans SC",sans-serif;-webkit-font-smoothing:antialiased;}
+  #deck{position:relative;width:100vw;height:100vh;}
+  .slide{position:absolute;inset:0;display:none;padding:clamp(28px,5vh,60px) clamp(26px,6vw,88px) 94px;overflow-y:auto;}
+  .slide.active{display:flex;animation:fade .32s ease;}
+  @keyframes fade{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:none;}}
+  .inner{width:100%;max-width:var(--max);margin:auto;}
+  .kicker{font-size:17px;letter-spacing:.12em;color:var(--accent);font-weight:700;margin-bottom:16px;}
+  h1{font-size:clamp(48px,7vw,82px);line-height:1.15;letter-spacing:-.02em;margin-bottom:16px;}
+  h2{font-size:clamp(34px,4.6vw,56px);line-height:1.3;letter-spacing:-.01em;margin-bottom:24px;}
+  h3{font-size:clamp(24px,2.8vw,30px);margin:20px 0 9px;}
+  p{font-size:clamp(22px,2.4vw,30px);line-height:1.8;margin-bottom:13px;}
+  b,strong{font-weight:700;}
+  .muted{color:var(--muted);}
+  .tag{display:inline-block;font-size:15px;color:var(--muted);border:1px solid var(--line);border-radius:99px;padding:2px 11px;margin-left:10px;vertical-align:middle;font-weight:400;}
+  .cover{text-align:center;}
+  .cover .eyebrow{font-size:18px;color:var(--muted);letter-spacing:.14em;margin-bottom:24px;}
+  .cover .rule{width:60px;height:4px;background:var(--accent);border-radius:2px;margin:0 auto 32px;}
+  .cover .hint{font-size:18px;color:var(--muted);line-height:2;}
+  .kbd{display:inline-block;border:1px solid var(--line);border-bottom-width:2px;border-radius:5px;padding:1px 7px;margin:0 2px;font-size:15px;color:#374151;background:var(--soft);}
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:20px;}
+  @media(max-width:760px){.two{grid-template-columns:1fr;}}
+  .callout{background:var(--soft);border-radius:12px;padding:18px 24px;font-size:clamp(20px,2.2vw,26px);line-height:1.75;color:#4b5563;}
+  .callout b{color:var(--ink);}
+  .biglaw{background:var(--accent-soft);border-left:5px solid var(--accent);border-radius:0 14px 14px 0;padding:clamp(22px,3.4vw,38px);font-size:clamp(28px,3.8vw,44px);font-weight:700;line-height:1.65;}
+  .biglaw .lbl{display:block;font-size:15px;letter-spacing:.16em;color:var(--accent);margin-bottom:14px;}
+  .eq{display:inline-flex;flex-wrap:wrap;align-items:flex-start;background:var(--soft);border:1px dashed #cbd5e1;border-radius:12px;padding:34px 24px 14px;margin:8px 0;}
+  .eq .col{display:flex;flex-direction:column;align-items:center;min-width:26px;}
+  .eq .f{font-size:clamp(25px,2.9vw,34px);line-height:1.5;height:30px;white-space:nowrap;font-family:"Times New Roman",Times,serif;}
+  .eq .op{font-size:clamp(23px,2.7vw,30px);line-height:1.5;height:30px;color:#9ca3af;padding:0 8px;white-space:nowrap;}
+  .eq .mark{display:flex;align-items:center;justify-content:center;height:30px;padding:0 10px;position:relative;}
+  .eq .cond{position:absolute;top:-20px;font-size:17px;color:var(--muted);line-height:1.5;white-space:nowrap;}
+  .eq .arr{font-size:32px;line-height:1;color:var(--accent);white-space:nowrap;}
+  .eq .eqsign{font-size:28px;line-height:1;color:var(--accent);white-space:nowrap;}
+  .eq .mr{font-size:clamp(18px,1.9vw,22px);line-height:1.4;height:22px;color:#6b7280;white-space:nowrap;font-family:"Times New Roman",Times,serif;}
+  .eq .mrph{height:22px;}
+  .eqnote{font-size:17px;color:var(--muted);margin-top:8px;line-height:1.7;}
+  .cols3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
+  @media(max-width:760px){.cols3{grid-template-columns:1fr;}}
+  .cols3 .box{border:1px solid var(--line);border-radius:12px;padding:20px;}
+  .cols3 .box .t{font-size:17px;color:var(--accent);font-weight:700;margin-bottom:10px;}
+  .cols3 .box p{font-size:clamp(19px,2vw,24px);}
+  ol,ul{padding-left:26px;}
+  li{font-size:clamp(22px,2.4vw,30px);line-height:1.8;margin-bottom:10px;}
+  .qno{display:inline-block;background:var(--accent);color:#fff;font-size:17px;font-weight:700;border-radius:7px;padding:3px 10px;margin-bottom:16px;}
+  .qtext{font-size:clamp(25px,2.9vw,34px);line-height:1.7;font-weight:600;margin-bottom:17px;}
+  .qsub{font-size:clamp(20px,2.2vw,26px);line-height:1.8;margin-bottom:6px;}
+  .opts{list-style:none;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:8px 20px;}
+  .opts li{font-size:clamp(22px,2.4vw,30px);margin:0;padding:6px 12px;background:var(--soft);border-radius:8px;}
+  @media(max-width:760px){.opts{grid-template-columns:1fr;}}
+  .ans{display:none;margin-top:20px;padding:18px 24px;background:var(--accent-soft);border-radius:12px;font-size:clamp(20px,2.2vw,26px);line-height:1.8;color:#334155;}
+  .ans.show{display:block;animation:fade .25s ease;}
+  .ans .key{color:var(--accent);font-weight:700;}
+  .ans p{font-size:inherit;margin-bottom:9px;}
+  .reveal-hint{font-size:17px;color:var(--muted);margin-top:16px;}
+  /* 增强组件 */
+  .card{background:var(--soft);border:1px solid var(--line);border-radius:14px;padding:22px 26px;margin:12px 0;}
+  .card .ct{font-size:20px;color:var(--accent);font-weight:700;margin-bottom:12px;}
+  .card p{font-size:clamp(21px,2.2vw,27px);}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:12px 0;}
+  @media(max-width:760px){.grid2{grid-template-columns:1fr;}}
+  .grid2 .card{margin:0;}
+  table{border-collapse:collapse;width:100%;font-size:clamp(19px,2vw,25px);margin:14px 0;}
+  th,td{border:1px solid var(--line);padding:10px 14px;text-align:left;line-height:1.6;}
+  th{background:var(--accent-soft);color:var(--accent);font-weight:700;}
+  .def{border-left:4px solid var(--accent);background:var(--accent-soft);border-radius:0 12px 12px 0;padding:18px 24px;margin:14px 0;font-size:clamp(22px,2.4vw,29px);line-height:1.75;}
+  .def .dt{color:var(--accent);font-weight:700;}
+  .exp{background:#fffbeb;border:1px solid #fde68a;border-radius:14px;padding:20px 26px;margin:14px 0;}
+  .exp .et{font-size:19px;color:#b45309;font-weight:700;margin-bottom:10px;}
+  .exp p,.exp li{font-size:clamp(20px,2.1vw,26px);}
+  .flow{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin:16px 0;font-size:clamp(21px,2.3vw,28px);}
+  .flow .node{background:var(--accent-soft);border:1px solid #99f6e4;border-radius:10px;padding:10px 18px;font-weight:600;}
+  .flow .arw{color:var(--accent);font-size:26px;}
+  .chem{font-family:"Times New Roman",Times,serif;}
+  .note{font-size:clamp(19px,2vw,24px);color:var(--muted);line-height:1.75;margin-top:12px;}
+  #bar{position:fixed;left:0;right:0;bottom:0;height:62px;display:flex;align-items:center;justify-content:space-between;padding:0 clamp(18px,4vw,48px);background:rgba(255,255,255,.94);backdrop-filter:blur(8px);border-top:1px solid var(--line);z-index:20;}
+  #bar .grp{display:flex;align-items:center;gap:10px;}
+  .navbtn{font:inherit;font-size:18px;color:#374151;background:#fff;border:1px solid var(--line);border-radius:8px;padding:7px 15px;cursor:pointer;transition:.15s;}
+  .navbtn:hover:not(:disabled){color:var(--accent);border-color:#99f6e4;background:var(--accent-soft);}
+  .navbtn:disabled{opacity:.35;cursor:default;}
+  #counter{font-size:17px;color:var(--muted);min-width:74px;text-align:center;font-variant-numeric:tabular-nums;}
+  #progress{position:fixed;top:0;left:0;height:3px;background:var(--accent);z-index:30;transition:width .3s ease;}
+  #deckTitle{font-size:17px;color:var(--muted);max-width:44vw;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+  #help{display:none;position:fixed;inset:0;background:rgba(17,24,39,.45);z-index:50;align-items:center;justify-content:center;padding:24px;}
+  #help.show{display:flex;}
+  .helpcard{background:#fff;border-radius:16px;padding:32px 38px;max-width:520px;width:100%;box-shadow:0 20px 60px rgba(0,0,0,.15);}
+  .helpcard h3{font-size:28px;margin-bottom:16px;}
+  .helpcard .row{display:flex;justify-content:space-between;gap:20px;padding:9px 0;border-bottom:1px solid var(--line);font-size:19px;}
+  .helpcard .row:last-of-type{border-bottom:0;}
+  .helpcard .close{margin-top:20px;width:100%;}
+  @media print{#bar,#progress,#help,#zoomTip{display:none!important;}body{overflow:visible;}.slide{display:flex!important;position:relative;page-break-after:always;height:auto;min-height:100vh;}.ans{display:block!important;}}
+</style>
+</head>
+<body>
+<div id="progress"></div>
+<div id="zoomTip" style="position:fixed;top:16px;left:50%;transform:translateX(-50%);z-index:60;background:rgba(17,24,39,.85);color:#fff;padding:8px 22px;border-radius:99px;font-size:18px;opacity:0;transition:opacity .25s;pointer-events:none;"></div>
+<div id="deck">
+
+<section class="slide active"><div class="inner cover">
+  <div class="eyebrow">人教版九年级化学上册 · 第一单元 课题2</div>
+  <h1>化学实验与科学探究</h1>
+  <div class="rule"></div>
+  <p class="muted" style="font-size:clamp(22px,2.6vw,30px);">仪器 · 取用 · 加热 · 连接 · 洗涤 —— 规范操作，用证据说话</p>
+  <div class="hint" style="margin-top:48px;">
+    <span class="kbd">PgDn</span>/<span class="kbd">空格</span>/<span class="kbd">→</span> 下一页　·　<span class="kbd">PgUp</span>/<span class="kbd">←</span> 上一页<br>翻页笔可直接翻页　·　练习页再按一次显示答案　·　按 <span class="kbd">H</span> 查看操作
+  </div>
+</div></section>
+
+<section class="slide"><div class="inner">
+
+<div class='kicker'>引入 · 教材 p14—15</div>
+<h2>化学，是一门以实验为基础的科学</h2>
+<p>实验是科学探究的重要手段，许多重大的化学发现都是通过实验得到的。化学实验室的前身是古代炼丹术士和炼金术士的作坊，那里诞生了许多实验器具和分离物质的方法，如<b>过滤、蒸馏</b>等。</p>
+<p>拉瓦锡利用天平进行定量研究，认识了物质燃烧的本质。</p>
+<div class='callout'>走进化学实验室，要仔细阅读实验室规则，了解基本布局，知道<b>疏散通道、灭火器材</b>等的位置。</div>
+<p class='note'>本课题将学习取用化学试剂、加热、连接仪器装置等基本操作，认识常用仪器（教材图 1-9）：试管、试管夹、铁架台、酒精灯、量筒、胶头滴管、药匙、镊子、试管刷、烧杯等。</p>
+
+</div></section>
+
+<section class="slide"><div class="inner">
+
+<div class='kicker'>一、走进化学实验室 · 取用规则（教材 p16）</div>
+<h2>三条规则，守住安全底线</h2>
+<ol>
+<li>不能用手接触试剂，不要把鼻孔凑到容器口闻试剂（特别是气体）的气味，<b>不得尝任何试剂的味道</b>。</li>
+<li>注意节约试剂，严格按照实验规定的用量取用。如果没有说明用量，<b>液体一般按最少量（1~2 mL）取用，固体只需铺满试管底部</b>。</li>
+<li>实验剩余试剂既不能放回原瓶，也不能随意丢弃，更不能拿出实验室，要放入<b>指定的容器内</b>。</li>
+</ol>
+<div class='callout'>有些试剂易爆、易燃、有毒或有腐蚀性。实验前要仔细阅读实验室化学试剂取用规则，识别危险化学品标志（教材图 1-11）。</div>
+
+</div></section>
+
+<section class="slide"><div class="inner">
+
+<div class='kicker'>1. 固体试剂的取用 · 教材 p16</div>
+<h2>块状“一横二放三慢竖”，粉末“送到试管底”</h2>
+<p>固体试剂通常保存在<b>广口瓶</b>里，取用一般用药匙；有些块状试剂（如大理石）可用<b>镊子</b>夹取。用过的药匙或镊子要立刻擦拭干净，以备下次使用。</p>
+<div class='grid2'>
+<div class='card'><div class='ct'>块状试剂</div><p>先把容器<b>横放</b>，把块状试剂放入容器口，再把容器<b>慢慢竖立</b>起来，使试剂缓缓滑到容器底部，以免打破容器。</p></div>
+<div class='card'><div class='ct'>粉末状试剂</div><p>先将试管<b>横放</b>，把盛有试剂的药匙（或小纸条折叠成的纸槽）小心地送到<b>试管底部</b>，然后把试管竖立起来。</p></div>
+</div>
+<div class='exp'><div class='et'>【实验1-3】 固体试剂取用</div><p>（1）取少量块状大理石放入试管中，并将试管放在试管架上备用；<br>（2）取少量碳酸钠粉末放入另一支试管中，并将试管放在试管架上备用。</p></div>
+
+</div></section>
+
+<section class="slide"><div class="inner">
+
+<div class='kicker'>2. 液体试剂的取用 · 教材 p17—18</div>
+<h2>倾倒 · 量取 · 滴加，各有要点</h2>
+<table><tr><th>取用方式</th><th>操作要点</th></tr>
+<tr><td>倾倒法（细口瓶）</td><td>瓶塞<b>倒放</b>在实验台上；标签一面<b>朝向手心</b>；瓶口<b>紧挨</b>试管口；<b>缓慢</b>倒入</td></tr>
+<tr><td>量筒量取</td><td>量筒必须<b>放平</b>；视线要与量筒内液体<b>凹液面的最低处</b>保持水平，再读数</td></tr>
+<tr><td>胶头滴管</td><td>橡胶帽在上，不要平放或倒置；不放在实验台上；用后立即用水洗净（滴瓶上的滴管不要用水洗）</td></tr></table>
+<div class='card'><div class='ct'>思考与讨论</div><p>瓶塞为什么倒放？标签为什么朝向手心？倒完液体后为什么立即盖紧瓶塞并放回原处？如果仰视或俯视读数，会对结果产生什么影响？</p></div>
+<div class='exp'><div class='et'>【实验1-4】</div><p>（1）在试管中加入适量澄清石灰水，滴加两滴酚酞溶液，观察颜色变化；<br>（2）用 10 mL 量筒量取 2 mL 稀盐酸，倒入盛有碳酸钠粉末（或大理石）的试管中，观察现象。</p></div>
+<p class='note'>注意：碳酸钠粉末与稀盐酸的反应可能很剧烈，实验时要戴好护目镜。严禁用未经清洗的胶头滴管吸取其他试剂。</p>
+
+</div></section>
+
+<section class="slide"><div class="inner">
+
+<div class='kicker'>二、物质的加热 · 教材 p18—19</div>
+<h2>酒精灯要用外焰，规范操作防意外</h2>
+<div class='grid2'>
+<div class='card'><div class='ct'>酒精灯的使用</div><p>绝对禁止向燃着的酒精灯里添加酒精；绝对禁止用酒精灯引燃另一只酒精灯；用完<b>不可用嘴吹灭</b>，必须用灯帽盖灭，盖灭后轻提一下再重新盖好；万一洒出的酒精燃烧，立刻用<b>湿抹布扑盖</b>。</p></div>
+<div class='card'><div class='ct'>给试管中的液体加热</div><p>用酒精灯的<b>外焰</b>加热；试管外壁干燥，液体不超过试管容积的 1/3；试管夹从试管底部套上、取下；先均匀受热，再用外焰固定加热；试管口<b>不要对着自己或他人</b>；加热后的试管不能立即接触冷水。</p></div>
+</div>
+<div class='exp'><div class='et'>【实验1-5】</div><p>用 10 mL 量筒量取 2 mL 氢氧化钠溶液倒入试管，用滴管滴加硫酸铜溶液，观察现象；用试管夹夹住试管（夹在距试管口 1/4 ~ 1/3 处）加热，观察现象。</p></div>
+<p class='note'>想一想：为什么不能用嘴吹灭酒精灯？为什么盖灭后要提起灯帽再盖好？</p>
+
+</div></section>
+
+<section class="slide"><div class="inner">
+
+<div class='kicker'>3. 仪器装置的连接 · 教材 p20</div>
+<h2>连接好装置，先检查气密性</h2>
+<ol>
+<li>把玻璃导管插入带孔橡胶塞：先把导管口<b>用水润湿</b>，对准孔稍稍用力转动插入。</li>
+<li>连接玻璃导管和乳胶管：先把导管口用水润湿，再稍稍用力把导管插入乳胶管。</li>
+<li>连接橡胶塞和容器：把橡胶塞<b>慢慢转动着</b>塞进容器口；切不可把容器放在实验台上再使劲塞塞子，以防损坏容器。</li>
+<li>检查气密性：用手<b>紧握试管</b>，观察水中的导管口有没有气泡冒出。</li>
+</ol>
+<div class='biglaw'><span class='lbl'>判断依据</span>导管口有气泡冒出 → 装置不漏气</div>
+<p class='note'>如果没有气泡冒出，要塞紧或更换橡胶塞，确认装置不漏气后才能进行实验。</p>
+<div class='callout'><b>科学探究与实践：</b>装置连接好后一般要检查气密性，这是获得可靠实验结果的重要保证。</div>
+
+</div></section>
+
+<section class="slide"><div class="inner">
+
+<div class='kicker'>4. 玻璃仪器的洗涤 · 教材 p20—21</div>
+<h2>仪器干净，实验才可靠</h2>
+<p>洗涤试管：先倒净废液，再注入半试管水，振荡后倒掉，重复几次；内壁有不易洗掉的物质，用<b>试管刷</b>转动或上下移动刷洗，用力不能过猛，以防损坏试管。</p>
+<div class='def'><span class='dt'>洗净标准：</span>玻璃仪器内壁附着的水<b>既不聚成水滴，也不成股流下</b>。洗净的仪器放在指定地方，如试管倒扣在试管架上。</div>
+<p>实验完毕，应及时整理实验台和实验室，彻底清洗双手，确认<b>水、电等关闭</b>后离开实验室。</p>
+<div class='exp'><div class='et'>【实验1-6】</div><p>将实验中所用的试管等玻璃仪器刷洗干净，并整理实验台和实验室。</p></div>
+<div class='callout'><b>科学探究</b>是获取科学知识、理解科学本质、认识客观世界的重要途径。常通过观察和实验等方法获取证据，通过分析和推理得出结论。</div>
+
+</div></section>
+
+<section class="slide"><div class="inner">
+
+<div class='kicker'>二、走进科学探究 · 教材 p21—23</div>
+<h2>探究：观察与描述蜡烛及其燃烧</h2>
+<p>【问题】蜡烛主要由石蜡和棉线烛芯组成。在<b>点燃前、燃烧时和熄灭后</b>三个阶段进行观察，你能够观察到哪些现象？</p>
+<table><tr><th>阶段</th><th>观察内容</th></tr>
+<tr><td>点燃前</td><td>观察颜色、状态、形状，闻气味；用小刀切下一块石蜡放入水中，初步判断石蜡的硬度和密度</td></tr>
+<tr><td>燃烧时</td><td>观察火焰附近石蜡的状态变化、烛芯变化、火焰分层情况；把干燥烧杯和用澄清石灰水润湿内壁的烧杯先后罩在火焰上方，观察现象</td></tr>
+<tr><td>熄灭后</td><td>观察熄灭时的现象；用燃着的火柴去点刚熄灭时产生的白烟，看蜡烛能否重新燃烧；比较颜色、长度</td></tr></table>
+<div class='callout'>化学学习的特点：①关注物质的<b>性质</b>；②关注物质的<b>变化</b>；③关注变化的<b>过程</b>，基于证据，经过分析和推理得出可靠结论。</div>
+<p class='note'>探究报告一般包括：名称、目的、用品、过程（步骤和方法、现象、分析或解释）、结论、问题和建议。</p>
+
+</div></section>
+
+<section class="slide"><div class="inner">
+
+<div class='kicker'>学完本课题你知道了什么 · 教材 p24</div>
+<h2>本课题的三条主线</h2>
+<div class='card'><div class='ct'>1　实验室与安全</div><p>化学实验室是科学探究的重要场所，要遵守实验室规则，特别要注意安全。</p></div>
+<div class='card'><div class='ct'>2　基本操作</div><p>主要有化学试剂的取用、物质的加热、仪器装置的连接、玻璃仪器的洗涤等；<b>正确的操作是实验成功的重要保证</b>。</p></div>
+<div class='card'><div class='ct'>3　科学探究</div><p>明确探究目的，通过实验等收集证据，细致观察、准确描述和记录现象，通过分析和推理得出结论，认真完成报告。</p></div>
+<div class='flow'><span class='node'>问题和假设</span><span class='arw'>—实验等方法→</span><span class='node'>证据</span><span class='arw'>—分析、推理→</span><span class='node'>结论</span></div>
+
+</div></section>
+
+<section class="slide quiz-slide"><div class="inner">
+  <span class="qno">课本练习 3（改编）</span>
+  <div class="qtext">下列实验操作<b>正确</b>的是（　）。</div>
+  <ul class="opts"><li>A. 闻气体气味时，将鼻孔凑近集气瓶口</li><li>B. 读取量筒内液体体积时，量筒没有放平</li><li>C. 加热试管中的液体时，试管口对着自己或他人</li><li>D. 实验结束后，离开实验室前用肥皂等清洗双手</li></ul>
+  <div class="ans"><p><span class='key'>答案：D</span>　A 应用手在瓶口轻轻扇动，使极少量气体飘进鼻孔；B 量筒必须放平，视线与凹液面最低处保持水平；C 试管口不能对着自己或他人；D 正确（教材 p16、p19、p21）。</p></div>
+  <div class="reveal-hint">按翻页键 / 空格 显示答案，再按一次继续</div>
+</div></section>
+
+<section class="slide quiz-slide"><div class="inner">
+  <span class="qno">强化练习</span>
+  <div class="qtext">把密度较大的块状试剂放入玻璃容器的正确操作是（　）。</div>
+  <ul class="opts"><li>A. 直接投入竖直放置的试管中</li><li>B. 先把容器横放，把试剂放入容器口，再把容器慢慢竖立起来</li><li>C. 用药匙把试剂送到试管底部，再竖立试管</li><li>D. 用手拿着试剂放入容器</li></ul>
+  <div class="ans"><p><span class='key'>答案：B</span>　教材 p16：先把容器横放，把块状试剂放入容器口，再把容器慢慢地竖立起来，使试剂缓缓滑到容器底部，以免打破容器。A 易打破容器；C 是粉末状试剂的取用方法；D 违反“不能用手接触试剂”的规则。</p></div>
+  <div class="reveal-hint">按翻页键 / 空格 显示答案，再按一次继续</div>
+</div></section>
+
+<section class="slide quiz-slide"><div class="inner">
+  <span class="qno">强化练习</span>
+  <div class="qtext">关于检查装置气密性，下列说法正确的是（　）。</div>
+  <ul class="opts"><li>A. 用手紧握试管，若水中导管口有气泡冒出，说明装置不漏气</li><li>B. 用手紧握试管，若没有气泡冒出，说明装置不漏气</li><li>C. 只要装置连接好了就不必检查气密性</li><li>D. 看到导管中有水进入，才能说明装置不漏气</li></ul>
+  <div class="ans"><p><span class='key'>答案：A</span>　教材 p20：用手紧握试管，观察水中的导管口有没有气泡冒出；有气泡冒出说明装置不漏气，没有气泡要塞紧或更换橡胶塞，确认不漏气后才能进行实验。</p></div>
+  <div class="reveal-hint">按翻页键 / 空格 显示答案，再按一次继续</div>
+</div></section>
+
+<section class="slide"><div class="inner cover">
+  <div class="rule" style="margin-bottom:32px;"></div>
+  <h1 style="font-size:clamp(42px,6.5vw,70px);">课题2 · 小结</h1>
+  <p class="muted" style="font-size:clamp(23px,2.9vw,32px);">常用仪器 · 基本操作 · 实验室安全 · 科学探究 —— 规范操作，用证据说话</p>
+  <div class="hint" style="margin-top:40px;">按 <span class="kbd">Home</span> 回到第一页　·　按 <span class="kbd">End</span> 到末页</div>
+</div></section>
+
+</div>
+
+<div id="bar">
+  <div class="grp"><button class="navbtn" id="prevBtn">← 上一页</button><button class="navbtn" id="nextBtn">下一页 →</button><span id="counter">1 / 14</span></div>
+  <div class="grp"><span id="deckTitle">第一单元 课题2 化学实验与科学探究</span><button class="navbtn" id="fullBtn">⛶ 全屏</button><button class="navbtn" id="helpBtn">? 操作</button></div>
+</div>
+<div id="help"><div class="helpcard">
+  <h3>翻页操作说明</h3>
+  <div class="row"><span>下一页</span><span><span class="kbd">PgDn</span> <span class="kbd">空格</span> <span class="kbd">→</span> <span class="kbd">↓</span></span></div>
+  <div class="row"><span>上一页</span><span><span class="kbd">PgUp</span> <span class="kbd">←</span> <span class="kbd">↑</span></span></div>
+  <div class="row"><span>首页 / 末页</span><span><span class="kbd">Home</span> / <span class="kbd">End</span></span></div>
+  <div class="row"><span>练习页显示答案</span><span>在题目页再按一次"下一页"</span></div>
+  <div class="row"><span>字号放大 / 缩小</span><span><span class="kbd">]</span> 放大 · <span class="kbd">[</span> 缩小 · <span class="kbd">0</span> 恢复默认</span></div>
+  <div class="row"><span>全屏放映</span><span><span class="kbd">F</span> 或点击"全屏"</span></div>
+  <button class="navbtn close" id="closeHelp">知道了</button>
+</div></div>
+
+<script>
+
+(function(){
+  const slides=Array.from(document.querySelectorAll('.slide'));let cur=0;
+  const counter=document.getElementById('counter'),progress=document.getElementById('progress'),prevBtn=document.getElementById('prevBtn'),nextBtn=document.getElementById('nextBtn'),help=document.getElementById('help');
+  const ZKEY='__deck_zoom__';
+  function zoom(){const z=parseFloat(localStorage.getItem(ZKEY));return (isNaN(z)||z<0.7||z>2.2)?1:z;}
+  function setZoom(z){z=Math.max(0.7,Math.min(2.2,Math.round(z*10)/10));localStorage.setItem(ZKEY,String(z));
+    document.querySelectorAll('.inner').forEach(el=>el.style.zoom=z);
+    const t=document.getElementById('zoomTip');if(t){t.textContent='字号 '+Math.round(z*100)+'%';t.style.opacity=1;clearTimeout(t._tm);t._tm=setTimeout(()=>t.style.opacity=0,1000);}}
+  document.addEventListener('keydown',function(e){if(e.ctrlKey||e.altKey||e.metaKey)return;
+    if(e.key===']'||e.key==='】'){e.preventDefault();setZoom(zoom()+0.1);}
+    else if(e.key==='['||e.key==='【'){e.preventDefault();setZoom(zoom()-0.1);}
+    else if(e.key==='0'){e.preventDefault();setZoom(1);}});
+  function render(){slides.forEach((s,i)=>s.classList.toggle('active',i===cur));counter.textContent=(cur+1)+' / '+slides.length;progress.style.width=((cur+1)/slides.length*100)+'%';prevBtn.disabled=cur===0;nextBtn.disabled=cur===slides.length-1;slides[cur].scrollTop=0;}
+  function isQuiz(i){return slides[i].classList.contains('quiz-slide');}
+  function shown(i){const a=slides[i].querySelector('.ans');return a&&a.classList.contains('show');}
+  function next(){if(cur>=slides.length-1)return;if(isQuiz(cur)&&!shown(cur)){const a=slides[cur].querySelector('.ans');if(a){a.classList.add('show');const h=slides[cur].querySelector('.reveal-hint');if(h)h.textContent='答案已显示 · 再按一次继续';return;}}cur++;render();}
+  function prev(){if(isQuiz(cur)&&shown(cur)){const a=slides[cur].querySelector('.ans');a.classList.remove('show');const h=slides[cur].querySelector('.reveal-hint');if(h)h.textContent='按翻页键 / 空格 显示答案，再按一次继续';return;}if(cur>0){cur--;render();}}
+  function go(n){if(n>=0&&n<slides.length){cur=n;render();}}
+  prevBtn.onclick=prev;nextBtn.onclick=next;
+  document.addEventListener('keydown',function(e){
+    if(help.classList.contains('show')){if(e.key==='Escape'||e.key==='h'||e.key==='H'){help.classList.remove('show');e.preventDefault();}return;}
+    const k=e.key;
+    if(['PageDown',' ','Spacebar','ArrowRight','ArrowDown','Enter'].includes(k)){e.preventDefault();next();return;}
+    if(['PageUp','ArrowLeft','ArrowUp','Backspace'].includes(k)){e.preventDefault();prev();return;}
+    if(k==='Home'){e.preventDefault();go(0);return;}if(k==='End'){e.preventDefault();go(slides.length-1);return;}
+    if(k==='h'||k==='H'||k==='?'){e.preventDefault();help.classList.add('show');return;}
+    if(k==='f'||k==='F'){e.preventDefault();toggleFull();return;}});
+  let tx=0,ty=0;document.addEventListener('touchstart',e=>{tx=e.changedTouches[0].clientX;ty=e.changedTouches[0].clientY;},{passive:true});
+  document.addEventListener('touchend',e=>{const dx=e.changedTouches[0].clientX-tx,dy=e.changedTouches[0].clientY-ty;if(Math.abs(dx)>60&&Math.abs(dx)>Math.abs(dy))dx<0?next():prev();},{passive:true});
+  function toggleFull(){if(!document.fullscreenElement)document.documentElement.requestFullscreen&&document.documentElement.requestFullscreen();else document.exitFullscreen&&document.exitFullscreen();}
+  document.getElementById('fullBtn').onclick=toggleFull;document.getElementById('helpBtn').onclick=()=>help.classList.add('show');document.getElementById('closeHelp').onclick=()=>help.classList.remove('show');help.onclick=e=>{if(e.target===help)help.classList.remove('show');};
+  document.querySelectorAll('.inner').forEach(el=>el.style.zoom=zoom());
+  render();
+})();
+
+</script>
+</body>
+</html>

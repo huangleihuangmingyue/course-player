@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>课题1 分子和原子 · 翻页课件</title>
+<style>
+  :root{--ink:#1a2230;--muted:#6b7280;--line:#e5e7eb;--soft:#f6f8fb;--accent:#0f766e;--accent-soft:#ecfdf5;--max:1000px;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html,body{height:100%;}
+  body{background:#fff;color:var(--ink);overflow:hidden;font-family:"PingFang SC","Microsoft YaHei","Hiragino Sans GB","Source Han Sans SC",sans-serif;-webkit-font-smoothing:antialiased;}
+  #deck{position:relative;width:100vw;height:100vh;}
+  .slide{position:absolute;inset:0;display:none;padding:clamp(28px,5vh,60px) clamp(26px,6vw,88px) 94px;overflow-y:auto;}
+  .slide.active{display:flex;animation:fade .32s ease;}
+  @keyframes fade{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:none;}}
+  .inner{width:100%;max-width:var(--max);margin:auto;}
+  .kicker{font-size:17px;letter-spacing:.12em;color:var(--accent);font-weight:700;margin-bottom:16px;}
+  h1{font-size:clamp(48px,7vw,82px);line-height:1.15;letter-spacing:-.02em;margin-bottom:16px;}
+  h2{font-size:clamp(34px,4.6vw,56px);line-height:1.3;letter-spacing:-.01em;margin-bottom:24px;}
+  h3{font-size:clamp(24px,2.8vw,30px);margin:20px 0 9px;}
+  p{font-size:clamp(22px,2.4vw,30px);line-height:1.8;margin-bottom:13px;}
+  b,strong{font-weight:700;}
+  .muted{color:var(--muted);}
+  .tag{display:inline-block;font-size:15px;color:var(--muted);border:1px solid var(--line);border-radius:99px;padding:2px 11px;margin-left:10px;vertical-align:middle;font-weight:400;}
+  .cover{text-align:center;}
+  .cover .eyebrow{font-size:18px;color:var(--muted);letter-spacing:.14em;margin-bottom:24px;}
+  .cover .rule{width:60px;height:4px;background:var(--accent);border-radius:2px;margin:0 auto 32px;}
+  .cover .hint{font-size:18px;color:var(--muted);line-height:2;}
+  .kbd{display:inline-block;border:1px solid var(--line);border-bottom-width:2px;border-radius:5px;padding:1px 7px;margin:0 2px;font-size:15px;color:#374151;background:var(--soft);}
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:20px;}
+  @media(max-width:760px){.two{grid-template-columns:1fr;}}
+  .callout{background:var(--soft);border-radius:12px;padding:18px 24px;font-size:clamp(20px,2.2vw,26px);line-height:1.75;color:#4b5563;}
+  .callout b{color:var(--ink);}
+  .biglaw{background:var(--accent-soft);border-left:5px solid var(--accent);border-radius:0 14px 14px 0;padding:clamp(22px,3.4vw,38px);font-size:clamp(28px,3.8vw,44px);font-weight:700;line-height:1.65;}
+  .biglaw .lbl{display:block;font-size:15px;letter-spacing:.16em;color:var(--accent);margin-bottom:14px;}
+  .eq{display:inline-flex;flex-wrap:wrap;align-items:flex-start;background:var(--soft);border:1px dashed #cbd5e1;border-radius:12px;padding:34px 24px 14px;margin:8px 0;}
+  .eq .col{display:flex;flex-direction:column;align-items:center;min-width:26px;}
+  .eq .f{font-size:clamp(25px,2.9vw,34px);line-height:1.5;height:30px;white-space:nowrap;font-family:"Times New Roman",Times,serif;}
+  .eq .op{font-size:clamp(23px,2.7vw,30px);line-height:1.5;height:30px;color:#9ca3af;padding:0 8px;white-space:nowrap;}
+  .eq .mark{display:flex;align-items:center;justify-content:center;height:30px;padding:0 10px;position:relative;}
+  .eq .cond{position:absolute;top:-20px;font-size:17px;color:var(--muted);line-height:1.5;white-space:nowrap;}
+  .eq .arr{font-size:32px;line-height:1;color:var(--accent);white-space:nowrap;}
+  .eq .eqsign{font-size:28px;line-height:1;color:var(--accent);white-space:nowrap;}
+  .eq .mr{font-size:clamp(18px,1.9vw,22px);line-height:1.4;height:22px;color:#6b7280;white-space:nowrap;font-family:"Times New Roman",Times,serif;}
+  .eq .mrph{height:22px;}
+  .eqnote{font-size:17px;color:var(--muted);margin-top:8px;line-height:1.7;}
+  .cols3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
+  @media(max-width:760px){.cols3{grid-template-columns:1fr;}}
+  .cols3 .box{border:1px solid var(--line);border-radius:12px;padding:20px;}
+  .cols3 .box .t{font-size:17px;color:var(--accent);font-weight:700;margin-bottom:10px;}
+  .cols3 .box p{font-size:clamp(19px,2vw,24px);}
+  ol,ul{padding-left:26px;}
+  li{font-size:clamp(22px,2.4vw,30px);line-height:1.8;margin-bottom:10px;}
+  .qno{display:inline-block;background:var(--accent);color:#fff;font-size:17px;font-weight:700;border-radius:7px;padding:3px 10px;margin-bottom:16px;}
+  .qtext{font-size:clamp(25px,2.9vw,34px);line-height:1.7;font-weight:600;margin-bottom:17px;}
+  .qsub{font-size:clamp(20px,2.2vw,26px);line-height:1.8;margin-bottom:6px;}
+  .opts{list-style:none;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:8px 20px;}
+  .opts li{font-size:clamp(22px,2.4vw,30px);margin:0;padding:6px 12px;background:var(--soft);border-radius:8px;}
+  @media(max-width:760px){.opts{grid-template-columns:1fr;}}
+  .ans{display:none;margin-top:20px;padding:18px 24px;background:var(--accent-soft);border-radius:12px;font-size:clamp(20px,2.2vw,26px);line-height:1.8;color:#334155;}
+  .ans.show{display:block;animation:fade .25s ease;}
+  .ans .key{color:var(--accent);font-weight:700;}
+  .ans p{font-size:inherit;margin-bottom:9px;}
+  .reveal-hint{font-size:17px;color:var(--muted);margin-top:16px;}
+  /* 增强组件 */
+  .card{background:var(--soft);border:1px solid var(--line);border-radius:14px;padding:22px 26px;margin:12px 0;}
+  .card .ct{font-size:20px;color:var(--accent);font-weight:700;margin-bottom:12px;}
+  .card p{font-size:clamp(21px,2.2vw,27px);}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:12px 0;}
+  @media(max-width:760px){.grid2{grid-template-columns:1fr;}}
+  .grid2 .card{margin:0;}
+  table{border-collapse:collapse;width:100%;font-size:clamp(19px,2vw,25px);margin:14px 0;}
+  th,td{border:1px solid var(--line);padding:10px 14px;text-align:left;line-height:1.6;}
+  th{background:var(--accent-soft);color:var(--accent);font-weight:700;}
+  .def{border-left:4px solid var(--accent);background:var(--accent-soft);border-radius:0 12px 12px 0;padding:18px 24px;margin:14px 0;font-size:clamp(22px,2.4vw,29px);line-height:1.75;}
+  .def .dt{color:var(--accent);font-weight:700;}
+  .exp{background:#fffbeb;border:1px solid #fde68a;border-radius:14px;padding:20px 26px;margin:14px 0;}
+  .exp .et{font-size:19px;color:#b45309;font-weight:700;margin-bottom:10px;}
+  .exp p,.exp li{font-size:clamp(20px,2.1vw,26px);}
+  .flow{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin:16px 0;font-size:clamp(21px,2.3vw,28px);}
+  .flow .node{background:var(--accent-soft);border:1px solid #99f6e4;border-radius:10px;padding:10px 18px;font-weight:600;}
+  .flow .arw{color:var(--accent);font-size:26px;}
+  .chem{font-family:"Times New Roman",Times,serif;}
+  .note{font-size:clamp(19px,2vw,24px);color:var(--muted);line-height:1.75;margin-top:12px;}
+  #bar{position:fixed;left:0;right:0;bottom:0;height:62px;display:flex;align-items:center;justify-content:space-between;padding:0 clamp(18px,4vw,48px);background:rgba(255,255,255,.94);backdrop-filter:blur(8px);border-top:1px solid var(--line);z-index:20;}
+  #bar .grp{display:flex;align-items:center;gap:10px;}
+  .navbtn{font:inherit;font-size:18px;color:#374151;background:#fff;border:1px solid var(--line);border-radius:8px;padding:7px 15px;cursor:pointer;transition:.15s;}
+  .navbtn:hover:not(:disabled){color:var(--accent);border-color:#99f6e4;background:var(--accent-soft);}
+  .navbtn:disabled{opacity:.35;cursor:default;}
+  #counter{font-size:17px;color:var(--muted);min-width:74px;text-align:center;font-variant-numeric:tabular-nums;}
+  #progress{position:fixed;top:0;left:0;height:3px;background:var(--accent);z-index:30;transition:width .3s ease;}
+  #deckTitle{font-size:17px;color:var(--muted);max-width:44vw;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+  #help{display:none;position:fixed;inset:0;background:rgba(17,24,39,.45);z-index:50;align-items:center;justify-content:center;padding:24px;}
+  #help.show{display:flex;}
+  .helpcard{background:#fff;border-radius:16px;padding:32px 38px;max-width:520px;width:100%;box-shadow:0 20px 60px rgba(0,0,0,.15);}
+  .helpcard h3{font-size:28px;margin-bottom:16px;}
+  .helpcard .row{display:flex;justify-content:space-between;gap:20px;padding:9px 0;border-bottom:1px solid var(--line);font-size:19px;}
+  .helpcard .row:last-of-type{border-bottom:0;}
+  .helpcard .close{margin-top:20px;width:100%;}
+  @media print{#bar,#progress,#help,#zoomTip{display:none!important;}body{overflow:visible;}.slide{display:flex!important;position:relative;page-break-after:always;height:auto;min-height:100vh;}.ans{display:block!important;}}
+</style>
+</head>
+<body>
+<div id="progress"></div>
+<div id="zoomTip" style="position:fixed;top:16px;left:50%;transform:translateX(-50%);z-index:60;background:rgba(17,24,39,.85);color:#fff;padding:8px 22px;border-radius:99px;font-size:18px;opacity:0;transition:opacity .25s;pointer-events:none;"></div>
+<div id="deck">
+
+<section class="slide active"><div class="inner cover">
+  <div class="eyebrow">人教版九年级化学上册 · 第三单元 课题1</div>
+  <h1>分子和原子</h1>
+  <div class="rule"></div>
+  <p class="muted" style="font-size:clamp(22px,2.6vw,30px);">从品红扩散到氧化汞分解 —— 走进构成物质的微观世界</p>
+  <div class="hint" style="margin-top:48px;">
+    <span class="kbd">PgDn</span>/<span class="kbd">空格</span>/<span class="kbd">→</span> 下一页　·　<span class="kbd">PgUp</span>/<span class="kbd">←</span> 上一页<br>翻页笔可直接翻页　·　练习页再按一次显示答案　·　按 <span class="kbd">H</span> 查看操作
+  </div>
+</div></section>
+
+<section class="slide"><div class="inner">
+
+<div class='kicker'>引入 · 从生活现象想起 · 教材 p56</div>
+<h2>蔗糖“消失”了，水为什么变甜？</h2>
+<p>走过花圃会闻到花香；湿的衣服经过晾晒会变干；蔗糖放到水里会逐渐“消失”，而水却有了甜味。</p>
+<div class='exp'><div class='et'>【实验3-1】 品红在水中的扩散</div><p>向盛有水的烧杯中加入少量品红，静置，观察现象。</p></div>
+<p>实验表明，<b>品红在静置的水中会扩散</b>（图3-1）。这些现象在很久以前就引起了学者们的探究兴趣。</p>
+<div class='callout'>为了解释这类现象，人们提出物质由看不见的微小粒子构成的设想。科学技术的进步证明：物质是由<b>分子、原子</b>等微观粒子构成的。</div>
+
+</div></section>
+
+<section class="slide"><div class="inner">
+
+<div class='kicker'>一、物质由微观粒子构成 · 教材 p56—57</div>
+<h2>分子和原子真实存在，还能被“看见”、被移动</h2>
+<p>借助先进的科学仪器，我们不仅能<b>观察到</b>一些分子和原子，还能<b>移动原子</b>。</p>
+<div class='grid2'><div class='card'><div class='ct'>图3-2 扫描隧道显微镜图像</div><p>Ⅰ 某种有机物分子；Ⅱ 银原子。微观粒子不再只是猜想。</p></div>
+<div class='card'><div class='ct'>图3-3 通过移走硅原子形成的文字</div><p>科学家能够逐个移动原子“写”出文字，说明人类已有能力操纵原子。</p></div></div>
+<div class='callout'>化学观念：物质由微观粒子构成。从微观视角看物质及其变化，是认识化学的基本方式。</div>
+
+</div></section>
+
+<section class="slide"><div class="inner">
+
+<div class='kicker'>分子的基本性质① · 教材 p57</div>
+<h2>分子的质量和体积通常都很小</h2>
+<div class='grid2'><div class='card'><div class='ct'>质量小</div><p>1 个水分子的质量约是 <b>3×10⁻²⁶ kg</b>。</p></div>
+<div class='card'><div class='ct'>体积小、数目多</div><p>1 滴水（以 20 滴水为 1 mL 计）中大约有 <b>1.67×10²¹</b> 个水分子。</p></div></div>
+<p class='note'>如果 10 亿人来数 1 滴水里的水分子，每人每分钟数 100 个，日夜不停，需要 <b>3 万多年</b>才能数完。</p>
+<div class='biglaw' style='font-size:clamp(24px,3vw,36px);'><span class='lbl'>数量级</span>一个分子小到难以想象，但一滴水里就藏着上万亿个。</div>
+
+</div></section>
+
+<section class="slide"><div class="inner">
+
+<div class='kicker'>探究 · 分子运动现象 · 教材 p58</div>
+<h2>氨分子“跑”到烧杯 A 中了吗？</h2>
+<p><b>信息：</b>氨（NH₃）易溶于水，能使无色的酚酞溶液变成红色。</p>
+<div class='exp'><div class='et'>【探究实验】 分子运动现象（图3-4）</div>
+<ol><li>向盛有 20 mL 蒸馏水的小烧杯 A 中滴入 5~6 滴酚酞溶液，搅拌均匀，观察颜色。</li>
+<li>从烧杯 A 中取少量溶液置于试管中，向其中慢慢滴加浓氨水，观察颜色变化。</li>
+<li>另取小烧杯 B，加入 5 mL 浓氨水；用一个大烧杯罩住 A 和 B，观察几分钟。</li></ol></div>
+<table><tr><th>实验</th><th>现象</th><th>分析</th></tr>
+<tr><td>（1）</td><td>溶液仍为无色</td><td>蒸馏水不能使酚酞变红</td></tr>
+<tr><td>（2）</td><td>溶液变红</td><td>浓氨水能使酚酞变红</td></tr>
+<tr><td>（3）</td><td>烧杯 A 中溶液变红</td><td>氨分子运动到 A 中</td></tr></table>
+<div class='def'><span class='dt'>结论：</span>微观粒子（如分子）<b>总是在不断运动着</b>。花香扩散、湿衣晾干、蔗糖溶解、品红扩散都是分子运动的结果。</div>
+<p class='note'>若实验3-1使用热水，品红扩散更快——受热时分子能量增大，运动加快（教材 p57）。</p>
+
+</div></section>
+
+<section class="slide"><div class="inner">
+
+<div class='kicker'>分子的基本性质③ · 教材 p59</div>
+<h2>分子之间有间隔</h2>
+<p>气体可压缩储存于钢瓶中，是因为<b>分子之间有间隔</b>；受压时分子间的间隔减小，加压、降温可以使气体液化。</p>
+<div class='grid2'><div class='card'><div class='ct'>固、液、气态体积不同</div><p>相同质量的同种物质在固态、液态和气态时的体积不同，表明其分子间的间隔不同。</p></div>
+<div class='card'><div class='ct'>热胀冷缩</div><p>物体热胀冷缩，是因为物质分子间的间隔受热时增大、遇冷时缩小。</p></div></div>
+<div class='callout'>科学思维：用“分子不断运动、分子间有间隔”可以解释扩散、挥发、溶解、压缩、热胀冷缩等常见现象。</div>
+
+</div></section>
+
+<section class="slide"><div class="inner">
+
+<div class='kicker'>二、分子可以分为原子 · 教材 p59</div>
+<h2>物理变化分子不变，化学变化分子改变</h2>
+<div class='grid2'><div class='card'><div class='ct'>物理变化</div><p>水蒸发时只是由液态变成气态，<b>水分子没有变成其他分子</b>，化学性质也不变。品红溶于水时，品红分子和水分子都没有变成其他分子。</p></div>
+<div class='card'><div class='ct'>化学变化</div><p>过氧化氢（H₂O₂）制氧气（O₂）时，过氧化氢分子变成了水分子（H₂O）和氧分子；氢气（H₂）在氯气（Cl₂）中燃烧生成氯化氢（HCl）。</p></div></div>
+<div class='def'><span class='dt'>分子：</span>由分子构成的物质，分子是保持其<b>化学性质</b>的最小粒子。</div>
+
+</div></section>
+
+<section class="slide"><div class="inner">
+
+<div class='kicker'>分子由原子构成 · 教材 p60</div>
+<h2>化学变化中分子可分，原子不可再分</h2>
+<p>有些分子由同种原子构成，如 1 个氧分子由 2 个氧原子构成；大多数分子由两种或两种以上原子构成，如 1 个二氧化碳分子由 1 个碳原子和 2 个氧原子构成，1 个氨分子由 1 个氮原子和 3 个氢原子构成。</p>
+<div class='card'><div class='ct'>加热红色氧化汞粉末（图3-6）</div><div class='flow'><span class='node'>氧化汞分子</span><span class='arw'>—加热→</span><span class='node'>汞原子</span><span class='arw'>+</span><span class='node'>氧原子</span><span class='arw'>→</span><span class='node'>氧分子</span></div>
+<p class='note'>每 2 个氧原子结合成 1 个氧分子，许多汞原子聚集成金属汞。</p></div>
+<div class='biglaw' style='font-size:clamp(24px,3vw,36px);'><span class='lbl'>核心结论</span>化学变化中分子的种类发生变化，原子的种类不变；原子是化学变化中的最小粒子。</div>
+
+</div></section>
+
+<section class="slide"><div class="inner">
+
+<div class='kicker'>科学史话 · 原子的猜想与证实 · 教材 p61—62</div>
+<h2>从“不可分割”到原子论</h2>
+<div class='cols3'><div class='box'><div class='t'>德谟克利特（古希腊）</div><p>认为万物由微小、坚硬、不可分的“原子（atom）”构成。</p></div>
+<div class='box'><div class='t'>墨子（中国古代）</div><p>提出“端”的观点：不断分割物质，直到无法再分时便得到“端”。</p></div>
+<div class='box'><div class='t'>道尔顿（1808年）</div><p>在《化学哲学的新体系》中论述原子论，具有里程碑意义。</p></div></div>
+<div class='callout'>拉瓦锡的质量守恒定律、普鲁斯特的定比定律、道尔顿的倍比定律……古代猜想被大量定量实验逐步证实。</div>
+<p class='note'>道尔顿原子论要点：物质由不可分割的原子构成；同种原子的形状、质量和性质相同；化学变化中不同原子以简单整数比结合。</p>
+<div class='callout'>科学态度与责任：科学模型的建立与修正基于证据，人类对物质结构的认识在不断深化。</div>
+
+</div></section>
+
+<section class="slide"><div class="inner">
+
+<div class='kicker'>学完本课题你知道了什么 · 教材 p63</div>
+<h2>四条核心结论</h2>
+<ol><li>物质由分子、原子等微观粒子构成，这些微观粒子总在不停地运动。</li>
+<li>物理变化中分子不会变成其他分子；化学变化中分子会变成其他分子。<b>分子是保持物质化学性质的最小粒子</b>。</li>
+<li>在化学变化中，分子可以分为原子，原子又可以结合成新的分子。</li>
+<li>在化学变化中原子不能再分，<b>原子是化学变化中的最小粒子</b>。</li></ol>
+
+</div></section>
+
+<section class="slide quiz-slide"><div class="inner">
+  <span class="qno">练习 1</span>
+  <div class="qtext">下列关于空气及其成分的说法中，正确的是（　）。</div>
+  <ul class="opts"><li>A. 空气是由空气分子构成的</li><li>B. 空气里氮气、氧气等分子均匀地混合在一起</li><li>C. 氮气和氧气混合后，其化学性质都发生改变</li><li>D. 空气经过液化、汽化等过程得到氮气和氧气，发生了化学变化</li></ul>
+  <div class="ans"><p><span class='key'>答案：B</span>　空气是混合物，不存在“空气分子”；氮气和氧气混合后分子本身不变，化学性质不变；液化、汽化只是状态改变，属于物理变化。</p></div>
+  <div class="reveal-hint">按翻页键 / 空格 显示答案，再按一次继续</div>
+</div></section>
+
+<section class="slide quiz-slide"><div class="inner">
+  <span class="qno">练习 2</span>
+  <div class="qtext">木炭在氧气中燃烧生成二氧化碳（示意图表示 1 个碳原子与 1 个氧分子反应生成 1 个二氧化碳分子）。下列有关叙述中，不正确的是（　）。</div>
+  <ul class="opts"><li>A. 该反应属于化合反应</li><li>B. 反应前后原子种类发生了变化</li><li>C. 二氧化碳与氧气、碳的化学性质不同</li><li>D. 该反应是木炭在氧气中燃烧时发生的主要反应</li></ul>
+  <div class="ans"><p><span class='key'>答案：B</span>　化学变化中原子的种类不变，改变的是分子的种类。A“多变一”属于化合反应；B 错误；C 分子不同化学性质不同；D 符合事实。</p></div>
+  <div class="reveal-hint">按翻页键 / 空格 显示答案，再按一次继续</div>
+</div></section>
+
+<section class="slide quiz-slide"><div class="inner">
+  <span class="qno">课本练习</span>
+  <div class="qtext">从分子及其运动的角度，解释下列现象（教材 p64）：①香水要密封保存；②氧气在加压后可装入钢瓶。</div>
+  
+  <div class="ans"><p><span class='key'>要点</span>　①香水中的分子总在不断运动，若不密封，香味分子会扩散到空气中而散失。②分子之间有间隔，加压时氧分子间的间隔减小，气体体积缩小，因此可装入钢瓶。</p></div>
+  <div class="reveal-hint">按翻页键 / 空格 显示答案，再按一次继续</div>
+</div></section>
+
+<section class="slide"><div class="inner cover">
+  <div class="rule" style="margin-bottom:32px;"></div>
+  <h1 style="font-size:clamp(42px,6.5vw,70px);">课题1 · 小结</h1>
+  <p class="muted" style="font-size:clamp(23px,2.9vw,32px);">微观粒子的性质 · 分子与原子的区别 · 用微观视角解释变化</p>
+  <div class="hint" style="margin-top:40px;">按 <span class="kbd">Home</span> 回到第一页　·　按 <span class="kbd">End</span> 到末页</div>
+</div></section>
+
+</div>
+
+<div id="bar">
+  <div class="grp"><button class="navbtn" id="prevBtn">← 上一页</button><button class="navbtn" id="nextBtn">下一页 →</button><span id="counter">1 / 14</span></div>
+  <div class="grp"><span id="deckTitle">第三单元 课题1 分子和原子</span><button class="navbtn" id="fullBtn">⛶ 全屏</button><button class="navbtn" id="helpBtn">? 操作</button></div>
+</div>
+<div id="help"><div class="helpcard">
+  <h3>翻页操作说明</h3>
+  <div class="row"><span>下一页</span><span><span class="kbd">PgDn</span> <span class="kbd">空格</span> <span class="kbd">→</span> <span class="kbd">↓</span></span></div>
+  <div class="row"><span>上一页</span><span><span class="kbd">PgUp</span> <span class="kbd">←</span> <span class="kbd">↑</span></span></div>
+  <div class="row"><span>首页 / 末页</span><span><span class="kbd">Home</span> / <span class="kbd">End</span></span></div>
+  <div class="row"><span>练习页显示答案</span><span>在题目页再按一次"下一页"</span></div>
+  <div class="row"><span>字号放大 / 缩小</span><span><span class="kbd">]</span> 放大 · <span class="kbd">[</span> 缩小 · <span class="kbd">0</span> 恢复默认</span></div>
+  <div class="row"><span>全屏放映</span><span><span class="kbd">F</span> 或点击"全屏"</span></div>
+  <button class="navbtn close" id="closeHelp">知道了</button>
+</div></div>
+
+<script>
+
+(function(){
+  const slides=Array.from(document.querySelectorAll('.slide'));let cur=0;
+  const counter=document.getElementById('counter'),progress=document.getElementById('progress'),prevBtn=document.getElementById('prevBtn'),nextBtn=document.getElementById('nextBtn'),help=document.getElementById('help');
+  const ZKEY='__deck_zoom__';
+  function zoom(){const z=parseFloat(localStorage.getItem(ZKEY));return (isNaN(z)||z<0.7||z>2.2)?1:z;}
+  function setZoom(z){z=Math.max(0.7,Math.min(2.2,Math.round(z*10)/10));localStorage.setItem(ZKEY,String(z));
+    document.querySelectorAll('.inner').forEach(el=>el.style.zoom=z);
+    const t=document.getElementById('zoomTip');if(t){t.textContent='字号 '+Math.round(z*100)+'%';t.style.opacity=1;clearTimeout(t._tm);t._tm=setTimeout(()=>t.style.opacity=0,1000);}}
+  document.addEventListener('keydown',function(e){if(e.ctrlKey||e.altKey||e.metaKey)return;
+    if(e.key===']'||e.key==='】'){e.preventDefault();setZoom(zoom()+0.1);}
+    else if(e.key==='['||e.key==='【'){e.preventDefault();setZoom(zoom()-0.1);}
+    else if(e.key==='0'){e.preventDefault();setZoom(1);}});
+  function render(){slides.forEach((s,i)=>s.classList.toggle('active',i===cur));counter.textContent=(cur+1)+' / '+slides.length;progress.style.width=((cur+1)/slides.length*100)+'%';prevBtn.disabled=cur===0;nextBtn.disabled=cur===slides.length-1;slides[cur].scrollTop=0;}
+  function isQuiz(i){return slides[i].classList.contains('quiz-slide');}
+  function shown(i){const a=slides[i].querySelector('.ans');return a&&a.classList.contains('show');}
+  function next(){if(cur>=slides.length-1)return;if(isQuiz(cur)&&!shown(cur)){const a=slides[cur].querySelector('.ans');if(a){a.classList.add('show');const h=slides[cur].querySelector('.reveal-hint');if(h)h.textContent='答案已显示 · 再按一次继续';return;}}cur++;render();}
+  function prev(){if(isQuiz(cur)&&shown(cur)){const a=slides[cur].querySelector('.ans');a.classList.remove('show');const h=slides[cur].querySelector('.reveal-hint');if(h)h.textContent='按翻页键 / 空格 显示答案，再按一次继续';return;}if(cur>0){cur--;render();}}
+  function go(n){if(n>=0&&n<slides.length){cur=n;render();}}
+  prevBtn.onclick=prev;nextBtn.onclick=next;
+  document.addEventListener('keydown',function(e){
+    if(help.classList.contains('show')){if(e.key==='Escape'||e.key==='h'||e.key==='H'){help.classList.remove('show');e.preventDefault();}return;}
+    const k=e.key;
+    if(['PageDown',' ','Spacebar','ArrowRight','ArrowDown','Enter'].includes(k)){e.preventDefault();next();return;}
+    if(['PageUp','ArrowLeft','ArrowUp','Backspace'].includes(k)){e.preventDefault();prev();return;}
+    if(k==='Home'){e.preventDefault();go(0);return;}if(k==='End'){e.preventDefault();go(slides.length-1);return;}
+    if(k==='h'||k==='H'||k==='?'){e.preventDefault();help.classList.add('show');return;}
+    if(k==='f'||k==='F'){e.preventDefault();toggleFull();return;}});
+  let tx=0,ty=0;document.addEventListener('touchstart',e=>{tx=e.changedTouches[0].clientX;ty=e.changedTouches[0].clientY;},{passive:true});
+  document.addEventListener('touchend',e=>{const dx=e.changedTouches[0].clientX-tx,dy=e.changedTouches[0].clientY-ty;if(Math.abs(dx)>60&&Math.abs(dx)>Math.abs(dy))dx<0?next():prev();},{passive:true});
+  function toggleFull(){if(!document.fullscreenElement)document.documentElement.requestFullscreen&&document.documentElement.requestFullscreen();else document.exitFullscreen&&document.exitFullscreen();}
+  document.getElementById('fullBtn').onclick=toggleFull;document.getElementById('helpBtn').onclick=()=>help.classList.add('show');document.getElementById('closeHelp').onclick=()=>help.classList.remove('show');help.onclick=e=>{if(e.target===help)help.classList.remove('show');};
+  document.querySelectorAll('.inner').forEach(el=>el.style.zoom=zoom());
+  render();
+})();
+
+</script>
+</body>
+</html>

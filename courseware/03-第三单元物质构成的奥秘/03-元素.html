@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>课题3 元素 · 翻页课件</title>
+<style>
+  :root{--ink:#1a2230;--muted:#6b7280;--line:#e5e7eb;--soft:#f6f8fb;--accent:#0f766e;--accent-soft:#ecfdf5;--max:1000px;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html,body{height:100%;}
+  body{background:#fff;color:var(--ink);overflow:hidden;font-family:"PingFang SC","Microsoft YaHei","Hiragino Sans GB","Source Han Sans SC",sans-serif;-webkit-font-smoothing:antialiased;}
+  #deck{position:relative;width:100vw;height:100vh;}
+  .slide{position:absolute;inset:0;display:none;padding:clamp(28px,5vh,60px) clamp(26px,6vw,88px) 94px;overflow-y:auto;}
+  .slide.active{display:flex;animation:fade .32s ease;}
+  @keyframes fade{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:none;}}
+  .inner{width:100%;max-width:var(--max);margin:auto;}
+  .kicker{font-size:17px;letter-spacing:.12em;color:var(--accent);font-weight:700;margin-bottom:16px;}
+  h1{font-size:clamp(48px,7vw,82px);line-height:1.15;letter-spacing:-.02em;margin-bottom:16px;}
+  h2{font-size:clamp(34px,4.6vw,56px);line-height:1.3;letter-spacing:-.01em;margin-bottom:24px;}
+  h3{font-size:clamp(24px,2.8vw,30px);margin:20px 0 9px;}
+  p{font-size:clamp(22px,2.4vw,30px);line-height:1.8;margin-bottom:13px;}
+  b,strong{font-weight:700;}
+  .muted{color:var(--muted);}
+  .tag{display:inline-block;font-size:15px;color:var(--muted);border:1px solid var(--line);border-radius:99px;padding:2px 11px;margin-left:10px;vertical-align:middle;font-weight:400;}
+  .cover{text-align:center;}
+  .cover .eyebrow{font-size:18px;color:var(--muted);letter-spacing:.14em;margin-bottom:24px;}
+  .cover .rule{width:60px;height:4px;background:var(--accent);border-radius:2px;margin:0 auto 32px;}
+  .cover .hint{font-size:18px;color:var(--muted);line-height:2;}
+  .kbd{display:inline-block;border:1px solid var(--line);border-bottom-width:2px;border-radius:5px;padding:1px 7px;margin:0 2px;font-size:15px;color:#374151;background:var(--soft);}
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:20px;}
+  @media(max-width:760px){.two{grid-template-columns:1fr;}}
+  .callout{background:var(--soft);border-radius:12px;padding:18px 24px;font-size:clamp(20px,2.2vw,26px);line-height:1.75;color:#4b5563;}
+  .callout b{color:var(--ink);}
+  .biglaw{background:var(--accent-soft);border-left:5px solid var(--accent);border-radius:0 14px 14px 0;padding:clamp(22px,3.4vw,38px);font-size:clamp(28px,3.8vw,44px);font-weight:700;line-height:1.65;}
+  .biglaw .lbl{display:block;font-size:15px;letter-spacing:.16em;color:var(--accent);margin-bottom:14px;}
+  .eq{display:inline-flex;flex-wrap:wrap;align-items:flex-start;background:var(--soft);border:1px dashed #cbd5e1;border-radius:12px;padding:34px 24px 14px;margin:8px 0;}
+  .eq .col{display:flex;flex-direction:column;align-items:center;min-width:26px;}
+  .eq .f{font-size:clamp(25px,2.9vw,34px);line-height:1.5;height:30px;white-space:nowrap;font-family:"Times New Roman",Times,serif;}
+  .eq .op{font-size:clamp(23px,2.7vw,30px);line-height:1.5;height:30px;color:#9ca3af;padding:0 8px;white-space:nowrap;}
+  .eq .mark{display:flex;align-items:center;justify-content:center;height:30px;padding:0 10px;position:relative;}
+  .eq .cond{position:absolute;top:-20px;font-size:17px;color:var(--muted);line-height:1.5;white-space:nowrap;}
+  .eq .arr{font-size:32px;line-height:1;color:var(--accent);white-space:nowrap;}
+  .eq .eqsign{font-size:28px;line-height:1;color:var(--accent);white-space:nowrap;}
+  .eq .mr{font-size:clamp(18px,1.9vw,22px);line-height:1.4;height:22px;color:#6b7280;white-space:nowrap;font-family:"Times New Roman",Times,serif;}
+  .eq .mrph{height:22px;}
+  .eqnote{font-size:17px;color:var(--muted);margin-top:8px;line-height:1.7;}
+  .cols3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
+  @media(max-width:760px){.cols3{grid-template-columns:1fr;}}
+  .cols3 .box{border:1px solid var(--line);border-radius:12px;padding:20px;}
+  .cols3 .box .t{font-size:17px;color:var(--accent);font-weight:700;margin-bottom:10px;}
+  .cols3 .box p{font-size:clamp(19px,2vw,24px);}
+  ol,ul{padding-left:26px;}
+  li{font-size:clamp(22px,2.4vw,30px);line-height:1.8;margin-bottom:10px;}
+  .qno{display:inline-block;background:var(--accent);color:#fff;font-size:17px;font-weight:700;border-radius:7px;padding:3px 10px;margin-bottom:16px;}
+  .qtext{font-size:clamp(25px,2.9vw,34px);line-height:1.7;font-weight:600;margin-bottom:17px;}
+  .qsub{font-size:clamp(20px,2.2vw,26px);line-height:1.8;margin-bottom:6px;}
+  .opts{list-style:none;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:8px 20px;}
+  .opts li{font-size:clamp(22px,2.4vw,30px);margin:0;padding:6px 12px;background:var(--soft);border-radius:8px;}
+  @media(max-width:760px){.opts{grid-template-columns:1fr;}}
+  .ans{display:none;margin-top:20px;padding:18px 24px;background:var(--accent-soft);border-radius:12px;font-size:clamp(20px,2.2vw,26px);line-height:1.8;color:#334155;}
+  .ans.show{display:block;animation:fade .25s ease;}
+  .ans .key{color:var(--accent);font-weight:700;}
+  .ans p{font-size:inherit;margin-bottom:9px;}
+  .reveal-hint{font-size:17px;color:var(--muted);margin-top:16px;}
+  /* 增强组件 */
+  .card{background:var(--soft);border:1px solid var(--line);border-radius:14px;padding:22px 26px;margin:12px 0;}
+  .card .ct{font-size:20px;color:var(--accent);font-weight:700;margin-bottom:12px;}
+  .card p{font-size:clamp(21px,2.2vw,27px);}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:12px 0;}
+  @media(max-width:760px){.grid2{grid-template-columns:1fr;}}
+  .grid2 .card{margin:0;}
+  table{border-collapse:collapse;width:100%;font-size:clamp(19px,2vw,25px);margin:14px 0;}
+  th,td{border:1px solid var(--line);padding:10px 14px;text-align:left;line-height:1.6;}
+  th{background:var(--accent-soft);color:var(--accent);font-weight:700;}
+  .def{border-left:4px solid var(--accent);background:var(--accent-soft);border-radius:0 12px 12px 0;padding:18px 24px;margin:14px 0;font-size:clamp(22px,2.4vw,29px);line-height:1.75;}
+  .def .dt{color:var(--accent);font-weight:700;}
+  .exp{background:#fffbeb;border:1px solid #fde68a;border-radius:14px;padding:20px 26px;margin:14px 0;}
+  .exp .et{font-size:19px;color:#b45309;font-weight:700;margin-bottom:10px;}
+  .exp p,.exp li{font-size:clamp(20px,2.1vw,26px);}
+  .flow{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin:16px 0;font-size:clamp(21px,2.3vw,28px);}
+  .flow .node{background:var(--accent-soft);border:1px solid #99f6e4;border-radius:10px;padding:10px 18px;font-weight:600;}
+  .flow .arw{color:var(--accent);font-size:26px;}
+  .chem{font-family:"Times New Roman",Times,serif;}
+  .note{font-size:clamp(19px,2vw,24px);color:var(--muted);line-height:1.75;margin-top:12px;}
+  #bar{position:fixed;left:0;right:0;bottom:0;height:62px;display:flex;align-items:center;justify-content:space-between;padding:0 clamp(18px,4vw,48px);background:rgba(255,255,255,.94);backdrop-filter:blur(8px);border-top:1px solid var(--line);z-index:20;}
+  #bar .grp{display:flex;align-items:center;gap:10px;}
+  .navbtn{font:inherit;font-size:18px;color:#374151;background:#fff;border:1px solid var(--line);border-radius:8px;padding:7px 15px;cursor:pointer;transition:.15s;}
+  .navbtn:hover:not(:disabled){color:var(--accent);border-color:#99f6e4;background:var(--accent-soft);}
+  .navbtn:disabled{opacity:.35;cursor:default;}
+  #counter{font-size:17px;color:var(--muted);min-width:74px;text-align:center;font-variant-numeric:tabular-nums;}
+  #progress{position:fixed;top:0;left:0;height:3px;background:var(--accent);z-index:30;transition:width .3s ease;}
+  #deckTitle{font-size:17px;color:var(--muted);max-width:44vw;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+  #help{display:none;position:fixed;inset:0;background:rgba(17,24,39,.45);z-index:50;align-items:center;justify-content:center;padding:24px;}
+  #help.show{display:flex;}
+  .helpcard{background:#fff;border-radius:16px;padding:32px 38px;max-width:520px;width:100%;box-shadow:0 20px 60px rgba(0,0,0,.15);}
+  .helpcard h3{font-size:28px;margin-bottom:16px;}
+  .helpcard .row{display:flex;justify-content:space-between;gap:20px;padding:9px 0;border-bottom:1px solid var(--line);font-size:19px;}
+  .helpcard .row:last-of-type{border-bottom:0;}
+  .helpcard .close{margin-top:20px;width:100%;}
+  @media print{#bar,#progress,#help,#zoomTip{display:none!important;}body{overflow:visible;}.slide{display:flex!important;position:relative;page-break-after:always;height:auto;min-height:100vh;}.ans{display:block!important;}}
+</style>
+</head>
+<body>
+<div id="progress"></div>
+<div id="zoomTip" style="position:fixed;top:16px;left:50%;transform:translateX(-50%);z-index:60;background:rgba(17,24,39,.85);color:#fff;padding:8px 22px;border-radius:99px;font-size:18px;opacity:0;transition:opacity .25s;pointer-events:none;"></div>
+<div id="deck">
+
+<section class="slide active"><div class="inner cover">
+  <div class="eyebrow">人教版九年级化学上册 · 第三单元 课题3</div>
+  <h1>元素</h1>
+  <div class="rule"></div>
+  <p class="muted" style="font-size:clamp(22px,2.6vw,30px);">一种符号，一张表 —— 把一百多种元素有序地组织起来</p>
+  <div class="hint" style="margin-top:48px;">
+    <span class="kbd">PgDn</span>/<span class="kbd">空格</span>/<span class="kbd">→</span> 下一页　·　<span class="kbd">PgUp</span>/<span class="kbd">←</span> 上一页<br>翻页笔可直接翻页　·　练习页再按一次显示答案　·　按 <span class="kbd">H</span> 查看操作
+  </div>
+</div></section>
+
+<section class="slide"><div class="inner">
+
+<div class='kicker'>引入 · 万物由什么组成？ · 教材 p72</div>
+<h2>一百多种元素，就像 26 个字母</h2>
+<p>人们利用化学方法分析众多的物质，发现组成它们的基本成分——<b>元素</b>其实只有一百多种，就像可拼写出数十万个英文单词的字母只有 26 个一样。</p>
+<div class='grid2'><div class='card'><div class='ct'>同样的基本成分</div><p>蛋壳、贝壳和石灰石的主要成分都是碳酸钙（CaCO₃），碳酸钙由碳、氧、钙三种元素组成。</p></div>
+<div class='card'><div class='ct'>不同的物质，相同的元素</div><p>氧气（O₂）和二氧化碳（CO₂）的组成和性质不同，但它们都含有氧元素。</p></div></div>
+<div class='callout'>认识了原子和原子结构之后，我们对“组成万物的基本成分”有了进一步的理解。</div>
+
+</div></section>
+
+<section class="slide"><div class="inner">
+
+<div class='kicker'>一、元素 · 教材 p72</div>
+<h2>质子数相同的一类原子的总称</h2>
+<p>氧分子和二氧化碳分子中都含有氧原子，这些氧原子的原子核内都含有 <b>8 个质子</b>，核电荷数为 8。化学上将质子数（核电荷数）为 8 的所有氧原子统称为<b>氧元素</b>。</p>
+<div class='def'><span class='dt'>元素：</span>质子数（核电荷数）相同的<b>一类原子</b>的总称。质子数为 1 的所有氢原子统称氢元素，质子数为 6 的所有碳原子统称碳元素。</div>
+<div class='biglaw' style='font-size:clamp(24px,3vw,36px);'><span class='lbl'>判断依据</span>看质子数（核电荷数）——同种元素质子数相同，不同种元素质子数不同。</div>
+<p class='note'>元素是一类原子的“总称”，是宏观概念，只论种类、不论个数。</p>
+
+</div></section>
+
+<section class="slide"><div class="inner">
+
+<div class='kicker'>探究 · 元素在化学变化中变不变 · 教材 p73</div>
+<h2>地壳中的元素含量与“思考与讨论”</h2>
+<p>图3-19 地壳中元素含量（质量分数）：含量最高的是<b>氧元素</b>，接近 <b>50%</b>（48.60%）；其次是<b>硅元素</b>（26.30%）；铝 7.73%、铁 4.75%。碳、氢、氮等含量较低，却对动植物生命活动有重要作用。</p>
+<div class='exp'><div class='et'>【思考与讨论】 反应前后分子、原子、元素是否变化？</div>
+<div class='flow'><span class='node'>硫</span><span class='arw'>+</span><span class='node'>氧气</span><span class='arw'>—点燃→</span><span class='node'>二氧化硫</span></div>
+<div class='flow'><span class='node'>过氧化氢</span><span class='arw'>—二氧化锰→</span><span class='node'>水</span><span class='arw'>+</span><span class='node'>氧气</span></div></div>
+<div class='callout'>结论：<b>分子发生了变化</b>；<b>原子的种类没有变化</b>；<b>元素也不会改变</b>。由一百多种元素组成的上亿种物质，都是由原子、分子或离子构成的（图3-20）。</div>
+
+</div></section>
+
+<section class="slide"><div class="inner">
+
+<div class='kicker'>二、元素符号 · 教材 p74</div>
+<h2>国际通用的化学“字母”</h2>
+<p>国际上统一采用元素<b>拉丁文名称的第一个字母（大写）</b>表示元素，如氢为 H、氧为 O；若第一个字母相同，就附加一个<b>小写字母</b>区别，如 Cl（氯）、Ca（钙）、Cu（铜）。</p>
+<div class='def'><span class='dt'>书写规则：</span>由两个字母表示的元素符号，<b>第二个字母必须小写</b>。</div>
+<div class='def'><span class='dt'>符号意义：</span>元素符号既表示一种元素，还表示这种元素的<b>一个原子</b>。例如 O 既表示氧元素，又表示氧元素的一个原子。</div>
+<p class='note'>表3-3 常见元素符号与相对原子质量（近似值）：H 1、He 4、C 12、N 14、O 16、Na 23、Mg 24、Al 27、Si 28、P 31、S 32、Cl 35.5、K 39、Ca 40、Fe 56、Cu 63.5、Zn 65、Ag 108。</p>
+<div class='callout'>化学观念：用统一的符号表示元素，才能简洁地描述物质的组成与变化。</div>
+
+</div></section>
+
+<section class="slide"><div class="inner">
+
+<div class='kicker'>三、元素周期表简介 · 教材 p75</div>
+<h2>把元素按规律排成一张表</h2>
+<p>为了便于研究元素的性质和用途，科学家根据元素的<b>原子结构和性质</b>，把它们科学有序地排列起来，得到元素周期表。</p>
+<div class='grid2'><div class='card'><div class='ct'>结构与编号</div><p>共有 <b>7 个横行</b>（周期）、<b>18 个纵列</b>（族，其中 8、9、10 三列共同组成一个族）。原子序数按核电荷数递增编排，<b>原子序数 = 核电荷数</b>。</p></div>
+<div class='card'><div class='ct'>表中的信息</div><p>用不同颜色区分金属元素、非金属元素和稀有气体元素，并标出相对原子质量。它是学习和研究化学的重要工具。</p></div></div>
+<p class='note'>中文名称也有规律：金字旁为金属元素；石字旁为固态非金属；气字头为气态非金属或稀有气体；三点水为液态非金属。汞是例外——常温呈液态的金属。</p>
+<div class='callout'>科学态度与责任：近代化学启蒙者徐寿在《化学鉴原》中定名的钠、铝、钾、钙、锌等元素名称沿用至今，体现了科学知识的传承。</div>
+
+</div></section>
+
+<section class="slide"><div class="inner">
+
+<div class='kicker'>思考与讨论 · 发现周期表的规律 · 教材 p76</div>
+<h2>从周期表开头走到结尾，你发现了什么？</h2>
+<div class='exp'><div class='et'>【思考与讨论】</div>
+<ol><li>将图3-19 中标明的元素按含量高低、金属或非金属等标准分类，并在元素周期表中查出它们的位置、元素符号和相对原子质量。</li>
+<li>考察元素周期表：每周期开头的元素一般是金属还是非金属？靠近尾部的是什么元素？结尾都是什么元素？</li></ol></div>
+<div class='callout'>观察提示：每周期开头一般是<b>金属元素</b>（第一周期从氢开始除外），靠近尾部的是<b>非金属元素</b>，结尾都是<b>稀有气体元素</b>——性质呈周期性变化，这正是“元素周期表”名称的由来。</div>
+<p class='note'>分类是一种科学方法：根据研究对象的共同点和差异点分门别类，有助于发现规律（教材 p75、p94）。</p>
+
+</div></section>
+
+<section class="slide"><div class="inner">
+
+<div class='kicker'>学完本课题你知道了什么 · 教材 p76</div>
+<h2>四个要点</h2>
+<ol><li>元素是<b>质子数（核电荷数）相同的一类原子的总称</b>。</li>
+<li>物质发生化学变化时，<b>原子的种类不变，元素也不会改变</b>。</li>
+<li>每种元素都用一个国际通用的符号表示，正确记忆和书写常见元素符号是学习化学的基础。</li>
+<li><b>元素周期表</b>是学习和研究化学的重要工具。</li></ol>
+<div class='biglaw' style='font-size:clamp(24px,3vw,36px);'><span class='lbl'>一条主线</span>原子结构 → 元素概念 → 元素符号 → 元素周期表</div>
+
+</div></section>
+
+<section class="slide quiz-slide"><div class="inner">
+  <span class="qno">课本练习</span>
+  <div class="qtext">地壳中含量最高的元素是（　）。</div>
+  <ul class="opts"><li>A. Si</li><li>B. Fe</li><li>C. Al</li><li>D. O</li></ul>
+  <div class="ans"><p><span class='key'>答案：D</span>　地壳中元素含量（质量分数）由高到低依次是氧（约 48.60%）、硅（约 26.30%）、铝、铁等，氧元素含量最高。</p></div>
+  <div class="reveal-hint">按翻页键 / 空格 显示答案，再按一次继续</div>
+</div></section>
+
+<section class="slide quiz-slide"><div class="inner">
+  <span class="qno">课本练习</span>
+  <div class="qtext">下列说法中，不正确的是（　）。</div>
+  <ul class="opts"><li>A. 氯化氢、氯化钠都含有氯元素</li><li>B. 1 个氯化氢分子是由 1 个氢原子和 1 个氯原子构成的</li><li>C. 氯化氢是由氢、氯两种元素组成的</li><li>D. 氯化氢是由氢气和氯气混合而成的</li></ul>
+  <div class="ans"><p><span class='key'>答案：D</span>　氯化氢（HCl）是纯净物（化合物），由氢、氯两种元素组成，1 个分子含 1 个氢原子和 1 个氯原子；它不是氢气与氯气的混合物。</p></div>
+  <div class="reveal-hint">按翻页键 / 空格 显示答案，再按一次继续</div>
+</div></section>
+
+<section class="slide quiz-slide"><div class="inner">
+  <span class="qno">课本练习</span>
+  <div class="qtext">不同种元素的本质区别是（　）。</div>
+  <ul class="opts"><li>A. 原子的质子数不同</li><li>B. 原子的中子数不同</li><li>C. 相对原子质量不同</li><li>D. 原子的核外电子数不同</li></ul>
+  <div class="ans"><p><span class='key'>答案：A</span>　元素是具有相同质子数（核电荷数）的一类原子的总称，因此质子数不同是不同种元素的本质区别。中子数、电子数或相对原子质量都不是本质依据。</p></div>
+  <div class="reveal-hint">按翻页键 / 空格 显示答案，再按一次继续</div>
+</div></section>
+
+<section class="slide quiz-slide"><div class="inner">
+  <span class="qno">课本练习</span>
+  <div class="qtext">写出下列符号的意义（教材 p77）：O；2O；2Cl⁻；3Na⁺。</div>
+  
+  <div class="ans"><p><span class='key'>答案</span>　O：表示氧元素，还表示氧元素的 1 个原子；2O：表示 2 个氧原子；2Cl⁻：表示 2 个氯离子；3Na⁺：表示 3 个钠离子。元素符号前面的数字表示原子（或离子）的个数。</p></div>
+  <div class="reveal-hint">按翻页键 / 空格 显示答案，再按一次继续</div>
+</div></section>
+
+<section class="slide"><div class="inner cover">
+  <div class="rule" style="margin-bottom:32px;"></div>
+  <h1 style="font-size:clamp(42px,6.5vw,70px);">课题3 · 小结</h1>
+  <p class="muted" style="font-size:clamp(23px,2.9vw,32px);">元素的概念 · 元素符号 · 元素周期表</p>
+  <div class="hint" style="margin-top:40px;">按 <span class="kbd">Home</span> 回到第一页　·　按 <span class="kbd">End</span> 到末页</div>
+</div></section>
+
+</div>
+
+<div id="bar">
+  <div class="grp"><button class="navbtn" id="prevBtn">← 上一页</button><button class="navbtn" id="nextBtn">下一页 →</button><span id="counter">1 / 13</span></div>
+  <div class="grp"><span id="deckTitle">第三单元 课题3 元素</span><button class="navbtn" id="fullBtn">⛶ 全屏</button><button class="navbtn" id="helpBtn">? 操作</button></div>
+</div>
+<div id="help"><div class="helpcard">
+  <h3>翻页操作说明</h3>
+  <div class="row"><span>下一页</span><span><span class="kbd">PgDn</span> <span class="kbd">空格</span> <span class="kbd">→</span> <span class="kbd">↓</span></span></div>
+  <div class="row"><span>上一页</span><span><span class="kbd">PgUp</span> <span class="kbd">←</span> <span class="kbd">↑</span></span></div>
+  <div class="row"><span>首页 / 末页</span><span><span class="kbd">Home</span> / <span class="kbd">End</span></span></div>
+  <div class="row"><span>练习页显示答案</span><span>在题目页再按一次"下一页"</span></div>
+  <div class="row"><span>字号放大 / 缩小</span><span><span class="kbd">]</span> 放大 · <span class="kbd">[</span> 缩小 · <span class="kbd">0</span> 恢复默认</span></div>
+  <div class="row"><span>全屏放映</span><span><span class="kbd">F</span> 或点击"全屏"</span></div>
+  <button class="navbtn close" id="closeHelp">知道了</button>
+</div></div>
+
+<script>
+
+(function(){
+  const slides=Array.from(document.querySelectorAll('.slide'));let cur=0;
+  const counter=document.getElementById('counter'),progress=document.getElementById('progress'),prevBtn=document.getElementById('prevBtn'),nextBtn=document.getElementById('nextBtn'),help=document.getElementById('help');
+  const ZKEY='__deck_zoom__';
+  function zoom(){const z=parseFloat(localStorage.getItem(ZKEY));return (isNaN(z)||z<0.7||z>2.2)?1:z;}
+  function setZoom(z){z=Math.max(0.7,Math.min(2.2,Math.round(z*10)/10));localStorage.setItem(ZKEY,String(z));
+    document.querySelectorAll('.inner').forEach(el=>el.style.zoom=z);
+    const t=document.getElementById('zoomTip');if(t){t.textContent='字号 '+Math.round(z*100)+'%';t.style.opacity=1;clearTimeout(t._tm);t._tm=setTimeout(()=>t.style.opacity=0,1000);}}
+  document.addEventListener('keydown',function(e){if(e.ctrlKey||e.altKey||e.metaKey)return;
+    if(e.key===']'||e.key==='】'){e.preventDefault();setZoom(zoom()+0.1);}
+    else if(e.key==='['||e.key==='【'){e.preventDefault();setZoom(zoom()-0.1);}
+    else if(e.key==='0'){e.preventDefault();setZoom(1);}});
+  function render(){slides.forEach((s,i)=>s.classList.toggle('active',i===cur));counter.textContent=(cur+1)+' / '+slides.length;progress.style.width=((cur+1)/slides.length*100)+'%';prevBtn.disabled=cur===0;nextBtn.disabled=cur===slides.length-1;slides[cur].scrollTop=0;}
+  function isQuiz(i){return slides[i].classList.contains('quiz-slide');}
+  function shown(i){const a=slides[i].querySelector('.ans');return a&&a.classList.contains('show');}
+  function next(){if(cur>=slides.length-1)return;if(isQuiz(cur)&&!shown(cur)){const a=slides[cur].querySelector('.ans');if(a){a.classList.add('show');const h=slides[cur].querySelector('.reveal-hint');if(h)h.textContent='答案已显示 · 再按一次继续';return;}}cur++;render();}
+  function prev(){if(isQuiz(cur)&&shown(cur)){const a=slides[cur].querySelector('.ans');a.classList.remove('show');const h=slides[cur].querySelector('.reveal-hint');if(h)h.textContent='按翻页键 / 空格 显示答案，再按一次继续';return;}if(cur>0){cur--;render();}}
+  function go(n){if(n>=0&&n<slides.length){cur=n;render();}}
+  prevBtn.onclick=prev;nextBtn.onclick=next;
+  document.addEventListener('keydown',function(e){
+    if(help.classList.contains('show')){if(e.key==='Escape'||e.key==='h'||e.key==='H'){help.classList.remove('show');e.preventDefault();}return;}
+    const k=e.key;
+    if(['PageDown',' ','Spacebar','ArrowRight','ArrowDown','Enter'].includes(k)){e.preventDefault();next();return;}
+    if(['PageUp','ArrowLeft','ArrowUp','Backspace'].includes(k)){e.preventDefault();prev();return;}
+    if(k==='Home'){e.preventDefault();go(0);return;}if(k==='End'){e.preventDefault();go(slides.length-1);return;}
+    if(k==='h'||k==='H'||k==='?'){e.preventDefault();help.classList.add('show');return;}
+    if(k==='f'||k==='F'){e.preventDefault();toggleFull();return;}});
+  let tx=0,ty=0;document.addEventListener('touchstart',e=>{tx=e.changedTouches[0].clientX;ty=e.changedTouches[0].clientY;},{passive:true});
+  document.addEventListener('touchend',e=>{const dx=e.changedTouches[0].clientX-tx,dy=e.changedTouches[0].clientY-ty;if(Math.abs(dx)>60&&Math.abs(dx)>Math.abs(dy))dx<0?next():prev();},{passive:true});
+  function toggleFull(){if(!document.fullscreenElement)document.documentElement.requestFullscreen&&document.documentElement.requestFullscreen();else document.exitFullscreen&&document.exitFullscreen();}
+  document.getElementById('fullBtn').onclick=toggleFull;document.getElementById('helpBtn').onclick=()=>help.classList.add('show');document.getElementById('closeHelp').onclick=()=>help.classList.remove('show');help.onclick=e=>{if(e.target===help)help.classList.remove('show');};
+  document.querySelectorAll('.inner').forEach(el=>el.style.zoom=zoom());
+  render();
+})();
+
+</script>
+</body>
+</html>

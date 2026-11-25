@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>质量守恒定律 · 翻页课件</title>
+<style>
+  :root{
+    --ink:#1a2230; --muted:#6b7280; --line:#e5e7eb; --soft:#f6f8fb;
+    --accent:#2563eb; --accent-soft:#eef4ff; --warm:#b45309;
+    --max:980px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html,body{height:100%;}
+  body{
+    background:#fff;color:var(--ink);overflow:hidden;
+    font-family:"PingFang SC","Microsoft YaHei","Hiragino Sans GB","Source Han Sans SC",sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  #deck{position:relative;width:100vw;height:100vh;}
+
+  /* ---------- 幻灯片 ---------- */
+  .slide{
+    position:absolute;inset:0;display:none;
+    padding:clamp(30px,5vh,64px) clamp(28px,6vw,90px) 96px;
+    overflow-y:auto;
+  }
+  .slide.active{display:flex;animation:fade .32s ease;}
+  @keyframes fade{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:none;}}
+  .inner{width:100%;max-width:var(--max);margin:auto;}
+
+  .kicker{font-size:17px;letter-spacing:.12em;color:var(--accent);font-weight:700;margin-bottom:18px;}
+  h1{font-size:clamp(48px,7vw,84px);line-height:1.15;letter-spacing:-.02em;margin-bottom:18px;}
+  h2{font-size:clamp(36px,4.8vw,58px);line-height:1.3;letter-spacing:-.01em;margin-bottom:26px;}
+  h3{font-size:clamp(24px,2.8vw,30px);margin:22px 0 10px;}
+  p{font-size:clamp(22px,2.4vw,30px);line-height:1.8;margin-bottom:14px;}
+  b,strong{font-weight:700;}
+  .muted{color:var(--muted);}
+  .tag{display:inline-block;font-size:15px;color:var(--muted);border:1px solid var(--line);
+       border-radius:99px;padding:2px 11px;margin-left:10px;vertical-align:middle;font-weight:400;}
+
+  /* 封面 */
+  .cover{text-align:center;}
+  .cover .eyebrow{font-size:18px;color:var(--muted);letter-spacing:.16em;margin-bottom:28px;}
+  .cover h1{margin-bottom:26px;}
+  .cover .rule{width:60px;height:4px;background:var(--accent);border-radius:2px;margin:0 auto 34px;}
+  .cover .hint{font-size:18px;color:var(--muted);line-height:2;}
+  .kbd{display:inline-block;border:1px solid var(--line);border-bottom-width:2px;border-radius:5px;
+       padding:1px 7px;margin:0 2px;font-size:15px;color:#374151;background:var(--soft);}
+
+  /* 结论 / 定律卡 */
+  .biglaw{
+    background:var(--accent-soft);border-left:5px solid var(--accent);
+    border-radius:0 14px 14px 0;padding:clamp(24px,3.6vw,42px);
+    font-size:clamp(30px,4.2vw,48px);font-weight:700;line-height:1.65;
+  }
+  .biglaw .lbl{display:block;font-size:15px;letter-spacing:.16em;color:var(--accent);margin-bottom:16px;}
+  .callout{background:var(--soft);border-radius:12px;padding:18px 24px;font-size:clamp(20px,2.2vw,26px);color:#4b5563;}
+  .callout b{color:var(--ink);}
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:22px;}
+  @media (max-width:760px){.two{grid-template-columns:1fr;}}
+
+  /* 文字表达式（格式：名称在上、化学式在下、条件在等号上方） */
+  .chem-eq{
+    display:inline-flex;flex-wrap:wrap;align-items:flex-start;
+    background:var(--soft);border:1px dashed #cbd5e1;border-radius:12px;
+    padding:18px 26px;margin:10px 0;
+  }
+  .chem-eq .col{display:flex;flex-direction:column;align-items:center;min-width:38px;}
+  .chem-eq .name,.chem-eq .op{font-size:clamp(24px,2.8vw,32px);line-height:1.5;height:32px;white-space:nowrap;}
+  .chem-eq .formula,.chem-eq .ph{font-size:clamp(20px,2.2vw,26px);line-height:1.5;height:24px;
+       font-family:"Times New Roman",Times,serif;color:#4b5563;white-space:nowrap;}
+  .chem-eq .op{color:#9ca3af;padding:0 10px;}
+  .chem-eq .arrow-col{display:flex;align-items:center;justify-content:center;height:32px;padding:0 14px;position:relative;}
+  .chem-eq .cond{position:absolute;top:-22px;font-size:17px;color:var(--muted);line-height:1.5;white-space:nowrap;}
+  .chem-eq .arrow{font-size:34px;line-height:1;color:var(--accent);}
+  .eq-note{font-size:17px;color:var(--muted);margin-top:8px;}
+
+  /* 表格 */
+  table{width:100%;border-collapse:collapse;font-size:clamp(20px,2.2vw,26px);margin:10px 0;}
+  th,td{border:1px solid var(--line);padding:12px 16px;text-align:left;}
+  th{background:var(--soft);font-weight:600;}
+
+  ol,ul{padding-left:26px;}
+  li{font-size:clamp(22px,2.4vw,30px);line-height:1.8;margin-bottom:10px;}
+  .sub{font-size:clamp(20px,2.2vw,26px);line-height:1.75;color:#4b5563;margin-left:26px;margin-bottom:8px;}
+
+  /* 练习 */
+  .qno{display:inline-block;background:var(--accent);color:#fff;font-size:17px;font-weight:700;
+       border-radius:7px;padding:3px 10px;margin-bottom:16px;}
+  .qtext{font-size:clamp(25px,2.9vw,34px);line-height:1.7;font-weight:600;margin-bottom:18px;}
+  .qsub{font-size:clamp(20px,2.2vw,26px);line-height:1.8;margin-bottom:6px;}
+  .opts{list-style:none;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:8px 20px;}
+  .opts li{font-size:clamp(22px,2.4vw,30px);margin:0;padding:6px 12px;background:var(--soft);border-radius:8px;}
+  @media (max-width:760px){.opts{grid-template-columns:1fr;}}
+  .ans{
+    display:none;margin-top:22px;padding:20px 24px;background:var(--accent-soft);
+    border-radius:12px;font-size:clamp(20px,2.2vw,26px);line-height:1.8;color:#334155;
+  }
+  .ans.show{display:block;animation:fade .25s ease;}
+  .ans .key{color:var(--accent);font-weight:700;}
+  .ans p{font-size:inherit;margin-bottom:10px;}
+  .reveal-hint{font-size:17px;color:var(--muted);margin-top:18px;}
+
+  /* 图示幻灯片 */
+  figure{text-align:center;margin:8px 0;}
+  figcaption{font-size:17px;color:var(--muted);margin-top:10px;}
+  svg{max-width:100%;height:auto;}
+
+  /* ---------- 控制条 ---------- */
+  #bar{
+    position:fixed;left:0;right:0;bottom:0;height:62px;display:flex;align-items:center;
+    justify-content:space-between;padding:0 clamp(18px,4vw,48px);
+    background:rgba(255,255,255,.94);backdrop-filter:blur(8px);
+    border-top:1px solid var(--line);z-index:20;
+  }
+  #bar .grp{display:flex;align-items:center;gap:10px;}
+  .navbtn{
+    font:inherit;font-size:18px;color:#374151;background:#fff;border:1px solid var(--line);
+    border-radius:8px;padding:7px 15px;cursor:pointer;transition:.15s;
+  }
+  .navbtn:hover:not(:disabled){color:var(--accent);border-color:#c7d7fe;background:var(--accent-soft);}
+  .navbtn:disabled{opacity:.35;cursor:default;}
+  .navbtn.icon{width:38px;padding:7px 0;text-align:center;font-size:21px;}
+  #counter{font-size:17px;color:var(--muted);min-width:74px;text-align:center;font-variant-numeric:tabular-nums;}
+  #progress{position:fixed;top:0;left:0;height:3px;background:var(--accent);z-index:30;transition:width .3s ease;}
+  #deckTitle{font-size:17px;color:var(--muted);max-width:46vw;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+
+  /* 帮助层 */
+  #help{
+    display:none;position:fixed;inset:0;background:rgba(17,24,39,.45);z-index:50;
+    align-items:center;justify-content:center;padding:24px;
+  }
+  #help.show{display:flex;}
+  .helpcard{background:#fff;border-radius:16px;padding:34px 40px;max-width:520px;width:100%;box-shadow:0 20px 60px rgba(0,0,0,.15);}
+  .helpcard h3{font-size:28px;margin-bottom:18px;}
+  .helpcard .row{display:flex;justify-content:space-between;gap:20px;padding:9px 0;border-bottom:1px solid var(--line);font-size:19px;}
+  .helpcard .row:last-child{border-bottom:0;}
+  .helpcard .close{margin-top:22px;width:100%;}
+
+  @media print{
+    #bar,#progress,#help{display:none !important;}
+    body{overflow:visible;}
+    .slide{display:flex !important;position:relative;page-break-after:always;height:auto;min-height:100vh;}
+    .ans{display:block !important;}
+  }
+</style>
+</head>
+<body>
+
+<div id="progress"></div>
+<div id="zoomTip" style="position:fixed;top:16px;left:50%;transform:translateX(-50%);z-index:60;background:rgba(17,24,39,.85);color:#fff;padding:8px 22px;border-radius:99px;font-size:18px;opacity:0;transition:opacity .25s;pointer-events:none;"></div>
+
+
+<div id="deck">
+
+  <!-- 1 封面 -->
+  <section class="slide active">
+    <div class="inner cover">
+      <div class="eyebrow">人教版 · 义务教育教科书 · 九年级化学上册 · 第五单元 课题1</div>
+      <h1>质量守恒定律</h1>
+      <div class="rule"></div>
+      <p class="muted" style="font-size:clamp(22px,2.6vw,30px);">严格依据课本内容 · 化学方程式采用课本"文字表达式"格式</p>
+      <div class="hint" style="margin-top:52px;">
+        <span class="kbd">PgDn</span> / <span class="kbd">空格</span> / <span class="kbd">→</span> 下一页　·　<span class="kbd">PgUp</span> / <span class="kbd">←</span> 上一页<br>
+        翻页笔可直接翻页　·　练习页再按一次显示答案　·　按 <span class="kbd">H</span> 查看全部操作
+      </div>
+    </div>
+  </section>
+
+  <!-- 2 情境导入 -->
+  <section class="slide">
+    <div class="inner">
+      <div class="kicker">情境导入 · 课本原文</div>
+      <h2>反应前后，质量之间存在什么关系？</h2>
+      <p>我们已经知道，在化学反应前后，物质的种类发生了变化，如红磷与氧气化合生成五氧化二磷，电解水产生氢气和氧气。在这些变化中，反应物和生成物的质量之间存在什么关系？</p>
+      <p>化学家很早就关注了这个问题，意识到需要在定性研究的基础上，进一步从定量的角度认识化学变化的规律。</p>
+      <div class="callout"><b>拉瓦锡的定量实验：</b>18世纪，拉瓦锡借助天平，将 <b>45.0 份</b>质量的氧化汞加热分解，恰好得到 <b>41.5 份</b>质量的汞和 <b>3.5 份</b>质量的氧气 —— 反应前后各物质的质量总和没有改变。这难道是巧合吗？</div>
+    </div>
+  </section>
+
+  <!-- 3 问题与预测 -->
+  <section class="slide">
+    <div class="inner">
+      <div class="kicker">探究 · 化学反应前后物质的质量关系</div>
+      <h2>【问题】与【预测】</h2>
+      <div class="two">
+        <div class="callout">
+          <b>【问题】</b><br>
+          当物质发生化学反应生成新物质时，参加反应的物质的质量总和与生成物的质量总和有什么关系？
+        </div>
+        <div class="callout">
+          <b>【预测】</b><br>
+          你的预测：________________。
+        </div>
+      </div>
+      <p style="margin-top:22px;">【实验】根据以下实验方案分组进行实验<sup>①</sup>。</p>
+      <p class="muted" style="font-size:18px;">① 也可以选择其他方案，在教师指导下完成实验。</p>
+    </div>
+  </section>
+
+  <!-- 4 方案一 -->
+  <section class="slide">
+    <div class="inner">
+      <div class="kicker">探究 · 方案一（图5-1）</div>
+      <h2>铜与氧气反应前后质量的测定</h2>
+      <p>将铜粉平铺于锥形瓶的底部，把上端系有小气球的玻璃导管插入单孔橡胶塞，用橡胶塞塞紧锥形瓶口。将装置放在天平上称量，记录所称的质量 <i>m</i><sub>1</sub>。再将锥形瓶置于陶土网上，用酒精灯加热，观察实验现象。反应一段时间后停止加热，待装置冷却后再次称量，记录所称的质量 <i>m</i><sub>2</sub>。</p>
+      <div class="chem-eq">
+        <div class="col"><span class="name">铜</span><span class="formula">(Cu)</span></div>
+        <div class="col"><span class="op">+</span><span class="ph"></span></div>
+        <div class="col"><span class="name">氧气</span><span class="formula">(O₂)</span></div>
+        <div class="arrow-col"><span class="cond">加热</span><span class="arrow">＝</span></div>
+        <div class="col"><span class="name">氧化铜</span><span class="formula">(CuO)</span></div>
+      </div>
+      <div class="eq-note">课本"文字表达式"格式：物质名称在上、化学式在下，反应条件写在等号上方。</div>
+    </div>
+  </section>
+
+  <!-- 5 方案二 -->
+  <section class="slide">
+    <div class="inner">
+      <div class="kicker">探究 · 方案二（图5-2）</div>
+      <h2>铁与硫酸铜溶液反应前后质量的测定</h2>
+      <p>在锥形瓶中加入用砂纸打磨干净的铁丝，再小心地放入盛有硫酸铜溶液的小试管，塞好橡胶塞。将装置放在天平上称量，记录所称的质量 <i>m</i><sub>1</sub>。取下锥形瓶并将其倾斜，使小试管中的硫酸铜溶液流入锥形瓶，观察实验现象。反应一段时间后再次称量，记录所称的质量 <i>m</i><sub>2</sub>。</p>
+      <div class="chem-eq">
+        <div class="col"><span class="name">铁</span><span class="formula">(Fe)</span></div>
+        <div class="col"><span class="op">+</span><span class="ph"></span></div>
+        <div class="col"><span class="name">硫酸铜</span><span class="formula">(CuSO₄)</span></div>
+        <div class="arrow-col"><span class="cond"></span><span class="arrow">＝</span></div>
+        <div class="col"><span class="name">铜</span><span class="formula">(Cu)</span></div>
+        <div class="col"><span class="op">+</span><span class="ph"></span></div>
+        <div class="col"><span class="name">硫酸亚铁</span><span class="formula">(FeSO₄)</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6 记录与结论 -->
+  <section class="slide">
+    <div class="inner">
+      <div class="kicker">探究 · 实验记录与分析</div>
+      <h2>实验记录与结论</h2>
+      <table>
+        <tr><th>实验方案</th><th>方案一</th><th>方案二</th></tr>
+        <tr><td>实验现象</td><td></td><td></td></tr>
+        <tr><td>反应前总质量（<i>m</i><sub>1</sub>）</td><td></td><td></td></tr>
+        <tr><td>反应后总质量（<i>m</i><sub>2</sub>）</td><td></td><td></td></tr>
+      </table>
+      <div class="two" style="margin-top:18px;">
+        <div class="callout"><b>【分析与结论】</b><br>（1）请根据实验现象和数据，分析反应前后的总质量分别来源于哪些物质，并结合反应前后总质量的关系和物质的变化情况进行讨论。<br>（2）结论：________。</div>
+        <div class="callout"><b>想一想（课本）</b><br>在方案一的实验装置中，橡胶塞和小气球的作用是什么？如果没有它们，实验可能出现哪些结果？<br><br><b>注意（课本）</b>：用天平称量化学试剂时，干燥的固体试剂应放在纸上或容器中称量，易潮解的试剂应放在容器中称量。</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7 定律 -->
+  <section class="slide">
+    <div class="inner">
+      <div class="kicker">核心结论 · 课本原文</div>
+      <h2>质量守恒定律</h2>
+      <div class="biglaw">
+        <span class="lbl">LAW OF MASS CONSERVATION</span>
+        大量实验证明，参加化学反应的各物质的质量总和，等于反应后生成的各物质的质量总和。这个规律叫作质量守恒定律。
+      </div>
+    </div>
+  </section>
+
+  <!-- 8 实验5-1 -->
+  <section class="slide">
+    <div class="inner">
+      <div class="kicker">课本实验 · 【实验5-1】（图5-3）</div>
+      <h2>盐酸与碳酸钠反应及质量测定</h2>
+      <p>在烧杯中加入碳酸钠，再小心地放入盛有盐酸的小试管，将装置放在天平上，记录所称的质量。取下烧杯并将其倾斜，使小试管中的盐酸流入烧杯，观察现象。反应一段时间后再次称量。比较反应前后的称量结果。</p>
+      <div class="callout"><b>想一想（课本）：</b>做实验5-1和实验5-2之前，你预测反应前后的称量结果是否会有变化？</div>
+    </div>
+  </section>
+
+  <!-- 9 实验5-2 -->
+  <section class="slide">
+    <div class="inner">
+      <div class="kicker">课本实验 · 【实验5-2】（图5-4）<span class="tag">建议教师演示</span></div>
+      <h2>镁条燃烧及质量测定</h2>
+      <p>取一根用砂纸打磨干净的长镁条和一个陶土网，将它们一起放在天平上称量，记录所称的质量。在陶土网上方将镁条点燃，观察现象。将镁条燃烧后所得固体与陶土网一起放在天平上称量，比较反应前后的称量结果。</p>
+      <div class="chem-eq">
+        <div class="col"><span class="name">镁</span><span class="formula">(Mg)</span></div>
+        <div class="col"><span class="op">+</span><span class="ph"></span></div>
+        <div class="col"><span class="name">氧气</span><span class="formula">(O₂)</span></div>
+        <div class="arrow-col"><span class="cond">点燃</span><span class="arrow">＝</span></div>
+        <div class="col"><span class="name">氧化镁</span><span class="formula">(MgO)</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 10 思考与讨论 -->
+  <section class="slide">
+    <div class="inner">
+      <div class="kicker">课本 · 思考与讨论</div>
+      <h2>结果是否与质量守恒定律矛盾？</h2>
+      <ol>
+        <li>实验5-1和实验5-2的称量结果与你实验前的预测是否一致？这样的结果是否与质量守恒定律矛盾？为什么？</li>
+        <li>以氢气在氧气中燃烧生成水（图5-5）为例，分析化学反应前后分子、原子的种类、数目和质量的变化情况，从微观视角说明化学反应为什么遵守质量守恒定律。</li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- 11 微观本质 -->
+  <section class="slide">
+    <div class="inner">
+      <div class="kicker">微观本质 · 课本原文</div>
+      <h2>为什么质量守恒？</h2>
+      <p>在科学家对物质的组成和结构有了更深入的认识后，人们从微观本质上揭示了化学反应前后质量守恒的原因。化学反应的过程，就是参加反应的各物质（反应物）的原子重新组合生成新物质（生成物）的过程。</p>
+      <div class="biglaw" style="font-size:clamp(27px,3.6vw,42px);">
+        化学反应前后，原子的种类和数目不变，原子的质量也没有改变，因此参加反应的各物质的质量总和一定等于生成的各物质的质量总和。
+      </div>
+    </div>
+  </section>
+
+  <!-- 12 氢气燃烧图 -->
+  <section class="slide">
+    <div class="inner">
+      <div class="kicker">图5-5 · 课本</div>
+      <h2>氢气与氧气反应生成水的示意图</h2>
+      <figure>
+        <svg viewBox="0 0 760 190" width="100%" role="img" aria-label="氢气与氧气反应生成水的微观示意图">
+          <g font-family="Arial, sans-serif" text-anchor="middle">
+            <g>
+              <circle cx="40" cy="60" r="17" fill="#f3f4f6" stroke="#9ca3af" stroke-width="1.5"/><text x="40" y="65" font-size="14" fill="#374151">H</text>
+              <circle cx="74" cy="60" r="17" fill="#f3f4f6" stroke="#9ca3af" stroke-width="1.5"/><text x="74" y="65" font-size="14" fill="#374151">H</text>
+              <circle cx="40" cy="105" r="17" fill="#f3f4f6" stroke="#9ca3af" stroke-width="1.5"/><text x="40" y="110" font-size="14" fill="#374151">H</text>
+              <circle cx="74" cy="105" r="17" fill="#f3f4f6" stroke="#9ca3af" stroke-width="1.5"/><text x="74" y="110" font-size="14" fill="#374151">H</text>
+              <text x="57" y="155" font-size="13" fill="#1f2933">氢气</text>
+              <text x="57" y="175" font-size="12" fill="#6b7280">(H₂)</text>
+            </g>
+            <text x="130" y="88" font-size="24" fill="#9ca3af">+</text>
+            <g>
+              <circle cx="205" cy="82" r="21" fill="#e05a47" stroke="#c2410c" stroke-width="1.5"/><text x="205" y="87" font-size="15" fill="#fff">O</text>
+              <circle cx="247" cy="82" r="21" fill="#e05a47" stroke="#c2410c" stroke-width="1.5"/><text x="247" y="87" font-size="15" fill="#fff">O</text>
+              <text x="226" y="155" font-size="13" fill="#1f2933">氧气</text>
+              <text x="226" y="175" font-size="12" fill="#6b7280">(O₂)</text>
+            </g>
+            <line x1="300" y1="85" x2="390" y2="85" stroke="#2563eb" stroke-width="2"/>
+            <path d="M390 85 l-10 -6 l0 12 z" fill="#2563eb"/>
+            <g>
+              <circle cx="470" cy="60" r="21" fill="#e05a47" stroke="#c2410c" stroke-width="1.5"/><text x="470" y="65" font-size="15" fill="#fff">O</text>
+              <circle cx="440" cy="45" r="17" fill="#f3f4f6" stroke="#9ca3af" stroke-width="1.5"/><text x="440" y="50" font-size="14" fill="#374151">H</text>
+              <circle cx="440" cy="80" r="17" fill="#f3f4f6" stroke="#9ca3af" stroke-width="1.5"/><text x="440" y="85" font-size="14" fill="#374151">H</text>
+              <circle cx="580" cy="105" r="21" fill="#e05a47" stroke="#c2410c" stroke-width="1.5"/><text x="580" y="110" font-size="15" fill="#fff">O</text>
+              <circle cx="610" cy="90" r="17" fill="#f3f4f6" stroke="#9ca3af" stroke-width="1.5"/><text x="610" y="95" font-size="14" fill="#374151">H</text>
+              <circle cx="610" cy="125" r="17" fill="#f3f4f6" stroke="#9ca3af" stroke-width="1.5"/><text x="610" y="130" font-size="14" fill="#374151">H</text>
+              <text x="525" y="155" font-size="13" fill="#1f2933">水</text>
+              <text x="525" y="175" font-size="12" fill="#6b7280">(H₂O)</text>
+            </g>
+          </g>
+        </svg>
+        <figcaption>反应前后：氢原子 4 个、氧原子 2 个，原子的种类、数目、质量均未改变，只是重新组合。</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- 13 科学史话 -->
+  <section class="slide">
+    <div class="inner">
+      <div class="kicker">科学史话 · 课本原文</div>
+      <h2>质量守恒定律的发现</h2>
+      <p>质量守恒定律又称<b>物质不灭定律</b>，是自然科学的基本规律之一。古代哲学家提出了蕴含着质量守恒思想的朴素观点，但缺乏实验证据。</p>
+      <p>随着工业的发展和天平在实验中的广泛应用，人们对物质的研究从简单定性发展到较精密的定量阶段。17世纪，波义耳和罗蒙诺索夫进行加热金属的实验，并给出不同的解释。18世纪70年代，拉瓦锡建立了关于燃烧的正确化学理论，在定量实验的基础上证明：化学反应中参与反应的物质与反应产物间质量保持恒定。</p>
+      <p>20世纪初，化学家进行了精确度很高的实验，使质量守恒定律确立在严谨的科学实验的基础上。</p>
+    </div>
+  </section>
+
+  <!-- 14 小结 -->
+  <section class="slide">
+    <div class="inner">
+      <div class="kicker">课本 · 学完本课题你知道了什么</div>
+      <h2>本课题小结</h2>
+      <ol>
+        <li>质量守恒定律是指参加化学反应的各物质的质量总和，等于反应后生成的各物质的质量总和。</li>
+        <li>化学反应的过程，就是参加反应的各物质（反应物）的原子重新组合生成新物质（生成物）的过程。化学反应前后，原子的种类、数目和质量不变，因此化学反应前后各物质的质量总和必然相等。</li>
+      </ol>
+      <div class="callout" style="margin-top:22px;"><b>记忆要点：</b>六个"一定不变"——原子种类、原子数目、原子质量、元素种类、物质总质量（反应在密闭体系中）；一个"一定改变"——物质（分子）种类。</div>
+    </div>
+  </section>
+
+  <!-- 15 练习1 -->
+  <section class="slide quiz-slide">
+    <div class="inner">
+      <span class="qno">课本练习 1 / 6</span>
+      <div class="qtext">化学反应前后一定不变的是（　）。</div>
+      <p class="qsub">①原子数目　②分子数目　③元素种类　④物质种类　⑤原子种类　⑥物质的总质量</p>
+      <ul class="opts"><li>A. ①②⑥</li><li>B. ①④⑥</li><li>C. ②③⑤</li><li>D. ①③⑤⑥</li></ul>
+      <div class="ans"><p><span class="key">答案：D</span>　化学反应前后，原子的种类、数目、质量不变，元素种类和物质总质量也不变；分子种类、物质种类一定改变，分子数目可能改变。</p></div>
+      <div class="reveal-hint">按翻页键 / 空格 显示答案，再按一次继续下一题</div>
+    </div>
+  </section>
+
+  <!-- 16 练习2 -->
+  <section class="slide quiz-slide">
+    <div class="inner">
+      <span class="qno">课本练习 2 / 6</span>
+      <div class="qtext">植物的光合作用可表示为：二氧化碳 + 水 ＝(光、叶绿体) 淀粉 + 氧气。关于淀粉组成的推测，正确的是（　）。</div>
+      <ul class="opts"><li>A. 只含碳、氢元素</li><li>B. 含有碳、氧、氢三种元素</li><li>C. 含有碳、氢元素，可能含有氧元素</li><li>D. 无法确定是否含有碳、氢元素</li></ul>
+      <div class="ans"><p><span class="key">答案：C</span>　反应物中有二氧化碳（含碳、氧）和水（含氢、氧），生成物有氧气。由反应前后元素种类不变可推知淀粉一定含碳、氢元素；但生成物氧气中已含氧，无法确定淀粉中是否含氧，故"可能含有氧元素"。</p></div>
+      <div class="reveal-hint">按翻页键 / 空格 显示答案，再按一次继续下一题</div>
+    </div>
+  </section>
+
+  <!-- 17 练习3 -->
+  <section class="slide quiz-slide">
+    <div class="inner">
+      <span class="qno">课本练习 3 / 6</span>
+      <div class="qtext">10 g A 与足量 B 充分反应，生成 8 g C 和 4 g D，则参加反应的 A 与 B 的质量比是（　）。</div>
+      <ul class="opts"><li>A. 1∶1</li><li>B. 2∶1</li><li>C. 4∶1</li><li>D. 5∶1</li></ul>
+      <div class="ans"><p><span class="key">答案：D</span>　生成物总质量 = 8 g + 4 g = 12 g；由质量守恒定律，参加反应的 B 的质量 = 12 g − 10 g = 2 g。故 A∶B = 10∶2 = 5∶1。</p></div>
+      <div class="reveal-hint">按翻页键 / 空格 显示答案，再按一次继续下一题</div>
+    </div>
+  </section>
+
+  <!-- 18 练习4 -->
+  <section class="slide quiz-slide">
+    <div class="inner">
+      <span class="qno">课本练习 4 / 6</span>
+      <div class="qtext">以下示意图中，哪一幅较准确地描述了电解水的反应？请说明原因。<span class="tag">课本为图示题</span></div>
+      <p class="qsub">水 ＝(通电) 氢气 + 氧气　(H₂O)　(H₂)　(O₂)</p>
+      <div class="ans">
+        <p><span class="key">判断要点</span>：正确的示意图应满足——</p>
+        <p>① 水分子分解为氢原子和氧原子，原子重新组合成氢分子和氧分子；<br>② 反应前后氢原子、氧原子的种类与数目不变（2H₂O ＝ 2H₂ + O₂），氢分子与氧分子的个数比为 2∶1；<br>③ 分子的种类发生了改变，原子的种类没有改变。</p>
+      </div>
+      <div class="reveal-hint">按翻页键 / 空格 显示答案，再按一次继续下一题</div>
+    </div>
+  </section>
+
+  <!-- 19 练习5 -->
+  <section class="slide quiz-slide">
+    <div class="inner">
+      <span class="qno">课本练习 5 / 6</span>
+      <div class="qtext">根据质量守恒定律解释下列现象。</div>
+      <p class="qsub">（1）铜粉在空气中加热后，生成物的质量比铜粉的质量大。<br>（2）高锰酸钾受热分解后，剩余固体的质量比高锰酸钾的质量小。<br>（3）纸在空气中燃烧后化为灰烬，灰烬的质量比纸的质量小。</p>
+      <div class="ans">
+        <p>（1）铜与空气中的氧气反应生成氧化铜，氧化铜的质量 = 参加反应的铜 + 参加反应的氧气，故比铜粉大。</p>
+        <p>（2）高锰酸钾受热分解生成锰酸钾、二氧化锰和氧气，氧气逸散，剩余固体质量 = 高锰酸钾质量 − 逸出氧气质量，故比原固体小。</p>
+        <p>（3）纸燃烧生成二氧化碳和水蒸气等逸散到空气中，灰烬只是少量未燃残渣，质量小于原纸。三者均遵守质量守恒定律——把参加反应和生成的气体全部计入，总质量仍相等。</p>
+      </div>
+      <div class="reveal-hint">按翻页键 / 空格 显示答案，再按一次继续下一题</div>
+    </div>
+  </section>
+
+  <!-- 20 练习6 -->
+  <section class="slide quiz-slide">
+    <div class="inner">
+      <span class="qno">课本练习 6 / 6</span>
+      <div class="qtext">判断下列说法是否正确，并改正错误的说法。</div>
+      <p class="qsub">（1）蜡烛燃烧后质量减小，说明质量守恒定律不是普遍规律。<br>（2）蜡烛燃烧后减小的质量等于生成的水和二氧化碳的质量之和。<br>（3）细铁丝在氧气中燃烧后，生成物的质量比细铁丝的质量大，因此这个反应不遵守质量守恒定律。<br>（4）一定质量的氢气和氧气混合后质量不变，能够用来验证质量守恒定律。</p>
+      <div class="ans">
+        <p>（1）<span class="key">错误</span>。生成的二氧化碳和水蒸气逸散到空气中，若全部收集称量，反应前后总质量相等。</p>
+        <p>（2）<span class="key">错误</span>。减小的质量是参加反应的石蜡质量；生成的水和二氧化碳还包含参加反应的氧气的质量。应为：石蜡质量 + 氧气质量 = 水和二氧化碳的质量之和。</p>
+        <p>（3）<span class="key">错误</span>。铁与氧气反应生成四氧化三铁，生成物质量 = 铁 + 参加反应的氧气，恰好说明遵守质量守恒定律。</p>
+        <p>（4）<span class="key">错误</span>。氢气和氧气只是混合，没有发生化学反应，不能用来验证质量守恒定律。</p>
+      </div>
+      <div class="reveal-hint">按翻页键 / 空格 显示答案，再按一次继续下一题</div>
+    </div>
+  </section>
+
+  <!-- 21 强化1 -->
+  <section class="slide quiz-slide">
+    <div class="inner">
+      <span class="qno">强化练习 1 / 6</span>
+      <div class="qtext">实验5-1 中，反应后称得的质量减小。减小的质量从哪里来？若在密闭容器中进行，称量结果会怎样？</div>
+      <div class="ans"><p>装置为敞口烧杯，碳酸钠与盐酸反应生成的二氧化碳气体逸散到空气中，使称得的质量减小；减小的质量即逸出二氧化碳的质量。若在密闭容器中，气体不能逸出，反应前后总质量相等，天平保持平衡。这说明质量守恒定律成立，只是称量时要把所有反应物和生成物都计入。</p></div>
+      <div class="reveal-hint">按翻页键 / 空格 显示答案，再按一次继续下一题</div>
+    </div>
+  </section>
+
+  <!-- 22 强化2 -->
+  <section class="slide quiz-slide">
+    <div class="inner">
+      <span class="qno">强化练习 2 / 6</span>
+      <div class="qtext">实验5-2 中，镁条燃烧后称得的质量可能增大，也可能偏小。请分别说明原因。</div>
+      <div class="ans"><p><b>增大</b>：空气中的氧气参加反应，生成氧化镁，增加的质量等于参加反应的氧气的质量。<br><b>偏小</b>：燃烧时产生的白烟（氧化镁固体小颗粒）有一部分逸散到空气中，未被称量。<br>若在密闭容器中并收集全部生成物，反应前后总质量必然相等。</p></div>
+      <div class="reveal-hint">按翻页键 / 空格 显示答案，再按一次继续下一题</div>
+    </div>
+  </section>
+
+  <!-- 23 强化3 -->
+  <section class="slide quiz-slide">
+    <div class="inner">
+      <span class="qno">强化练习 3 / 6</span>
+      <div class="qtext">在密闭容器中，将 <i>a</i> g 镁条完全燃烧，生成 <i>b</i> g 氧化镁（镁 + 氧气 ＝(点燃) 氧化镁）。参加反应的氧气质量为（　）。</div>
+      <ul class="opts"><li>A. (b − a) g</li><li>B. (a + b) g</li><li>C. a g</li><li>D. b g</li></ul>
+      <div class="ans"><p><span class="key">答案：A</span>　由质量守恒定律：参加反应的镁的质量 + 参加反应的氧气的质量 = 生成的氧化镁的质量，即 <i>a</i> + <i>m</i>(氧气) = <i>b</i>，故 <i>m</i>(氧气) = (<i>b</i> − <i>a</i>) g。</p></div>
+      <div class="reveal-hint">按翻页键 / 空格 显示答案，再按一次继续下一题</div>
+    </div>
+  </section>
+
+  <!-- 24 强化4 -->
+  <section class="slide quiz-slide">
+    <div class="inner">
+      <span class="qno">强化练习 4 / 6</span>
+      <div class="qtext">判断正误：将 10 g 铜粉在空气中加热，充分反应后得到固体的质量大于 10 g，因此该反应不遵守质量守恒定律。（　）</div>
+      <div class="ans"><p><span class="key">错误</span>。铜与空气中的氧气反应生成氧化铜，固体质量增加是因为氧气参加反应并进入固体生成物。若把参加反应的氧气一并计入反应物，反应前后总质量相等，该反应遵守质量守恒定律。</p></div>
+      <div class="reveal-hint">按翻页键 / 空格 显示答案，再按一次继续下一题</div>
+    </div>
+  </section>
+
+  <!-- 25 强化5 -->
+  <section class="slide quiz-slide">
+    <div class="inner">
+      <span class="qno">强化练习 5 / 6</span>
+      <div class="qtext">填空：化学反应前后，一定不变的是________、________、________（原子层面）以及________、________（宏观层面）；一定改变的是________的种类；可能改变的是________的数目。</div>
+      <div class="ans"><p>原子层面一定不变：原子的<b>种类</b>、<b>数目</b>、<b>质量</b>；宏观层面一定不变：<b>元素种类</b>、<b>物质的总质量</b>；一定改变：<b>物质（分子）的种类</b>；可能改变：<b>分子</b>的数目。</p></div>
+      <div class="reveal-hint">按翻页键 / 空格 显示答案，再按一次继续下一题</div>
+    </div>
+  </section>
+
+  <!-- 26 强化6 -->
+  <section class="slide quiz-slide">
+    <div class="inner">
+      <span class="qno">强化练习 6 / 6</span>
+      <div class="qtext">氢气在氧气中燃烧生成水（图5-5）。若 4 个氢分子和 2 个氧分子恰好完全反应，将生成几个水分子？反应前后氢原子、氧原子各有多少个？</div>
+      <div class="ans"><p>生成 <b>4 个</b>水分子。反应前 4 个 H₂ 含 8 个氢原子，2 个 O₂ 含 4 个氧原子；反应后 4 个 H₂O 同样含 8 个氢原子和 4 个氧原子。原子的种类和数目均未改变，只是重新组合，故质量守恒。</p></div>
+      <div class="reveal-hint">按翻页键 / 空格 显示答案，再按一次继续下一题</div>
+    </div>
+  </section>
+
+  <!-- 27 结束 -->
+  <section class="slide">
+    <div class="inner cover">
+      <div class="rule" style="margin-bottom:34px;"></div>
+      <h1 style="font-size:clamp(44px,6.5vw,74px);">质量守恒 · 原子不变</h1>
+      <p class="muted" style="font-size:clamp(23px,2.9vw,32px);">参加反应的各物质质量总和 = 生成的各物质质量总和</p>
+      <div class="hint" style="margin-top:44px;">内容来源：人教版九年级化学上册 第五单元 课题1<br>按 <span class="kbd">Home</span> 回到第一页</div>
+    </div>
+  </section>
+
+</div>
+
+<!-- 控制条 -->
+<div id="bar">
+  <div class="grp">
+    <button class="navbtn" id="prevBtn">← 上一页</button>
+    <button class="navbtn" id="nextBtn">下一页 →</button>
+    <span id="counter">1 / 27</span>
+  </div>
+  <div class="grp">
+    <span id="deckTitle">质量守恒定律</span>
+    <button class="navbtn" id="fullBtn" title="全屏放映">⛶ 全屏</button>
+    <button class="navbtn" id="helpBtn" title="操作说明">? 操作</button>
+  </div>
+</div>
+
+<!-- 帮助 -->
+<div id="help">
+  <div class="helpcard">
+    <h3>翻页操作说明</h3>
+    <div class="row"><span>下一页</span><span><span class="kbd">PgDn</span> <span class="kbd">空格</span> <span class="kbd">→</span> <span class="kbd">↓</span></span></div>
+    <div class="row"><span>上一页</span><span><span class="kbd">PgUp</span> <span class="kbd">←</span> <span class="kbd">↑</span></span></div>
+    <div class="row"><span>首页 / 末页</span><span><span class="kbd">Home</span> / <span class="kbd">End</span></span></div>
+    <div class="row"><span>练习页显示答案</span><span>在题目页再按一次"下一页"</span></div>
+    <div class="row"><span>直接跳页</span><span>输入页码后按 <span class="kbd">Enter</span></span></div>
+    <div class="row"><span>触屏</span><span>左右滑动翻页</span></div>
+    <div class="row"><span>字号放大 / 缩小</span><span><span class="kbd">]</span> 放大 · <span class="kbd">[</span> 缩小 · <span class="kbd">0</span> 恢复默认</span></div>
+  <div class="row"><span>全屏放映</span><span><span class="kbd">F</span> 或点击"全屏"</span></div>
+    <button class="navbtn close" id="closeHelp">知道了</button>
+  </div>
+</div>
+
+<script>
+(function(){
+  const slides = Array.from(document.querySelectorAll('.slide'));
+  // —— 字号缩放：只缩放 .inner 内容，控制条固定；自动记忆 ——
+  const ZKEY='__deck_zoom__';
+  function zoom(){const z=parseFloat(localStorage.getItem(ZKEY));return (isNaN(z)||z<0.7||z>2.2)?1:z;}
+  function applyInitZoom(){document.querySelectorAll('.inner').forEach(el=>el.style.zoom=zoom());}
+  function setZoom(z){
+    z=Math.max(0.7,Math.min(2.2,Math.round(z*10)/10));
+    localStorage.setItem(ZKEY,String(z));
+    document.querySelectorAll('.inner').forEach(el=>el.style.zoom=z);
+    const t=document.getElementById('zoomTip');
+    if(t){t.textContent='字号 '+Math.round(z*100)+'%';t.style.opacity=1;clearTimeout(t._tm);t._tm=setTimeout(()=>t.style.opacity=0,1000);}
+  }
+  document.addEventListener('keydown',function(e){
+    if(e.ctrlKey||e.altKey||e.metaKey)return;
+    if(e.key===']'||e.key==='】'){e.preventDefault();setZoom(zoom()+0.1);}
+    else if(e.key==='['||e.key==='【'){e.preventDefault();setZoom(zoom()-0.1);}
+    else if(e.key==='0'){e.preventDefault();setZoom(1);}
+  });
+  let cur = 0;
+  let jumpBuf = '';
+  let jumpTimer = null;
+
+  const counter = document.getElementById('counter');
+  const progress = document.getElementById('progress');
+  const prevBtn = document.getElementById('prevBtn');
+  const nextBtn = document.getElementById('nextBtn');
+  const help = document.getElementById('help');
+
+  function render(){
+    slides.forEach((s,i)=>s.classList.toggle('active', i===cur));
+    counter.textContent = (cur+1) + ' / ' + slides.length;
+    progress.style.width = ((cur+1)/slides.length*100) + '%';
+    prevBtn.disabled = cur===0;
+    nextBtn.disabled = cur===slides.length-1;
+    slides[cur].scrollTop = 0;
+  }
+
+  function isQuiz(i){ return slides[i].classList.contains('quiz-slide'); }
+  function answerShown(i){ const a=slides[i].querySelector('.ans'); return a && a.classList.contains('show'); }
+
+  function next(){
+    if(cur >= slides.length-1) return;
+    if(isQuiz(cur) && !answerShown(cur)){
+      const a = slides[cur].querySelector('.ans');
+      if(a){ a.classList.add('show');
+        const h=slides[cur].querySelector('.reveal-hint'); if(h) h.textContent='答案已显示 · 再按一次进入下一题';
+        return; }
+    }
+    cur++; render();
+  }
+
+  function prev(){
+    if(isQuiz(cur) && answerShown(cur)){
+      const a=slides[cur].querySelector('.ans'); a.classList.remove('show');
+      const h=slides[cur].querySelector('.reveal-hint'); if(h) h.textContent='按翻页键 / 空格 显示答案，再按一次继续下一题';
+      return;
+    }
+    if(cur>0){ cur--; render(); }
+  }
+
+  function go(n){ if(n>=0 && n<slides.length){ cur=n; render(); } }
+
+  prevBtn.addEventListener('click', prev);
+  nextBtn.addEventListener('click', next);
+
+  document.addEventListener('keydown', function(e){
+    if(help.classList.contains('show')){
+      if(e.key==='Escape' || e.key==='h' || e.key==='H'){ help.classList.remove('show'); e.preventDefault(); }
+      return;
+    }
+    const k = e.key;
+    if(k==='PageDown' || k===' ' || k==='Spacebar' || k==='ArrowRight' || k==='ArrowDown' || k==='Enter'){
+      e.preventDefault(); jumpBuf=''; next(); return;
+    }
+    if(k==='PageUp' || k==='ArrowLeft' || k==='ArrowUp' || k==='Backspace'){
+      e.preventDefault(); jumpBuf=''; prev(); return;
+    }
+    if(k==='Home'){ e.preventDefault(); go(0); return; }
+    if(k==='End'){ e.preventDefault(); go(slides.length-1); return; }
+    if(k==='h' || k==='H' || k==='?'){ e.preventDefault(); help.classList.add('show'); return; }
+    if(k==='f' || k==='F'){ e.preventDefault(); toggleFull(); return; }
+    if(/^[1-9]$/.test(k)){
+      clearTimeout(jumpTimer);
+      jumpBuf += k;
+      jumpTimer = setTimeout(()=>{ jumpBuf=''; }, 1200);
+      e.preventDefault();
+    }
+  });
+
+  // 数字跳页：连续输入数字后按 Enter（Enter 已用于下一页，这里在输入缓冲非空时优先跳页）
+  document.addEventListener('keyup', function(e){
+    if(e.key==='Enter' && jumpBuf){
+      const n = parseInt(jumpBuf,10);
+      if(n>=1 && n<=slides.length) go(n-1);
+      jumpBuf=''; clearTimeout(jumpTimer);
+    }
+  });
+
+  // 触屏滑动
+  let tx=0, ty=0;
+  document.addEventListener('touchstart', e=>{ tx=e.changedTouches[0].clientX; ty=e.changedTouches[0].clientY; }, {passive:true});
+  document.addEventListener('touchend', e=>{
+    const dx=e.changedTouches[0].clientX-tx, dy=e.changedTouches[0].clientY-ty;
+    if(Math.abs(dx)>60 && Math.abs(dx)>Math.abs(dy)){ dx<0 ? next() : prev(); }
+  }, {passive:true});
+
+  function toggleFull(){
+    if(!document.fullscreenElement){ document.documentElement.requestFullscreen && document.documentElement.requestFullscreen(); }
+    else { document.exitFullscreen && document.exitFullscreen(); }
+  }
+  document.getElementById('fullBtn').addEventListener('click', toggleFull);
+  document.getElementById('helpBtn').addEventListener('click', ()=>help.classList.add('show'));
+  document.getElementById('closeHelp').addEventListener('click', ()=>help.classList.remove('show'));
+  help.addEventListener('click', e=>{ if(e.target===help) help.classList.remove('show'); });
+  render(); applyInitZoom();
+})();
+
+</script>
+</body>
+</html>

@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>课题2 化学与可持续发展 · 翻页课件</title>
+<style>
+  :root{--ink:#1a2230;--muted:#6b7280;--line:#e5e7eb;--soft:#f6f8fb;--accent:#0f766e;--accent-soft:#ecfdf5;--max:1000px;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html,body{height:100%;}
+  body{background:#fff;color:var(--ink);overflow:hidden;font-family:"PingFang SC","Microsoft YaHei","Hiragino Sans GB","Source Han Sans SC",sans-serif;-webkit-font-smoothing:antialiased;}
+  #deck{position:relative;width:100vw;height:100vh;}
+  .slide{position:absolute;inset:0;display:none;padding:clamp(28px,5vh,60px) clamp(26px,6vw,88px) 94px;overflow-y:auto;}
+  .slide.active{display:flex;animation:fade .32s ease;}
+  @keyframes fade{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:none;}}
+  .inner{width:100%;max-width:var(--max);margin:auto;}
+  .kicker{font-size:17px;letter-spacing:.12em;color:var(--accent);font-weight:700;margin-bottom:16px;}
+  h1{font-size:clamp(48px,7vw,82px);line-height:1.15;letter-spacing:-.02em;margin-bottom:16px;}
+  h2{font-size:clamp(34px,4.6vw,56px);line-height:1.3;letter-spacing:-.01em;margin-bottom:24px;}
+  h3{font-size:clamp(24px,2.8vw,30px);margin:20px 0 9px;}
+  p{font-size:clamp(22px,2.4vw,30px);line-height:1.8;margin-bottom:13px;}
+  b,strong{font-weight:700;}
+  .muted{color:var(--muted);}
+  .tag{display:inline-block;font-size:15px;color:var(--muted);border:1px solid var(--line);border-radius:99px;padding:2px 11px;margin-left:10px;vertical-align:middle;font-weight:400;}
+  .cover{text-align:center;}
+  .cover .eyebrow{font-size:18px;color:var(--muted);letter-spacing:.14em;margin-bottom:24px;}
+  .cover .rule{width:60px;height:4px;background:var(--accent);border-radius:2px;margin:0 auto 32px;}
+  .cover .hint{font-size:18px;color:var(--muted);line-height:2;}
+  .kbd{display:inline-block;border:1px solid var(--line);border-bottom-width:2px;border-radius:5px;padding:1px 7px;margin:0 2px;font-size:15px;color:#374151;background:var(--soft);}
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:20px;}
+  @media(max-width:760px){.two{grid-template-columns:1fr;}}
+  .callout{background:var(--soft);border-radius:12px;padding:18px 24px;font-size:clamp(20px,2.2vw,26px);line-height:1.75;color:#4b5563;}
+  .callout b{color:var(--ink);}
+  .biglaw{background:var(--accent-soft);border-left:5px solid var(--accent);border-radius:0 14px 14px 0;padding:clamp(22px,3.4vw,38px);font-size:clamp(28px,3.8vw,44px);font-weight:700;line-height:1.65;}
+  .biglaw .lbl{display:block;font-size:15px;letter-spacing:.16em;color:var(--accent);margin-bottom:14px;}
+  .eq{display:inline-flex;flex-wrap:wrap;align-items:flex-start;background:var(--soft);border:1px dashed #cbd5e1;border-radius:12px;padding:34px 24px 14px;margin:8px 0;}
+  .eq .col{display:flex;flex-direction:column;align-items:center;min-width:26px;}
+  .eq .f{font-size:clamp(25px,2.9vw,34px);line-height:1.5;height:30px;white-space:nowrap;font-family:"Times New Roman",Times,serif;}
+  .eq .op{font-size:clamp(23px,2.7vw,30px);line-height:1.5;height:30px;color:#9ca3af;padding:0 8px;white-space:nowrap;}
+  .eq .mark{display:flex;align-items:center;justify-content:center;height:30px;padding:0 10px;position:relative;}
+  .eq .cond{position:absolute;top:-20px;font-size:17px;color:var(--muted);line-height:1.5;white-space:nowrap;}
+  .eq .arr{font-size:32px;line-height:1;color:var(--accent);white-space:nowrap;}
+  .eq .eqsign{font-size:28px;line-height:1;color:var(--accent);white-space:nowrap;}
+  .eq .mr{font-size:clamp(18px,1.9vw,22px);line-height:1.4;height:22px;color:#6b7280;white-space:nowrap;font-family:"Times New Roman",Times,serif;}
+  .eq .mrph{height:22px;}
+  .eqnote{font-size:17px;color:var(--muted);margin-top:8px;line-height:1.7;}
+  .cols3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
+  @media(max-width:760px){.cols3{grid-template-columns:1fr;}}
+  .cols3 .box{border:1px solid var(--line);border-radius:12px;padding:20px;}
+  .cols3 .box .t{font-size:17px;color:var(--accent);font-weight:700;margin-bottom:10px;}
+  .cols3 .box p{font-size:clamp(19px,2vw,24px);}
+  ol,ul{padding-left:26px;}
+  li{font-size:clamp(22px,2.4vw,30px);line-height:1.8;margin-bottom:10px;}
+  .qno{display:inline-block;background:var(--accent);color:#fff;font-size:17px;font-weight:700;border-radius:7px;padding:3px 10px;margin-bottom:16px;}
+  .qtext{font-size:clamp(25px,2.9vw,34px);line-height:1.7;font-weight:600;margin-bottom:17px;}
+  .qsub{font-size:clamp(20px,2.2vw,26px);line-height:1.8;margin-bottom:6px;}
+  .opts{list-style:none;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:8px 20px;}
+  .opts li{font-size:clamp(22px,2.4vw,30px);margin:0;padding:6px 12px;background:var(--soft);border-radius:8px;}
+  @media(max-width:760px){.opts{grid-template-columns:1fr;}}
+  .ans{display:none;margin-top:20px;padding:18px 24px;background:var(--accent-soft);border-radius:12px;font-size:clamp(20px,2.2vw,26px);line-height:1.8;color:#334155;}
+  .ans.show{display:block;animation:fade .25s ease;}
+  .ans .key{color:var(--accent);font-weight:700;}
+  .ans p{font-size:inherit;margin-bottom:9px;}
+  .reveal-hint{font-size:17px;color:var(--muted);margin-top:16px;}
+  /* 增强组件 */
+  .card{background:var(--soft);border:1px solid var(--line);border-radius:14px;padding:22px 26px;margin:12px 0;}
+  .card .ct{font-size:20px;color:var(--accent);font-weight:700;margin-bottom:12px;}
+  .card p{font-size:clamp(21px,2.2vw,27px);}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:12px 0;}
+  @media(max-width:760px){.grid2{grid-template-columns:1fr;}}
+  .grid2 .card{margin:0;}
+  table{border-collapse:collapse;width:100%;font-size:clamp(19px,2vw,25px);margin:14px 0;}
+  th,td{border:1px solid var(--line);padding:10px 14px;text-align:left;line-height:1.6;}
+  th{background:var(--accent-soft);color:var(--accent);font-weight:700;}
+  .def{border-left:4px solid var(--accent);background:var(--accent-soft);border-radius:0 12px 12px 0;padding:18px 24px;margin:14px 0;font-size:clamp(22px,2.4vw,29px);line-height:1.75;}
+  .def .dt{color:var(--accent);font-weight:700;}
+  .exp{background:#fffbeb;border:1px solid #fde68a;border-radius:14px;padding:20px 26px;margin:14px 0;}
+  .exp .et{font-size:19px;color:#b45309;font-weight:700;margin-bottom:10px;}
+  .exp p,.exp li{font-size:clamp(20px,2.1vw,26px);}
+  .flow{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin:16px 0;font-size:clamp(21px,2.3vw,28px);}
+  .flow .node{background:var(--accent-soft);border:1px solid #99f6e4;border-radius:10px;padding:10px 18px;font-weight:600;}
+  .flow .arw{color:var(--accent);font-size:26px;}
+  .chem{font-family:"Times New Roman",Times,serif;}
+  .note{font-size:clamp(19px,2vw,24px);color:var(--muted);line-height:1.75;margin-top:12px;}
+  #bar{position:fixed;left:0;right:0;bottom:0;height:62px;display:flex;align-items:center;justify-content:space-between;padding:0 clamp(18px,4vw,48px);background:rgba(255,255,255,.94);backdrop-filter:blur(8px);border-top:1px solid var(--line);z-index:20;}
+  #bar .grp{display:flex;align-items:center;gap:10px;}
+  .navbtn{font:inherit;font-size:18px;color:#374151;background:#fff;border:1px solid var(--line);border-radius:8px;padding:7px 15px;cursor:pointer;transition:.15s;}
+  .navbtn:hover:not(:disabled){color:var(--accent);border-color:#99f6e4;background:var(--accent-soft);}
+  .navbtn:disabled{opacity:.35;cursor:default;}
+  #counter{font-size:17px;color:var(--muted);min-width:74px;text-align:center;font-variant-numeric:tabular-nums;}
+  #progress{position:fixed;top:0;left:0;height:3px;background:var(--accent);z-index:30;transition:width .3s ease;}
+  #deckTitle{font-size:17px;color:var(--muted);max-width:44vw;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+  #help{display:none;position:fixed;inset:0;background:rgba(17,24,39,.45);z-index:50;align-items:center;justify-content:center;padding:24px;}
+  #help.show{display:flex;}
+  .helpcard{background:#fff;border-radius:16px;padding:32px 38px;max-width:520px;width:100%;box-shadow:0 20px 60px rgba(0,0,0,.15);}
+  .helpcard h3{font-size:28px;margin-bottom:16px;}
+  .helpcard .row{display:flex;justify-content:space-between;gap:20px;padding:9px 0;border-bottom:1px solid var(--line);font-size:19px;}
+  .helpcard .row:last-of-type{border-bottom:0;}
+  .helpcard .close{margin-top:20px;width:100%;}
+  @media print{#bar,#progress,#help,#zoomTip{display:none!important;}body{overflow:visible;}.slide{display:flex!important;position:relative;page-break-after:always;height:auto;min-height:100vh;}.ans{display:block!important;}}
+</style>
+</head>
+<body>
+<div id="progress"></div>
+<div id="zoomTip" style="position:fixed;top:16px;left:50%;transform:translateX(-50%);z-index:60;background:rgba(17,24,39,.85);color:#fff;padding:8px 22px;border-radius:99px;font-size:18px;opacity:0;transition:opacity .25s;pointer-events:none;"></div>
+<div id="deck">
+
+<section class="slide active"><div class="inner cover">
+  <div class="eyebrow">人教版九年级化学下册 · 第十一单元 课题2</div>
+  <h1>化学与可持续发展</h1>
+  <div class="rule"></div>
+  <p class="muted" style="font-size:clamp(22px,2.6vw,30px);">能源利用 · 材料开发 · 资源循环 —— 用物质转化守护绿水青山</p>
+  <div class="hint" style="margin-top:48px;">
+    <span class="kbd">PgDn</span>/<span class="kbd">空格</span>/<span class="kbd">→</span> 下一页　·　<span class="kbd">PgUp</span>/<span class="kbd">←</span> 上一页<br>翻页笔可直接翻页　·　练习页再按一次显示答案　·　按 <span class="kbd">H</span> 查看操作
+  </div>
+</div></section>
+
+<section class="slide"><div class="inner">
+
+<div class='kicker'>引入 · 自然资源与化学 · 教材 p103</div>
+<h2>可持续发展，化学能做什么？</h2>
+<p>为了实现人类社会的可持续发展，我们需要在保持良好生态环境的前提下，<b>合理地开发和利用自然资源</b>。</p>
+<div class='callout'>思考与讨论：从物质的组成及转化视角，举例说明空气、水、化石燃料和金属矿物等自然资源的利用方式。天然物质在数量和性能上难以满足社会需要，化学通过反应得到一系列<b>新的材料和能源</b>，为可持续发展提供物质保障和前进动力。</div>
+<div class='flow'><span class='node'>自然资源</span><span class='arw'>—化学转化→</span><span class='node'>新材料 / 新能源</span><span class='arw'>—</span><span class='node'>可持续发展</span></div>
+
+</div></section>
+
+<section class="slide"><div class="inner">
+
+<div class='kicker'>一、化学与能源利用 · 教材 p103—105</div>
+<h2>从化石能源到清洁便利的二次能源</h2>
+<p>人们通过化学反应将化石能源转化为清洁、便利的<b>二次能源</b>（如电能、石油制品等），开发可再生和环境友好的<b>新能源</b>（如风能、太阳能、氢能等）。</p>
+<div class='grid2'>
+<div class='card'><div class='ct'>化石能源的清洁利用</div><p>煤制乙醇工厂采用自主研发的新型催化剂和环境友好合成路线；我国建成光伏电解水制氢工厂，生产大量清洁能源。</p></div>
+<div class='card'><div class='ct'>新能源的开发</div><p>风力发电机、光伏电池、燃料电池和电动汽车锂离子电池的生产，都是化学大显身手的重要领域。</p></div>
+</div>
+<div class='callout'>科学·技术·社会——<b>风电制氢</b>（p105）：风能绿色清洁但受天气影响、输出不均衡，风电输送和消纳存在困难。我国利用高原和海上风能发展风电，并<b>用电解水制氢</b>克服风电的天然缺陷；风能与氢能联合开发带动上下游产业链，实现自然资源利用、生态环境保护与经济社会高质量发展的有机统一。</div>
+
+</div></section>
+
+<section class="slide"><div class="inner">
+
+<div class='kicker'>二、化学与材料开发 · 教材 p105</div>
+<h2>合成材料：人类不再严重依赖天然材料</h2>
+<p>煤、石油等化石燃料和秸秆等生物质直接燃烧，应用范围有限且污染严重。通过化学反应进行物质转化，就能得到<b>煤气、沼气</b>等清洁燃料和化工原料，以及<b>塑料、合成橡胶、合成纤维</b>等高分子材料。</p>
+<div class='def'><span class='dt'>高分子材料：</span>人工合成的高分子材料（合成材料）与天然高分子材料（天然橡胶、棉花、羊毛等天然纤维）都是由大量小分子聚合而成的<b>聚合物</b>，具有链状或网状结构；高分子的相对分子质量通常在 1 万以上，可达几十万甚至上百万。</div>
+<div class='callout'>合成材料在某些方面性能更优异，且便于大规模工业化生产、成本较低、产量稳定，使人类能自主设计并合成具有特殊性能的材料，更好地满足生产生活需求。</div>
+
+</div></section>
+
+<section class="slide"><div class="inner">
+
+<div class='kicker'>常见的合成材料 · 表11-2 · 教材 p106</div>
+<h2>三大合成材料的性能与应用</h2>
+<table><tr><th>合成材料</th><th>主要性能</th><th>常见类型</th><th>应用举例</th></tr>
+<tr><td>塑料</td><td>密度小、耐腐蚀、易加工</td><td>聚乙烯、聚丙烯、聚氯乙烯、聚苯乙烯、聚酯</td><td>绝缘材料、包装材料、农用薄膜、管道、机械零件</td></tr>
+<tr><td>合成橡胶</td><td>弹性和绝缘性好</td><td>顺丁橡胶、丁苯橡胶、异戊橡胶、硅橡胶</td><td>轮胎、密封制品、防护用品</td></tr>
+<tr><td>合成纤维</td><td>强度高、弹性好、耐磨、耐腐蚀</td><td>丙纶、涤纶、腈纶</td><td>纺织原料、过滤材料、建筑材料</td></tr></table>
+<div class='callout'>图11-12：年产 10 万吨的合成纤维厂，产量约相当于 15 万公顷棉田一年的产棉量或 2 000 万只绵羊一年的产毛量；年产 10 万吨的合成橡胶厂，约相当于 15 万公顷橡胶林一年的产胶量。</div>
+
+</div></section>
+
+<section class="slide"><div class="inner">
+
+<div class='kicker'>复合材料与功能材料 · 教材 p107</div>
+<h2>把多种材料的优点“复合”起来</h2>
+<p>现代航空航天、信息技术、生物医药和海洋工程的发展对材料性能提出了更高要求。人们不断改进钢铁、铝合金等<b>金属材料</b>，玻璃、陶瓷、水泥等<b>无机非金属材料</b>，塑料、合成纤维、合成橡胶等<b>高分子材料</b>的性能，并将几种材料复合起来，综合各组分性能的优点，形成<b>复合材料</b>。</p>
+<div class='flow'><span class='node'>碳纤维复合材料</span><span class='arw'>·</span><span class='node'>玻璃钢</span><span class='arw'>·</span><span class='node'>芳纶复合材料</span></div>
+<p>还开发了大量具有<b>光、电、磁</b>等特殊性质的功能材料。我国研制的大型军用运输机<b>运-20</b>，其发动机、防护涂层和机体使用了多种新型合金材料、合成材料及复合材料，提高了航程和运载能力。</p>
+<div class='callout'>科学态度与责任：新型材料的广泛应用，对生产、生活和社会发展产生深远影响；材料进步支撑国之重器。</div>
+
+</div></section>
+
+<section class="slide"><div class="inner">
+
+<div class='kicker'>探究 · 区分棉纤维、羊毛纤维和涤纶 · 教材 p107</div>
+<h2>用燃烧法区分三种纤维</h2>
+<div class='exp'><div class='et'>【问题】如何通过实验区分棉纤维、羊毛纤维和涤纶面料？</div><p><b>信息搜索：</b>查阅资料了解三种纤维的化学成分。<br><b>预测：</b>三者主要成分都属于有机物，可以燃烧；成分不同，燃烧时的现象和产物状态不同。<br><b>实验：</b>收集三种纤维，依次用坩埚钳夹持点燃，观察、记录燃烧时的现象和产物状态。</p></div>
+<div class='callout'><b>结论与思考：</b>①设计表格对比三种纤维的化学成分和实验现象，总结通过燃烧区分三者的方法及注意事项（如用坩埚钳夹持、注意防火）。②这一探究活动对我们制订<b>废弃材料的处理方案</b>有哪些启发？</div>
+<p class='note'>科学探究与实践：按照“问题—信息搜索—预测—实验—结论与思考”的思路，从物质组成和转化视角分析并解决问题。</p>
+
+</div></section>
+
+<section class="slide"><div class="inner">
+
+<div class='kicker'>三、物质的转化贯穿资源利用的每个环节 · 教材 p108—109</div>
+<h2>资源—生产—产品—使用—回收</h2>
+<div class='flow'><span class='node'>资源</span><span class='arw'>→</span><span class='node'>生产</span><span class='arw'>→</span><span class='node'>产品</span><span class='arw'>→</span><span class='node'>使用</span><span class='arw'>→</span><span class='node'>废弃物</span><span class='arw'>→</span><span class='node'>回收</span></div>
+<p>社会的可持续发展要以自然资源的合理开发和利用为基础。如果对物质的获取、使用或处理不当，就会引发一系列环境和社会问题。每个环节都离不开<b>物质的转化</b>，与物质的组成、结构、性质和应用密切相关——这正是化学的研究对象。</p>
+<div class='callout'>方法导引——<b>跨学科融合解决实际问题的思路</b>：从组成与结构、变化与转化、性质与应用等视角分析涉及哪些物质、发生哪些变化、需要什么条件、存在哪些定量关系，再结合物质的获取途径分析对社会和环境的影响，提出解决方案。如风能利用涉及地理、物理、化学及材料、机械、电力等领域，需全面考虑环境保护与经济效益。</div>
+
+</div></section>
+
+<section class="slide"><div class="inner">
+
+<div class='kicker'>调查与研究 · 塑料垃圾资源化 · 教材 p109</div>
+<h2>垃圾是放错位置的资源</h2>
+<p>结合化学、生物学等课程知识，调查塑料垃圾的种类、化学成分和可能产生的危害，针对家庭、学校或社区特点设计塑料垃圾资源化方案。</p>
+<table><tr><th>回收标志</th><th>塑料名称</th><th>回收标志</th><th>塑料名称</th></tr>
+<tr><td>01 PET</td><td>聚对苯二甲酸乙二酯</td><td>04 PE-LD</td><td>低密度聚乙烯</td></tr>
+<tr><td>02 PE-HD</td><td>高密度聚乙烯</td><td>05 PP</td><td>聚丙烯</td></tr>
+<tr><td>03 PVC</td><td>聚氯乙烯</td><td>06 PS</td><td>聚苯乙烯</td></tr></table>
+<div class='callout'>世界环境日为 <b>6 月 5 日</b>。化学与相关技术的发展遵循增进人类福祉、尊重生命权利、合理控制风险等原则，充分考虑资源供给和环境承载能力，为解决影响可持续发展的社会性科学议题开辟新途径。</div>
+
+</div></section>
+
+<section class="slide"><div class="inner">
+
+<div class='kicker'>学完本课题你知道了什么 · 教材 p110</div>
+<h2>三条要点</h2>
+<ol>
+<li>化学通过<b>物质转化</b>创造新的物质，帮助人类合理开发利用自然资源，为社会发展奠定物质和能量基础。</li>
+<li>塑料、合成纤维和合成橡胶等<b>合成材料</b>是对天然高分子材料的重要补充，化学在新材料开发中起重要作用。</li>
+<li>要充分考虑资源供给与环境承载能力，维护良好生态，保障社会的<b>可持续发展</b>。</li>
+</ol>
+<div class='callout'>科学态度与责任：绿色、低碳、循环发展，需要跨学科协作与科技创新，实现人与自然和谐共生。</div>
+
+</div></section>
+
+<section class="slide quiz-slide"><div class="inner">
+  <span class="qno">练习 1</span>
+  <div class="qtext">下列关于自然资源的说法中，<b>不正确</b>的是（　）。</div>
+  <ul class="opts"><li>A. 煤、石油和天然气等化石能源不可再生</li><li>B. 金属矿物的储量有限，因此废旧金属应回收利用</li><li>C. 一些自然资源在开发和利用过程中会涉及化学变化</li><li>D. 煤在燃烧过程中会污染环境、增加碳排放，因此应停止使用</li></ul>
+  <div class="ans"><p><span class='key'>答案：D</span>　煤燃烧确实带来污染和碳排放，但应通过清洁利用、提高效率、开发新能源等方式减少影响，而不是简单地“停止使用”。A、B、C 均正确。</p></div>
+  <div class="reveal-hint">按翻页键 / 空格 显示答案，再按一次继续</div>
+</div></section>
+
+<section class="slide quiz-slide"><div class="inner">
+  <span class="qno">练习 2</span>
+  <div class="qtext">为保护环境、节约资源，下列物品中，可回收利用的是（　）。①废电线　②汽水瓶　③旧书报　④旧衣物　⑤旧塑料袋</div>
+  <ul class="opts"><li>A. ②③⑤</li><li>B. ①②③⑤</li><li>C. ①③④⑤</li><li>D. ①②③④⑤</li></ul>
+  <div class="ans"><p><span class='key'>答案：D</span>　废电线（金属）、汽水瓶（玻璃或塑料）、旧书报（纸）、旧衣物（天然或合成纤维）、旧塑料袋（塑料）都含有可回收再利用的材料，应分类回收，实现资源循环。</p></div>
+  <div class="reveal-hint">按翻页键 / 空格 显示答案，再按一次继续</div>
+</div></section>
+
+<section class="slide quiz-slide"><div class="inner">
+  <span class="qno">练习 3</span>
+  <div class="qtext">下列做法中，<b>不符合</b>绿色、低碳、循环发展理念的是（　）。</div>
+  <ul class="opts"><li>A. 开发可再生能源</li><li>B. 推广使用一次性餐具</li><li>C. 选择公共交通工具出行</li><li>D. 进行生活垃圾分类和定时定点投放</li></ul>
+  <div class="ans"><p><span class='key'>答案：B</span>　推广使用一次性餐具会消耗大量资源并产生废弃物，不符合绿色、低碳、循环发展理念。开发可再生能源、绿色出行、垃圾分类都有利于节能环保和可持续发展。</p></div>
+  <div class="reveal-hint">按翻页键 / 空格 显示答案，再按一次继续</div>
+</div></section>
+
+<section class="slide"><div class="inner cover">
+  <div class="rule" style="margin-bottom:32px;"></div>
+  <h1 style="font-size:clamp(42px,6.5vw,70px);">课题2 · 小结</h1>
+  <p class="muted" style="font-size:clamp(23px,2.9vw,32px);">化学与能源 · 化学与材料 · 资源循环与跨学科可持续发展</p>
+  <div class="hint" style="margin-top:40px;">按 <span class="kbd">Home</span> 回到第一页　·　按 <span class="kbd">End</span> 到末页</div>
+</div></section>
+
+</div>
+
+<div id="bar">
+  <div class="grp"><button class="navbtn" id="prevBtn">← 上一页</button><button class="navbtn" id="nextBtn">下一页 →</button><span id="counter">1 / 14</span></div>
+  <div class="grp"><span id="deckTitle">第十一单元 课题2 化学与可持续发展</span><button class="navbtn" id="fullBtn">⛶ 全屏</button><button class="navbtn" id="helpBtn">? 操作</button></div>
+</div>
+<div id="help"><div class="helpcard">
+  <h3>翻页操作说明</h3>
+  <div class="row"><span>下一页</span><span><span class="kbd">PgDn</span> <span class="kbd">空格</span> <span class="kbd">→</span> <span class="kbd">↓</span></span></div>
+  <div class="row"><span>上一页</span><span><span class="kbd">PgUp</span> <span class="kbd">←</span> <span class="kbd">↑</span></span></div>
+  <div class="row"><span>首页 / 末页</span><span><span class="kbd">Home</span> / <span class="kbd">End</span></span></div>
+  <div class="row"><span>练习页显示答案</span><span>在题目页再按一次"下一页"</span></div>
+  <div class="row"><span>字号放大 / 缩小</span><span><span class="kbd">]</span> 放大 · <span class="kbd">[</span> 缩小 · <span class="kbd">0</span> 恢复默认</span></div>
+  <div class="row"><span>全屏放映</span><span><span class="kbd">F</span> 或点击"全屏"</span></div>
+  <button class="navbtn close" id="closeHelp">知道了</button>
+</div></div>
+
+<script>
+
+(function(){
+  const slides=Array.from(document.querySelectorAll('.slide'));let cur=0;
+  const counter=document.getElementById('counter'),progress=document.getElementById('progress'),prevBtn=document.getElementById('prevBtn'),nextBtn=document.getElementById('nextBtn'),help=document.getElementById('help');
+  const ZKEY='__deck_zoom__';
+  function zoom(){const z=parseFloat(localStorage.getItem(ZKEY));return (isNaN(z)||z<0.7||z>2.2)?1:z;}
+  function setZoom(z){z=Math.max(0.7,Math.min(2.2,Math.round(z*10)/10));localStorage.setItem(ZKEY,String(z));
+    document.querySelectorAll('.inner').forEach(el=>el.style.zoom=z);
+    const t=document.getElementById('zoomTip');if(t){t.textContent='字号 '+Math.round(z*100)+'%';t.style.opacity=1;clearTimeout(t._tm);t._tm=setTimeout(()=>t.style.opacity=0,1000);}}
+  document.addEventListener('keydown',function(e){if(e.ctrlKey||e.altKey||e.metaKey)return;
+    if(e.key===']'||e.key==='】'){e.preventDefault();setZoom(zoom()+0.1);}
+    else if(e.key==='['||e.key==='【'){e.preventDefault();setZoom(zoom()-0.1);}
+    else if(e.key==='0'){e.preventDefault();setZoom(1);}});
+  function render(){slides.forEach((s,i)=>s.classList.toggle('active',i===cur));counter.textContent=(cur+1)+' / '+slides.length;progress.style.width=((cur+1)/slides.length*100)+'%';prevBtn.disabled=cur===0;nextBtn.disabled=cur===slides.length-1;slides[cur].scrollTop=0;}
+  function isQuiz(i){return slides[i].classList.contains('quiz-slide');}
+  function shown(i){const a=slides[i].querySelector('.ans');return a&&a.classList.contains('show');}
+  function next(){if(cur>=slides.length-1)return;if(isQuiz(cur)&&!shown(cur)){const a=slides[cur].querySelector('.ans');if(a){a.classList.add('show');const h=slides[cur].querySelector('.reveal-hint');if(h)h.textContent='答案已显示 · 再按一次继续';return;}}cur++;render();}
+  function prev(){if(isQuiz(cur)&&shown(cur)){const a=slides[cur].querySelector('.ans');a.classList.remove('show');const h=slides[cur].querySelector('.reveal-hint');if(h)h.textContent='按翻页键 / 空格 显示答案，再按一次继续';return;}if(cur>0){cur--;render();}}
+  function go(n){if(n>=0&&n<slides.length){cur=n;render();}}
+  prevBtn.onclick=prev;nextBtn.onclick=next;
+  document.addEventListener('keydown',function(e){
+    if(help.classList.contains('show')){if(e.key==='Escape'||e.key==='h'||e.key==='H'){help.classList.remove('show');e.preventDefault();}return;}
+    const k=e.key;
+    if(['PageDown',' ','Spacebar','ArrowRight','ArrowDown','Enter'].includes(k)){e.preventDefault();next();return;}
+    if(['PageUp','ArrowLeft','ArrowUp','Backspace'].includes(k)){e.preventDefault();prev();return;}
+    if(k==='Home'){e.preventDefault();go(0);return;}if(k==='End'){e.preventDefault();go(slides.length-1);return;}
+    if(k==='h'||k==='H'||k==='?'){e.preventDefault();help.classList.add('show');return;}
+    if(k==='f'||k==='F'){e.preventDefault();toggleFull();return;}});
+  let tx=0,ty=0;document.addEventListener('touchstart',e=>{tx=e.changedTouches[0].clientX;ty=e.changedTouches[0].clientY;},{passive:true});
+  document.addEventListener('touchend',e=>{const dx=e.changedTouches[0].clientX-tx,dy=e.changedTouches[0].clientY-ty;if(Math.abs(dx)>60&&Math.abs(dx)>Math.abs(dy))dx<0?next():prev();},{passive:true});
+  function toggleFull(){if(!document.fullscreenElement)document.documentElement.requestFullscreen&&document.documentElement.requestFullscreen();else document.exitFullscreen&&document.exitFullscreen();}
+  document.getElementById('fullBtn').onclick=toggleFull;document.getElementById('helpBtn').onclick=()=>help.classList.add('show');document.getElementById('closeHelp').onclick=()=>help.classList.remove('show');help.onclick=e=>{if(e.target===help)help.classList.remove('show');};
+  document.querySelectorAll('.inner').forEach(el=>el.style.zoom=zoom());
+  render();
+})();
+
+</script>
+</body>
+</html>

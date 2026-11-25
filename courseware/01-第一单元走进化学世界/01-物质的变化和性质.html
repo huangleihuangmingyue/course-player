@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>课题1 物质的变化和性质 · 翻页课件</title>
+<style>
+  :root{--ink:#1a2230;--muted:#6b7280;--line:#e5e7eb;--soft:#f6f8fb;--accent:#0f766e;--accent-soft:#ecfdf5;--max:1000px;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html,body{height:100%;}
+  body{background:#fff;color:var(--ink);overflow:hidden;font-family:"PingFang SC","Microsoft YaHei","Hiragino Sans GB","Source Han Sans SC",sans-serif;-webkit-font-smoothing:antialiased;}
+  #deck{position:relative;width:100vw;height:100vh;}
+  .slide{position:absolute;inset:0;display:none;padding:clamp(28px,5vh,60px) clamp(26px,6vw,88px) 94px;overflow-y:auto;}
+  .slide.active{display:flex;animation:fade .32s ease;}
+  @keyframes fade{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:none;}}
+  .inner{width:100%;max-width:var(--max);margin:auto;}
+  .kicker{font-size:17px;letter-spacing:.12em;color:var(--accent);font-weight:700;margin-bottom:16px;}
+  h1{font-size:clamp(48px,7vw,82px);line-height:1.15;letter-spacing:-.02em;margin-bottom:16px;}
+  h2{font-size:clamp(34px,4.6vw,56px);line-height:1.3;letter-spacing:-.01em;margin-bottom:24px;}
+  h3{font-size:clamp(24px,2.8vw,30px);margin:20px 0 9px;}
+  p{font-size:clamp(22px,2.4vw,30px);line-height:1.8;margin-bottom:13px;}
+  b,strong{font-weight:700;}
+  .muted{color:var(--muted);}
+  .tag{display:inline-block;font-size:15px;color:var(--muted);border:1px solid var(--line);border-radius:99px;padding:2px 11px;margin-left:10px;vertical-align:middle;font-weight:400;}
+  .cover{text-align:center;}
+  .cover .eyebrow{font-size:18px;color:var(--muted);letter-spacing:.14em;margin-bottom:24px;}
+  .cover .rule{width:60px;height:4px;background:var(--accent);border-radius:2px;margin:0 auto 32px;}
+  .cover .hint{font-size:18px;color:var(--muted);line-height:2;}
+  .kbd{display:inline-block;border:1px solid var(--line);border-bottom-width:2px;border-radius:5px;padding:1px 7px;margin:0 2px;font-size:15px;color:#374151;background:var(--soft);}
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:20px;}
+  @media(max-width:760px){.two{grid-template-columns:1fr;}}
+  .callout{background:var(--soft);border-radius:12px;padding:18px 24px;font-size:clamp(20px,2.2vw,26px);line-height:1.75;color:#4b5563;}
+  .callout b{color:var(--ink);}
+  .biglaw{background:var(--accent-soft);border-left:5px solid var(--accent);border-radius:0 14px 14px 0;padding:clamp(22px,3.4vw,38px);font-size:clamp(28px,3.8vw,44px);font-weight:700;line-height:1.65;}
+  .biglaw .lbl{display:block;font-size:15px;letter-spacing:.16em;color:var(--accent);margin-bottom:14px;}
+  .eq{display:inline-flex;flex-wrap:wrap;align-items:flex-start;background:var(--soft);border:1px dashed #cbd5e1;border-radius:12px;padding:34px 24px 14px;margin:8px 0;}
+  .eq .col{display:flex;flex-direction:column;align-items:center;min-width:26px;}
+  .eq .f{font-size:clamp(25px,2.9vw,34px);line-height:1.5;height:30px;white-space:nowrap;font-family:"Times New Roman",Times,serif;}
+  .eq .op{font-size:clamp(23px,2.7vw,30px);line-height:1.5;height:30px;color:#9ca3af;padding:0 8px;white-space:nowrap;}
+  .eq .mark{display:flex;align-items:center;justify-content:center;height:30px;padding:0 10px;position:relative;}
+  .eq .cond{position:absolute;top:-20px;font-size:17px;color:var(--muted);line-height:1.5;white-space:nowrap;}
+  .eq .arr{font-size:32px;line-height:1;color:var(--accent);white-space:nowrap;}
+  .eq .eqsign{font-size:28px;line-height:1;color:var(--accent);white-space:nowrap;}
+  .eq .mr{font-size:clamp(18px,1.9vw,22px);line-height:1.4;height:22px;color:#6b7280;white-space:nowrap;font-family:"Times New Roman",Times,serif;}
+  .eq .mrph{height:22px;}
+  .eqnote{font-size:17px;color:var(--muted);margin-top:8px;line-height:1.7;}
+  .cols3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
+  @media(max-width:760px){.cols3{grid-template-columns:1fr;}}
+  .cols3 .box{border:1px solid var(--line);border-radius:12px;padding:20px;}
+  .cols3 .box .t{font-size:17px;color:var(--accent);font-weight:700;margin-bottom:10px;}
+  .cols3 .box p{font-size:clamp(19px,2vw,24px);}
+  ol,ul{padding-left:26px;}
+  li{font-size:clamp(22px,2.4vw,30px);line-height:1.8;margin-bottom:10px;}
+  .qno{display:inline-block;background:var(--accent);color:#fff;font-size:17px;font-weight:700;border-radius:7px;padding:3px 10px;margin-bottom:16px;}
+  .qtext{font-size:clamp(25px,2.9vw,34px);line-height:1.7;font-weight:600;margin-bottom:17px;}
+  .qsub{font-size:clamp(20px,2.2vw,26px);line-height:1.8;margin-bottom:6px;}
+  .opts{list-style:none;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:8px 20px;}
+  .opts li{font-size:clamp(22px,2.4vw,30px);margin:0;padding:6px 12px;background:var(--soft);border-radius:8px;}
+  @media(max-width:760px){.opts{grid-template-columns:1fr;}}
+  .ans{display:none;margin-top:20px;padding:18px 24px;background:var(--accent-soft);border-radius:12px;font-size:clamp(20px,2.2vw,26px);line-height:1.8;color:#334155;}
+  .ans.show{display:block;animation:fade .25s ease;}
+  .ans .key{color:var(--accent);font-weight:700;}
+  .ans p{font-size:inherit;margin-bottom:9px;}
+  .reveal-hint{font-size:17px;color:var(--muted);margin-top:16px;}
+  /* 增强组件 */
+  .card{background:var(--soft);border:1px solid var(--line);border-radius:14px;padding:22px 26px;margin:12px 0;}
+  .card .ct{font-size:20px;color:var(--accent);font-weight:700;margin-bottom:12px;}
+  .card p{font-size:clamp(21px,2.2vw,27px);}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:12px 0;}
+  @media(max-width:760px){.grid2{grid-template-columns:1fr;}}
+  .grid2 .card{margin:0;}
+  table{border-collapse:collapse;width:100%;font-size:clamp(19px,2vw,25px);margin:14px 0;}
+  th,td{border:1px solid var(--line);padding:10px 14px;text-align:left;line-height:1.6;}
+  th{background:var(--accent-soft);color:var(--accent);font-weight:700;}
+  .def{border-left:4px solid var(--accent);background:var(--accent-soft);border-radius:0 12px 12px 0;padding:18px 24px;margin:14px 0;font-size:clamp(22px,2.4vw,29px);line-height:1.75;}
+  .def .dt{color:var(--accent);font-weight:700;}
+  .exp{background:#fffbeb;border:1px solid #fde68a;border-radius:14px;padding:20px 26px;margin:14px 0;}
+  .exp .et{font-size:19px;color:#b45309;font-weight:700;margin-bottom:10px;}
+  .exp p,.exp li{font-size:clamp(20px,2.1vw,26px);}
+  .flow{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin:16px 0;font-size:clamp(21px,2.3vw,28px);}
+  .flow .node{background:var(--accent-soft);border:1px solid #99f6e4;border-radius:10px;padding:10px 18px;font-weight:600;}
+  .flow .arw{color:var(--accent);font-size:26px;}
+  .chem{font-family:"Times New Roman",Times,serif;}
+  .note{font-size:clamp(19px,2vw,24px);color:var(--muted);line-height:1.75;margin-top:12px;}
+  #bar{position:fixed;left:0;right:0;bottom:0;height:62px;display:flex;align-items:center;justify-content:space-between;padding:0 clamp(18px,4vw,48px);background:rgba(255,255,255,.94);backdrop-filter:blur(8px);border-top:1px solid var(--line);z-index:20;}
+  #bar .grp{display:flex;align-items:center;gap:10px;}
+  .navbtn{font:inherit;font-size:18px;color:#374151;background:#fff;border:1px solid var(--line);border-radius:8px;padding:7px 15px;cursor:pointer;transition:.15s;}
+  .navbtn:hover:not(:disabled){color:var(--accent);border-color:#99f6e4;background:var(--accent-soft);}
+  .navbtn:disabled{opacity:.35;cursor:default;}
+  #counter{font-size:17px;color:var(--muted);min-width:74px;text-align:center;font-variant-numeric:tabular-nums;}
+  #progress{position:fixed;top:0;left:0;height:3px;background:var(--accent);z-index:30;transition:width .3s ease;}
+  #deckTitle{font-size:17px;color:var(--muted);max-width:44vw;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+  #help{display:none;position:fixed;inset:0;background:rgba(17,24,39,.45);z-index:50;align-items:center;justify-content:center;padding:24px;}
+  #help.show{display:flex;}
+  .helpcard{background:#fff;border-radius:16px;padding:32px 38px;max-width:520px;width:100%;box-shadow:0 20px 60px rgba(0,0,0,.15);}
+  .helpcard h3{font-size:28px;margin-bottom:16px;}
+  .helpcard .row{display:flex;justify-content:space-between;gap:20px;padding:9px 0;border-bottom:1px solid var(--line);font-size:19px;}
+  .helpcard .row:last-of-type{border-bottom:0;}
+  .helpcard .close{margin-top:20px;width:100%;}
+  @media print{#bar,#progress,#help,#zoomTip{display:none!important;}body{overflow:visible;}.slide{display:flex!important;position:relative;page-break-after:always;height:auto;min-height:100vh;}.ans{display:block!important;}}
+</style>
+</head>
+<body>
+<div id="progress"></div>
+<div id="zoomTip" style="position:fixed;top:16px;left:50%;transform:translateX(-50%);z-index:60;background:rgba(17,24,39,.85);color:#fff;padding:8px 22px;border-radius:99px;font-size:18px;opacity:0;transition:opacity .25s;pointer-events:none;"></div>
+<div id="deck">
+
+<section class="slide active"><div class="inner cover">
+  <div class="eyebrow">人教版九年级化学上册 · 第一单元 课题1</div>
+  <h1>物质的变化和性质</h1>
+  <div class="rule"></div>
+  <p class="muted" style="font-size:clamp(22px,2.6vw,30px);">物理变化 · 化学变化 · 物理性质 · 化学性质 —— 看有没有新物质生成</p>
+  <div class="hint" style="margin-top:48px;">
+    <span class="kbd">PgDn</span>/<span class="kbd">空格</span>/<span class="kbd">→</span> 下一页　·　<span class="kbd">PgUp</span>/<span class="kbd">←</span> 上一页<br>翻页笔可直接翻页　·　练习页再按一次显示答案　·　按 <span class="kbd">H</span> 查看操作
+  </div>
+</div></section>
+
+<section class="slide"><div class="inner">
+
+<div class='kicker'>引入 · 教材 p8</div>
+<h2>我们生活在不断变化的物质世界</h2>
+<p>水在一定条件下可以变成<b>水蒸气或冰</b>；钢铁制品在潮湿的地方会<b>生锈</b>；煤、木材和柴草可以在空气中<b>燃烧而发光、放热</b>。</p>
+<div class='callout'>从化学的角度看，物质的这些变化有什么<b>本质区别</b>？物质在变化中又表现出哪些性质？</div>
+<p class='note'>实验是认识物质变化和性质的一种基本方法。实验时要戴好护目镜，注意保护眼睛；离开实验室前需用肥皂等清洗双手。</p>
+
+</div></section>
+
+<section class="slide"><div class="inner">
+
+<div class='kicker'>【实验1-1】 · 教材 p8—9</div>
+<h2>四个实验，观察变化前后</h2>
+<div class='exp'><div class='et'>实验步骤</div><p>（1）加热少量水至沸腾，把洁净玻璃片移近试管口；<br>（2）把盛有一小块石蜡的试管置于盛有沸水的烧杯中；<br>（3）在 1~2 mL 氢氧化钠溶液中滴加硫酸铜溶液；<br>（4）在盛有少量大理石的试管中加入适量稀盐酸。</p></div>
+<table><tr><th>编号</th><th>变化前的物质</th><th>变化后的物质</th><th>有新物质生成吗</th></tr>
+<tr><td>（1）</td><td>液态的水</td><td>气态的水（水蒸气）</td><td>无</td></tr>
+<tr><td>（2）</td><td>固态的石蜡</td><td>液态的石蜡</td><td>无</td></tr>
+<tr><td>（3）</td><td>蓝色的硫酸铜溶液等</td><td>蓝色的氢氧化铜沉淀等</td><td><b>有</b></td></tr>
+<tr><td>（4）</td><td>颗粒状大理石等</td><td>二氧化碳气体等</td><td><b>有</b></td></tr></table>
+<p class='note'>注意：氢氧化钠溶液和盐酸对皮肤和衣服具有腐蚀作用，使用时应小心；实验中要特别注意保护眼睛，戴好护目镜。</p>
+
+</div></section>
+
+<section class="slide"><div class="inner">
+
+<div class='kicker'>一、化学变化和物理变化 · 教材 p10</div>
+<h2>本质区别：有没有生成新物质</h2>
+<div class='def'><span class='dt'>物理变化：</span><b>没有生成新物质</b>的变化。例如：汽油挥发、铁水凝固。</div>
+<div class='def'><span class='dt'>化学变化：</span><b>生成新物质</b>的变化，又叫<b>化学反应</b>。例如：天然气燃烧、铁生锈、粮食酿酒。</div>
+<div class='biglaw'><span class='lbl'>判断依据</span>变化时是否有新物质生成</div>
+<p>实验 1-1 中，（1）（2）只是形态改变，属于物理变化；（3）（4）生成了新物质，属于化学变化。</p>
+<div class='callout'><b>科学思维：</b>抓住“是否有新物质生成”这一本质特征，才能透过现象准确判断变化的类型。</div>
+
+</div></section>
+
+<section class="slide"><div class="inner">
+
+<div class='kicker'>化学变化的特征 · 教材 p10—11</div>
+<h2>怎样知道发生了化学变化？</h2>
+<p>化学变化的特征是<b>有新物质生成</b>，常表现为<b>改变颜色、放出气体、生成沉淀</b>等；化学变化不但生成新物质，而且伴随着<b>能量的变化</b>，常表现为放热、吸热、发光等。</p>
+<p>实验中观察到的现象，常常可以帮助我们判断物质是否发生了化学变化。</p>
+<div class='card'><div class='ct'>点燃蜡烛：两种变化同时发生</div><p>石蜡燃烧生成水和二氧化碳是<b>化学变化</b>；石蜡受热熔化是<b>物理变化</b>。在物质发生化学变化的过程中，会同时发生物理变化。</p></div>
+<div class='flow'><span class='node'>石蜡</span><span class='arw'>+ 氧气</span><span class='arw'>—点燃→</span><span class='node'>水 H₂O + 二氧化碳 CO₂</span></div>
+
+</div></section>
+
+<section class="slide"><div class="inner">
+
+<div class='kicker'>二、化学性质和物理性质 · 教材 p11</div>
+<h2>性质，要通过变化来认识</h2>
+<div class='grid2'>
+<div class='card'><div class='ct'>化学性质</div><p>物质在<b>化学变化</b>中表现出来的性质。</p><p>如：铁在潮湿空气中生锈；铜生成铜绿；木炭燃烧生成 CO₂ 并发光、放热；硫酸铜溶液与氢氧化钠溶液生成蓝色氢氧化铜沉淀；大理石与稀盐酸生成 CO₂ 气体。</p></div>
+<div class='card'><div class='ct'>物理性质</div><p>物质<b>不需要发生化学变化</b>就表现出来的性质。</p><p>如：颜色、气味、硬度、熔点、沸点、密度等。通常状况下，氧气是无色气体，水是无色液体。</p></div>
+</div>
+<p class='note'>性质是“能不能变”，变化是“正在变”。描述性质时往往要注明条件；外界条件改变时，物质的某些性质也会随之变化。</p>
+
+</div></section>
+
+<section class="slide"><div class="inner">
+
+<div class='kicker'>一些常见物质的物理性质 · 表1-1（教材 p12）</div>
+<h2>记住这些数据，更要理解条件</h2>
+<table><tr><th>物质</th><th>颜色（通常状况）</th><th>熔点 / ℃</th><th>沸点 / ℃</th></tr>
+<tr><td>水</td><td>无色（液体）</td><td>0</td><td>100</td></tr>
+<tr><td>铁</td><td>银白色（固体）</td><td>1 538</td><td>2 861</td></tr>
+<tr><td>铝</td><td>银白色（固体）</td><td>660</td><td>2 519</td></tr>
+<tr><td>氧气</td><td>无色（气体）</td><td>-218.8</td><td>-183.0</td></tr></table>
+<p class='note'>表中大气压为 101 kPa（标准大气压的近似值）。了解物质的物理性质，对于研究它们的组成、结构和变化也非常重要。</p>
+<div class='callout'>闻气体时应该小心：<b>用手轻轻地在瓶口扇动</b>，使极少量的气体飘进鼻孔，不要把鼻孔凑到容器口。</div>
+
+</div></section>
+
+<section class="slide"><div class="inner">
+
+<div class='kicker'>【实验1-2】 · 教材 p12</div>
+<h2>氧气和二氧化碳，怎样区分？</h2>
+<div class='exp'><div class='et'>实验步骤</div><p>分别取一集气瓶氧气和一集气瓶二氧化碳，观察它们的颜色，闻一闻气味。点燃一根小木条，将其分别慢慢放入盛有氧气和二氧化碳的集气瓶中，观察木条燃烧的现象并记录。</p></div>
+<div class='card'><div class='ct'>思考与讨论</div><p>尽可能多地描述氧气和二氧化碳的性质，试着判断哪些属于<b>物理性质</b>，哪些属于<b>化学性质</b>，并思考利用哪些方法可以区分这两种物质。</p></div>
+<p>水和二氧化碳可以用来灭火，乙醇（俗称酒精）可作燃料，石墨可用于制铅笔芯——<b>物质的用途都是由它们的性质决定的</b>。</p>
+
+</div></section>
+
+<section class="slide"><div class="inner">
+
+<div class='kicker'>学完本课题你知道了什么 · 教材 p13</div>
+<h2>三句话，构建本课题的知识框架</h2>
+<div class='card'><div class='ct'>1</div><p>化学是研究物质的组成、结构、性质、转化及应用的一门基础学科，其特征是从分子层次认识物质，通过化学变化创造物质。</p></div>
+<div class='card'><div class='ct'>2</div><p>生成新物质的变化叫作<b>化学变化</b>（又叫化学反应）；没有生成新物质的变化叫作<b>物理变化</b>。</p></div>
+<div class='card'><div class='ct'>3</div><p>物质在化学变化中表现出来的性质叫作<b>化学性质</b>；不需要发生化学变化就表现出来的性质叫作<b>物理性质</b>。</p></div>
+
+</div></section>
+
+<section class="slide quiz-slide"><div class="inner">
+  <span class="qno">课本练习 1</span>
+  <div class="qtext">下列词语包含的物质变化中，有一种与其他三种有所区别，该词语是（　）。</div>
+  <ul class="opts"><li>A. 花香四溢</li><li>B. 冰雪消融</li><li>C. 蜡炬成灰</li><li>D. 沙里淘金</li></ul>
+  <div class="ans"><p><span class='key'>答案：C</span>　花香四溢、冰雪消融、沙里淘金都没有生成新物质，属于物理变化；“蜡炬成灰”中蜡烛燃烧生成了水和二氧化碳等新物质，属于化学变化。</p></div>
+  <div class="reveal-hint">按翻页键 / 空格 显示答案，再按一次继续</div>
+</div></section>
+
+<section class="slide quiz-slide"><div class="inner">
+  <span class="qno">课本练习 2</span>
+  <div class="qtext">我国的下列古代发明及应用中，<b>不涉及</b>化学变化的是（　）。</div>
+  <ul class="opts"><li>A. 用黏土烧制陶瓷</li><li>B. 黑火药爆炸</li><li>C. 用粮食酿醋</li><li>D. 活字印刷</li></ul>
+  <div class="ans"><p><span class='key'>答案：D</span>　烧制陶瓷、黑火药爆炸、粮食酿醋都有新物质生成，属于化学变化；活字印刷只是字模的排列与转印，没有新物质生成，属于物理变化。</p></div>
+  <div class="reveal-hint">按翻页键 / 空格 显示答案，再按一次继续</div>
+</div></section>
+
+<section class="slide quiz-slide"><div class="inner">
+  <span class="qno">课本练习 3</span>
+  <div class="qtext">下列事例中，哪些是物理变化，哪些是化学变化？简要说明判断的理由。<br>（1）碘升华　（2）天然气燃烧　（3）酒精挥发　（4）水结成冰　（5）大理石与稀盐酸接触时有二氧化碳和水生成。</div>
+  
+  <div class="ans"><p><span class='key'>物理变化：（1）（3）（4）</span>　碘升华、酒精挥发、水结成冰都只是状态改变，没有生成新物质。<br><span class='key'>化学变化：（2）（5）</span>　天然气燃烧、大理石与稀盐酸反应都有新物质生成。</p></div>
+  <div class="reveal-hint">按翻页键 / 空格 显示答案，再按一次继续</div>
+</div></section>
+
+<section class="slide quiz-slide"><div class="inner">
+  <span class="qno">课本练习 4</span>
+  <div class="qtext">对酒精的描述：①无色透明；②具有特殊气味；③易挥发；④能与水以任意比例互溶；⑤易燃烧；⑥点燃酒精灯时，酒精能在灯芯上汽化；⑦燃烧时能生成水和二氧化碳。其中属于<b>化学性质</b>的是（　）。</div>
+  <ul class="opts"><li>A. ①②③④</li><li>B. ⑤⑦</li><li>C. ③⑥⑦</li><li>D. ①②⑤⑥</li></ul>
+  <div class="ans"><p><span class='key'>答案：B</span>　⑤“易燃烧”、⑦“燃烧时能生成水和二氧化碳”都要通过化学变化才能表现出来，属于化学性质；①②③④⑥不需要发生化学变化即可表现，属于物理性质（⑥汽化只是状态改变）。</p></div>
+  <div class="reveal-hint">按翻页键 / 空格 显示答案，再按一次继续</div>
+</div></section>
+
+<section class="slide"><div class="inner cover">
+  <div class="rule" style="margin-bottom:32px;"></div>
+  <h1 style="font-size:clamp(42px,6.5vw,70px);">课题1 · 小结</h1>
+  <p class="muted" style="font-size:clamp(23px,2.9vw,32px);">物理变化与化学变化 · 物理性质与化学性质 —— 关键看有没有新物质生成</p>
+  <div class="hint" style="margin-top:40px;">按 <span class="kbd">Home</span> 回到第一页　·　按 <span class="kbd">End</span> 到末页</div>
+</div></section>
+
+</div>
+
+<div id="bar">
+  <div class="grp"><button class="navbtn" id="prevBtn">← 上一页</button><button class="navbtn" id="nextBtn">下一页 →</button><span id="counter">1 / 14</span></div>
+  <div class="grp"><span id="deckTitle">第一单元 课题1 物质的变化和性质</span><button class="navbtn" id="fullBtn">⛶ 全屏</button><button class="navbtn" id="helpBtn">? 操作</button></div>
+</div>
+<div id="help"><div class="helpcard">
+  <h3>翻页操作说明</h3>
+  <div class="row"><span>下一页</span><span><span class="kbd">PgDn</span> <span class="kbd">空格</span> <span class="kbd">→</span> <span class="kbd">↓</span></span></div>
+  <div class="row"><span>上一页</span><span><span class="kbd">PgUp</span> <span class="kbd">←</span> <span class="kbd">↑</span></span></div>
+  <div class="row"><span>首页 / 末页</span><span><span class="kbd">Home</span> / <span class="kbd">End</span></span></div>
+  <div class="row"><span>练习页显示答案</span><span>在题目页再按一次"下一页"</span></div>
+  <div class="row"><span>字号放大 / 缩小</span><span><span class="kbd">]</span> 放大 · <span class="kbd">[</span> 缩小 · <span class="kbd">0</span> 恢复默认</span></div>
+  <div class="row"><span>全屏放映</span><span><span class="kbd">F</span> 或点击"全屏"</span></div>
+  <button class="navbtn close" id="closeHelp">知道了</button>
+</div></div>
+
+<script>
+
+(function(){
+  const slides=Array.from(document.querySelectorAll('.slide'));let cur=0;
+  const counter=document.getElementById('counter'),progress=document.getElementById('progress'),prevBtn=document.getElementById('prevBtn'),nextBtn=document.getElementById('nextBtn'),help=document.getElementById('help');
+  const ZKEY='__deck_zoom__';
+  function zoom(){const z=parseFloat(localStorage.getItem(ZKEY));return (isNaN(z)||z<0.7||z>2.2)?1:z;}
+  function setZoom(z){z=Math.max(0.7,Math.min(2.2,Math.round(z*10)/10));localStorage.setItem(ZKEY,String(z));
+    document.querySelectorAll('.inner').forEach(el=>el.style.zoom=z);
+    const t=document.getElementById('zoomTip');if(t){t.textContent='字号 '+Math.round(z*100)+'%';t.style.opacity=1;clearTimeout(t._tm);t._tm=setTimeout(()=>t.style.opacity=0,1000);}}
+  document.addEventListener('keydown',function(e){if(e.ctrlKey||e.altKey||e.metaKey)return;
+    if(e.key===']'||e.key==='】'){e.preventDefault();setZoom(zoom()+0.1);}
+    else if(e.key==='['||e.key==='【'){e.preventDefault();setZoom(zoom()-0.1);}
+    else if(e.key==='0'){e.preventDefault();setZoom(1);}});
+  function render(){slides.forEach((s,i)=>s.classList.toggle('active',i===cur));counter.textContent=(cur+1)+' / '+slides.length;progress.style.width=((cur+1)/slides.length*100)+'%';prevBtn.disabled=cur===0;nextBtn.disabled=cur===slides.length-1;slides[cur].scrollTop=0;}
+  function isQuiz(i){return slides[i].classList.contains('quiz-slide');}
+  function shown(i){const a=slides[i].querySelector('.ans');return a&&a.classList.contains('show');}
+  function next(){if(cur>=slides.length-1)return;if(isQuiz(cur)&&!shown(cur)){const a=slides[cur].querySelector('.ans');if(a){a.classList.add('show');const h=slides[cur].querySelector('.reveal-hint');if(h)h.textContent='答案已显示 · 再按一次继续';return;}}cur++;render();}
+  function prev(){if(isQuiz(cur)&&shown(cur)){const a=slides[cur].querySelector('.ans');a.classList.remove('show');const h=slides[cur].querySelector('.reveal-hint');if(h)h.textContent='按翻页键 / 空格 显示答案，再按一次继续';return;}if(cur>0){cur--;render();}}
+  function go(n){if(n>=0&&n<slides.length){cur=n;render();}}
+  prevBtn.onclick=prev;nextBtn.onclick=next;
+  document.addEventListener('keydown',function(e){
+    if(help.classList.contains('show')){if(e.key==='Escape'||e.key==='h'||e.key==='H'){help.classList.remove('show');e.preventDefault();}return;}
+    const k=e.key;
+    if(['PageDown',' ','Spacebar','ArrowRight','ArrowDown','Enter'].includes(k)){e.preventDefault();next();return;}
+    if(['PageUp','ArrowLeft','ArrowUp','Backspace'].includes(k)){e.preventDefault();prev();return;}
+    if(k==='Home'){e.preventDefault();go(0);return;}if(k==='End'){e.preventDefault();go(slides.length-1);return;}
+    if(k==='h'||k==='H'||k==='?'){e.preventDefault();help.classList.add('show');return;}
+    if(k==='f'||k==='F'){e.preventDefault();toggleFull();return;}});
+  let tx=0,ty=0;document.addEventListener('touchstart',e=>{tx=e.changedTouches[0].clientX;ty=e.changedTouches[0].clientY;},{passive:true});
+  document.addEventListener('touchend',e=>{const dx=e.changedTouches[0].clientX-tx,dy=e.changedTouches[0].clientY-ty;if(Math.abs(dx)>60&&Math.abs(dx)>Math.abs(dy))dx<0?next():prev();},{passive:true});
+  function toggleFull(){if(!document.fullscreenElement)document.documentElement.requestFullscreen&&document.documentElement.requestFullscreen();else document.exitFullscreen&&document.exitFullscreen();}
+  document.getElementById('fullBtn').onclick=toggleFull;document.getElementById('helpBtn').onclick=()=>help.classList.add('show');document.getElementById('closeHelp').onclick=()=>help.classList.remove('show');help.onclick=e=>{if(e.target===help)help.classList.remove('show');};
+  document.querySelectorAll('.inner').forEach(el=>el.style.zoom=zoom());
+  render();
+})();
+
+</script>
+</body>
+</html>

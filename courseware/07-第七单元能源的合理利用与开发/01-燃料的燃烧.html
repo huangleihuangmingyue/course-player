@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>课题1 燃料的燃烧 · 翻页课件</title>
+<style>
+  :root{--ink:#1a2230;--muted:#6b7280;--line:#e5e7eb;--soft:#f6f8fb;--accent:#0f766e;--accent-soft:#ecfdf5;--max:1000px;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html,body{height:100%;}
+  body{background:#fff;color:var(--ink);overflow:hidden;font-family:"PingFang SC","Microsoft YaHei","Hiragino Sans GB","Source Han Sans SC",sans-serif;-webkit-font-smoothing:antialiased;}
+  #deck{position:relative;width:100vw;height:100vh;}
+  .slide{position:absolute;inset:0;display:none;padding:clamp(28px,5vh,60px) clamp(26px,6vw,88px) 94px;overflow-y:auto;}
+  .slide.active{display:flex;animation:fade .32s ease;}
+  @keyframes fade{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:none;}}
+  .inner{width:100%;max-width:var(--max);margin:auto;}
+  .kicker{font-size:17px;letter-spacing:.12em;color:var(--accent);font-weight:700;margin-bottom:16px;}
+  h1{font-size:clamp(48px,7vw,82px);line-height:1.15;letter-spacing:-.02em;margin-bottom:16px;}
+  h2{font-size:clamp(34px,4.6vw,56px);line-height:1.3;letter-spacing:-.01em;margin-bottom:24px;}
+  h3{font-size:clamp(24px,2.8vw,30px);margin:20px 0 9px;}
+  p{font-size:clamp(22px,2.4vw,30px);line-height:1.8;margin-bottom:13px;}
+  b,strong{font-weight:700;}
+  .muted{color:var(--muted);}
+  .tag{display:inline-block;font-size:15px;color:var(--muted);border:1px solid var(--line);border-radius:99px;padding:2px 11px;margin-left:10px;vertical-align:middle;font-weight:400;}
+  .cover{text-align:center;}
+  .cover .eyebrow{font-size:18px;color:var(--muted);letter-spacing:.14em;margin-bottom:24px;}
+  .cover .rule{width:60px;height:4px;background:var(--accent);border-radius:2px;margin:0 auto 32px;}
+  .cover .hint{font-size:18px;color:var(--muted);line-height:2;}
+  .kbd{display:inline-block;border:1px solid var(--line);border-bottom-width:2px;border-radius:5px;padding:1px 7px;margin:0 2px;font-size:15px;color:#374151;background:var(--soft);}
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:20px;}
+  @media(max-width:760px){.two{grid-template-columns:1fr;}}
+  .callout{background:var(--soft);border-radius:12px;padding:18px 24px;font-size:clamp(20px,2.2vw,26px);line-height:1.75;color:#4b5563;}
+  .callout b{color:var(--ink);}
+  .biglaw{background:var(--accent-soft);border-left:5px solid var(--accent);border-radius:0 14px 14px 0;padding:clamp(22px,3.4vw,38px);font-size:clamp(28px,3.8vw,44px);font-weight:700;line-height:1.65;}
+  .biglaw .lbl{display:block;font-size:15px;letter-spacing:.16em;color:var(--accent);margin-bottom:14px;}
+  .eq{display:inline-flex;flex-wrap:wrap;align-items:flex-start;background:var(--soft);border:1px dashed #cbd5e1;border-radius:12px;padding:34px 24px 14px;margin:8px 0;}
+  .eq .col{display:flex;flex-direction:column;align-items:center;min-width:26px;}
+  .eq .f{font-size:clamp(25px,2.9vw,34px);line-height:1.5;height:30px;white-space:nowrap;font-family:"Times New Roman",Times,serif;}
+  .eq .op{font-size:clamp(23px,2.7vw,30px);line-height:1.5;height:30px;color:#9ca3af;padding:0 8px;white-space:nowrap;}
+  .eq .mark{display:flex;align-items:center;justify-content:center;height:30px;padding:0 10px;position:relative;}
+  .eq .cond{position:absolute;top:-20px;font-size:17px;color:var(--muted);line-height:1.5;white-space:nowrap;}
+  .eq .arr{font-size:32px;line-height:1;color:var(--accent);white-space:nowrap;}
+  .eq .eqsign{font-size:28px;line-height:1;color:var(--accent);white-space:nowrap;}
+  .eq .mr{font-size:clamp(18px,1.9vw,22px);line-height:1.4;height:22px;color:#6b7280;white-space:nowrap;font-family:"Times New Roman",Times,serif;}
+  .eq .mrph{height:22px;}
+  .eqnote{font-size:17px;color:var(--muted);margin-top:8px;line-height:1.7;}
+  .cols3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
+  @media(max-width:760px){.cols3{grid-template-columns:1fr;}}
+  .cols3 .box{border:1px solid var(--line);border-radius:12px;padding:20px;}
+  .cols3 .box .t{font-size:17px;color:var(--accent);font-weight:700;margin-bottom:10px;}
+  .cols3 .box p{font-size:clamp(19px,2vw,24px);}
+  ol,ul{padding-left:26px;}
+  li{font-size:clamp(22px,2.4vw,30px);line-height:1.8;margin-bottom:10px;}
+  .qno{display:inline-block;background:var(--accent);color:#fff;font-size:17px;font-weight:700;border-radius:7px;padding:3px 10px;margin-bottom:16px;}
+  .qtext{font-size:clamp(25px,2.9vw,34px);line-height:1.7;font-weight:600;margin-bottom:17px;}
+  .qsub{font-size:clamp(20px,2.2vw,26px);line-height:1.8;margin-bottom:6px;}
+  .opts{list-style:none;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:8px 20px;}
+  .opts li{font-size:clamp(22px,2.4vw,30px);margin:0;padding:6px 12px;background:var(--soft);border-radius:8px;}
+  @media(max-width:760px){.opts{grid-template-columns:1fr;}}
+  .ans{display:none;margin-top:20px;padding:18px 24px;background:var(--accent-soft);border-radius:12px;font-size:clamp(20px,2.2vw,26px);line-height:1.8;color:#334155;}
+  .ans.show{display:block;animation:fade .25s ease;}
+  .ans .key{color:var(--accent);font-weight:700;}
+  .ans p{font-size:inherit;margin-bottom:9px;}
+  .reveal-hint{font-size:17px;color:var(--muted);margin-top:16px;}
+  /* 增强组件 */
+  .card{background:var(--soft);border:1px solid var(--line);border-radius:14px;padding:22px 26px;margin:12px 0;}
+  .card .ct{font-size:20px;color:var(--accent);font-weight:700;margin-bottom:12px;}
+  .card p{font-size:clamp(21px,2.2vw,27px);}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:12px 0;}
+  @media(max-width:760px){.grid2{grid-template-columns:1fr;}}
+  .grid2 .card{margin:0;}
+  table{border-collapse:collapse;width:100%;font-size:clamp(19px,2vw,25px);margin:14px 0;}
+  th,td{border:1px solid var(--line);padding:10px 14px;text-align:left;line-height:1.6;}
+  th{background:var(--accent-soft);color:var(--accent);font-weight:700;}
+  .def{border-left:4px solid var(--accent);background:var(--accent-soft);border-radius:0 12px 12px 0;padding:18px 24px;margin:14px 0;font-size:clamp(22px,2.4vw,29px);line-height:1.75;}
+  .def .dt{color:var(--accent);font-weight:700;}
+  .exp{background:#fffbeb;border:1px solid #fde68a;border-radius:14px;padding:20px 26px;margin:14px 0;}
+  .exp .et{font-size:19px;color:#b45309;font-weight:700;margin-bottom:10px;}
+  .exp p,.exp li{font-size:clamp(20px,2.1vw,26px);}
+  .flow{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin:16px 0;font-size:clamp(21px,2.3vw,28px);}
+  .flow .node{background:var(--accent-soft);border:1px solid #99f6e4;border-radius:10px;padding:10px 18px;font-weight:600;}
+  .flow .arw{color:var(--accent);font-size:26px;}
+  .chem{font-family:"Times New Roman",Times,serif;}
+  .note{font-size:clamp(19px,2vw,24px);color:var(--muted);line-height:1.75;margin-top:12px;}
+  #bar{position:fixed;left:0;right:0;bottom:0;height:62px;display:flex;align-items:center;justify-content:space-between;padding:0 clamp(18px,4vw,48px);background:rgba(255,255,255,.94);backdrop-filter:blur(8px);border-top:1px solid var(--line);z-index:20;}
+  #bar .grp{display:flex;align-items:center;gap:10px;}
+  .navbtn{font:inherit;font-size:18px;color:#374151;background:#fff;border:1px solid var(--line);border-radius:8px;padding:7px 15px;cursor:pointer;transition:.15s;}
+  .navbtn:hover:not(:disabled){color:var(--accent);border-color:#99f6e4;background:var(--accent-soft);}
+  .navbtn:disabled{opacity:.35;cursor:default;}
+  #counter{font-size:17px;color:var(--muted);min-width:74px;text-align:center;font-variant-numeric:tabular-nums;}
+  #progress{position:fixed;top:0;left:0;height:3px;background:var(--accent);z-index:30;transition:width .3s ease;}
+  #deckTitle{font-size:17px;color:var(--muted);max-width:44vw;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+  #help{display:none;position:fixed;inset:0;background:rgba(17,24,39,.45);z-index:50;align-items:center;justify-content:center;padding:24px;}
+  #help.show{display:flex;}
+  .helpcard{background:#fff;border-radius:16px;padding:32px 38px;max-width:520px;width:100%;box-shadow:0 20px 60px rgba(0,0,0,.15);}
+  .helpcard h3{font-size:28px;margin-bottom:16px;}
+  .helpcard .row{display:flex;justify-content:space-between;gap:20px;padding:9px 0;border-bottom:1px solid var(--line);font-size:19px;}
+  .helpcard .row:last-of-type{border-bottom:0;}
+  .helpcard .close{margin-top:20px;width:100%;}
+  @media print{#bar,#progress,#help,#zoomTip{display:none!important;}body{overflow:visible;}.slide{display:flex!important;position:relative;page-break-after:always;height:auto;min-height:100vh;}.ans{display:block!important;}}
+</style>
+</head>
+<body>
+<div id="progress"></div>
+<div id="zoomTip" style="position:fixed;top:16px;left:50%;transform:translateX(-50%);z-index:60;background:rgba(17,24,39,.85);color:#fff;padding:8px 22px;border-radius:99px;font-size:18px;opacity:0;transition:opacity .25s;pointer-events:none;"></div>
+<div id="deck">
+
+<section class="slide active"><div class="inner cover">
+  <div class="eyebrow">人教版九年级化学上册 · 第七单元 课题1</div>
+  <h1>燃料的燃烧</h1>
+  <div class="rule"></div>
+  <p class="muted" style="font-size:clamp(22px,2.6vw,30px);">燃烧条件 · 灭火原理 · 防火安全 · 化学反应中的能量变化</p>
+  <div class="hint" style="margin-top:48px;">
+    <span class="kbd">PgDn</span>/<span class="kbd">空格</span>/<span class="kbd">→</span> 下一页　·　<span class="kbd">PgUp</span>/<span class="kbd">←</span> 上一页<br>翻页笔可直接翻页　·　练习页再按一次显示答案　·　按 <span class="kbd">H</span> 查看操作
+  </div>
+</div></section>
+
+<section class="slide"><div class="inner">
+
+<div class='kicker'>引入 · 教材 p158</div>
+<h2>燃烧，人类最早利用的化学反应之一</h2>
+<p>人们从用火取暖、照明、烧烤食物，逐步发展到烧制陶瓷、冶炼金属。燃烧与人类生活和社会发展有着密切的联系。</p>
+<div class='callout'>燃烧是一种化学反应。<b>燃烧的发生需要什么条件？</b>懂得了条件，才能有效调控燃烧、预防火灾。</div>
+<p>根据经验：酒精、红磷、木炭等<b>可以燃烧</b>，水、大理石等<b>不能燃烧</b>。只有<b>可燃物</b>才能发生燃烧，可燃物是燃烧发生的条件之一。</p>
+
+</div></section>
+
+<section class="slide"><div class="inner">
+
+<div class='kicker'>探究燃烧的条件 · 教材 p159—160</div>
+<h2>白磷与红磷的对比实验</h2>
+<div class='exp'><div class='et'>【实验事实】 教材图7-3（教师演示，须在通风橱或排风设备下进行）</div><p>（1）在500 mL烧杯中加入300 mL热水，放入用硬纸圈圈住的一小块白磷，烧杯上盖一片薄铜片；铜片一端放一小堆干燥的<b>红磷</b>，另一端放一小块吸去表面水的<b>白磷</b>。<br>（2）用导管对准热水中的白磷，通入少量<b>氧气（或空气）</b>。</p></div>
+<table><tr><th>实验步骤</th><th>现象</th></tr>
+<tr><td>（1）铜片上的红磷与白磷，热水中的白磷</td><td>铜片上的<b>白磷燃烧</b>，红磷不燃烧；热水中的白磷不燃烧</td></tr>
+<tr><td>（2）向热水中的白磷通入氧气（或空气）</td><td>热水中的白磷<b>燃烧</b></td></tr></table>
+<div class='callout'><b>控制变量法：</b>控制温度、氧气等因素不变，比较不同可燃物（红磷、白磷），说明燃烧需要达到一定温度；控制温度、可燃物等因素不变，比较有无氧气，说明燃烧需要氧气（或空气）。（方法导引 p160）</div>
+
+</div></section>
+
+<section class="slide"><div class="inner">
+
+<div class='kicker'>燃烧的定义与条件 · 教材 p160</div>
+<h2>燃烧需要三个条件，缺一不可</h2>
+<div class='def'><span class='dt'>燃烧：</span>通常情况下，<b>可燃物与氧气</b>发生的一种<b>发光、放热</b>的剧烈的<b>氧化反应</b>。</div>
+<div class='cols3'>
+<div class='box'><div class='t'>条件①</div><p><b>可燃物</b>——物质本身能够燃烧。</p></div>
+<div class='box'><div class='t'>条件②</div><p><b>氧气（或空气）</b>——与氧气接触。</p></div>
+<div class='box'><div class='t'>条件③</div><p><b>达到着火点</b>——温度达到燃烧所需的最低温度。</p></div>
+</div>
+<table><tr><th>物质</th><th>白磷</th><th>红磷</th><th>木材</th><th>木炭</th><th>无烟煤</th></tr>
+<tr><td>着火点/℃</td><td>40</td><td>260</td><td>240~270</td><td>320~400</td><td>600~700</td></tr></table>
+<p class='note'>表7-1 通常状况下一些常见物质的着火点。着火点是物质本身的性质，一般不会改变。</p>
+
+</div></section>
+
+<section class="slide"><div class="inner">
+
+<div class='kicker'>二、燃料燃烧的调控 · 灭火的原理 · 教材 p161</div>
+<h2>灭火，就是破坏燃烧的条件</h2>
+<p>燃料的燃烧在造福人类的同时，如果控制不好，也可能造成巨大损失。因此要注意预防火灾，并能在发现火情时迅速灭火。</p>
+<div class='cols3'>
+<div class='box'><div class='t'>清除可燃物</div><p>清除可燃物或使可燃物与其他物品隔离——如设置森林防火隔离带。</p></div>
+<div class='box'><div class='t'>隔绝氧气</div><p>隔绝氧气（或空气）——如用锅盖盖灭油锅着火。</p></div>
+<div class='box'><div class='t'>降温到着火点以下</div><p>使温度降到着火点以下——如用水浇灭纸箱着火、用水喷淋油罐降温。</p></div>
+</div>
+<div class='biglaw'><span class='lbl'>核心结论</span>灭火的原理就是破坏燃烧的条件</div>
+<p class='note'>教材思考与讨论：炒菜油锅着火用锅盖盖灭或放入较多蔬菜；纸箱着火用水浇灭；油罐着火用水喷淋降温；森林中设置防火隔离带——请逐一分析其原理。</p>
+
+</div></section>
+
+<section class="slide"><div class="inner">
+
+<div class='kicker'>简易灭火器与常见灭火器 · 教材 p161—163</div>
+<h2>从实验到实际应用</h2>
+<div class='exp'><div class='et'>【探究】 蜡烛燃烧实验（教材图7-6）</div><p>点燃三支蜡烛：Ⅰ 在其中一支上扣一个烧杯；Ⅱ 将另两支分别放在两个烧杯中；Ⅲ 向其中一个烧杯加入适量<b>碳酸钠溶液和盐酸</b>。观察三支蜡烛燃烧现象有什么不同，并用灭火的原理解释。</p></div>
+<p>实验Ⅲ中碳酸钠与盐酸反应产生大量二氧化碳，隔绝空气，使蜡烛熄灭——据此可设计简易灭火器。设计与制作时须充分考虑装置和试剂的安全性（盐酸有腐蚀性和挥发性），须经教师确认。</p>
+<table><tr><th>灭火器</th><th>灭火原理</th><th>适用范围</th></tr>
+<tr><td>干粉灭火器</td><td>压缩氮气吹出干粉，隔绝空气</td><td>一般火灾及油、气等引起的火灾</td></tr>
+<tr><td>二氧化碳灭火器</td><td>喷出液态 CO₂，降温和隔绝空气</td><td>图书、档案、贵重设备、精密仪器</td></tr>
+<tr><td>水基型灭火器</td><td>泡沫覆盖，使可燃物与空气隔绝</td><td>汽油、柴油等非水溶性可燃液体及木材、棉布</td></tr></table>
+<p class='note'>发现火险或遭遇火灾不要慌张，立即拨打 <b>119</b>；火势较大时用湿毛巾捂住口鼻迅速离开着火区域。</p>
+
+</div></section>
+
+<section class="slide"><div class="inner">
+
+<div class='kicker'>易燃物和易爆物的安全知识 · 教材 p164</div>
+<h2>有限空间内急剧燃烧会引起爆炸</h2>
+<p>易燃物在<b>有限的空间</b>内急剧燃烧，会在短时间内聚积大量的热，使气体迅速膨胀而引起爆炸。例如燃放鞭炮就是火药在极小空间燃烧引起的爆炸。</p>
+<div class='def'><span class='dt'>爆炸极限：</span>可燃气体等在空气中达到一定的含量时，遇到火源就会发生爆炸，这个能发生爆炸的含量范围叫作爆炸极限。</div>
+<table><tr><th>可燃气体</th><th>H₂</th><th>CH₄</th><th>CO</th></tr>
+<tr><td>爆炸极限（体积分数）</td><td>4%~74%</td><td>5%~16%</td><td>12%~74%</td></tr></table>
+<div class='callout'>天然气、煤气、液化石油气泄漏，面粉、煤粉飘散在空气中，达到一定程度遇到明火都可能爆炸。加油站、油库、面粉加工厂、纺织厂、煤矿矿井内都有<b>“严禁烟火”</b>等消防安全标志。在生产、运输、使用、储存易燃物和易爆物时，必须严格遵守有关规定。（科学态度与责任）</div>
+
+</div></section>
+
+<section class="slide"><div class="inner">
+
+<div class='kicker'>三、化学反应中的能量变化 · 教材 p165—166</div>
+<h2>化学反应在生成新物质的同时，还伴随能量变化</h2>
+<p>乙醇（C₂H₅OH）在空气中燃烧，发生化学反应时放出大量的热：</p>
+<div class='flow'><span class='node'>乙醇 C₂H₅OH</span><span class='arw'>+</span><span class='node'>氧气 3O₂</span><span class='arw'>—点燃→</span><span class='node'>二氧化碳 2CO₂</span><span class='arw'>+</span><span class='node'>水 3H₂O</span></div>
+<div class='exp'><div class='et'>【实验7-1】 生石灰与水反应</div><p>在一支试管中加入少量生石灰（CaO）或生石灰干燥剂，再加入 2 mL 水，插入温度计，观察现象并记录温度变化。</p></div>
+<div class='flow'><span class='node'>氧化钙 CaO</span><span class='arw'>+</span><span class='node'>水 H₂O</span><span class='arw'>→</span><span class='node'>氢氧化钙 Ca(OH)₂</span></div>
+<div class='grid2'>
+<div class='card'><div class='ct'>放热反应</div><p>如氧化钙与水反应、燃料燃烧——放出热量。</p></div>
+<div class='card'><div class='ct'>吸热反应</div><p>如碳单质与二氧化碳的反应——吸收热量。</p></div>
+</div>
+<p class='note'>注意：生石灰有腐蚀性，切勿用手拿取，应戴好护目镜做好防护。</p>
+
+</div></section>
+
+<section class="slide"><div class="inner">
+
+<div class='kicker'>燃料的充分燃烧 · 教材 p165</div>
+<h2>让每一份燃料都充分燃烧</h2>
+<p>当氧气不充足时，燃料不能充分燃烧，产生<b>黑烟</b>，并生成<b>一氧化碳</b>等物质，使燃料利用率降低、浪费资源、污染空气。</p>
+<div class='cols3'>
+<div class='box'><div class='t'>足够空气</div><p>燃烧时要有<b>足够的空气（氧气）</b>。</p></div>
+<div class='box'><div class='t'>足够接触面</div><p>燃料与空气要有<b>足够大的接触面</b>。</p></div>
+<div class='box'><div class='t'>实际例子</div><p>燃气灶火焰呈黄色或橙色、锅底出现黑色物质时，需要调节灶具<b>进风口</b>。</p></div>
+</div>
+<div class='biglaw'><span class='lbl'>化学与社会责任</span>合理调控燃烧，提高燃料利用率</div>
+<p class='note'>人类需要的大部分能量由化学反应放出的能量提供：利用燃烧发电、发射火箭，利用爆炸开采矿物、开山炸石、拆除危旧建筑等。（教材 p166）</p>
+
+</div></section>
+
+<section class="slide quiz-slide"><div class="inner">
+  <span class="qno">练习 1（教材 p167）</span>
+  <div class="qtext">下列说法中，正确的是（　）。</div>
+  <ul class="opts"><li>A. 化学反应伴随着能量变化</li><li>B. 化学反应过程中都会发生放热现象</li><li>C. 在化学反应中，只有燃烧才能放出热量</li><li>D. 人类利用的能量都是通过化学反应获得的</li></ul>
+  <div class="ans"><p><span class='key'>答案：A</span>　化学反应在生成新物质的同时伴随能量变化，通常表现为热量变化，可能放热也可能<b>吸热</b>；氧化钙与水反应也放热，并非只有燃烧放热。</p></div>
+  <div class="reveal-hint">按翻页键 / 空格 显示答案，再按一次继续</div>
+</div></section>
+
+<section class="slide quiz-slide"><div class="inner">
+  <span class="qno">练习 2（教材 p167）</span>
+  <div class="qtext">消防队员用高压水枪灭火，此措施依据的灭火原理是（　）。</div>
+  <ul class="opts"><li>A. 清除可燃物</li><li>B. 隔绝氧气（或空气）</li><li>C. 使温度降到着火点以下</li><li>D. 降低可燃物的着火点</li></ul>
+  <div class="ans"><p><span class='key'>答案：C</span>　水能吸收大量热量，使可燃物温度<b>降到着火点以下</b>；着火点是物质本身的性质，不能降低。</p></div>
+  <div class="reveal-hint">按翻页键 / 空格 显示答案，再按一次继续</div>
+</div></section>
+
+<section class="slide quiz-slide"><div class="inner">
+  <span class="qno">练习 3（教材 p167）</span>
+  <div class="qtext">用扇子扇煤炉火焰，越扇越旺；用扇子扇蜡烛火焰，一扇就灭。对此解释正确的是（　）。</div>
+  <ul class="opts"><li>A. 扇风降低了煤和蜡烛的着火点</li><li>B. 扇煤炉补充了氧气；扇蜡烛使温度降到着火点以下</li><li>C. 扇风隔绝了氧气</li><li>D. 煤和蜡烛的着火点相同，与扇风无关</li></ul>
+  <div class="ans"><p><span class='key'>答案：B</span>　扇煤炉时补充了<b>氧气</b>，燃烧更旺；扇蜡烛时气流带走热量，使温度<b>降到着火点以下</b>而熄灭。着火点不会因扇风改变。</p></div>
+  <div class="reveal-hint">按翻页键 / 空格 显示答案，再按一次继续</div>
+</div></section>
+
+<section class="slide"><div class="inner cover">
+  <div class="rule" style="margin-bottom:32px;"></div>
+  <h1 style="font-size:clamp(42px,6.5vw,70px);">课题1 · 小结</h1>
+  <p class="muted" style="font-size:clamp(23px,2.9vw,32px);">燃烧三条件 · 灭火原理 · 防火安全 · 燃料充分燃烧与能量变化</p>
+  <div class="hint" style="margin-top:40px;">按 <span class="kbd">Home</span> 回到第一页　·　按 <span class="kbd">End</span> 到末页</div>
+</div></section>
+
+</div>
+
+<div id="bar">
+  <div class="grp"><button class="navbtn" id="prevBtn">← 上一页</button><button class="navbtn" id="nextBtn">下一页 →</button><span id="counter">1 / 13</span></div>
+  <div class="grp"><span id="deckTitle">第七单元 课题1 燃料的燃烧</span><button class="navbtn" id="fullBtn">⛶ 全屏</button><button class="navbtn" id="helpBtn">? 操作</button></div>
+</div>
+<div id="help"><div class="helpcard">
+  <h3>翻页操作说明</h3>
+  <div class="row"><span>下一页</span><span><span class="kbd">PgDn</span> <span class="kbd">空格</span> <span class="kbd">→</span> <span class="kbd">↓</span></span></div>
+  <div class="row"><span>上一页</span><span><span class="kbd">PgUp</span> <span class="kbd">←</span> <span class="kbd">↑</span></span></div>
+  <div class="row"><span>首页 / 末页</span><span><span class="kbd">Home</span> / <span class="kbd">End</span></span></div>
+  <div class="row"><span>练习页显示答案</span><span>在题目页再按一次"下一页"</span></div>
+  <div class="row"><span>字号放大 / 缩小</span><span><span class="kbd">]</span> 放大 · <span class="kbd">[</span> 缩小 · <span class="kbd">0</span> 恢复默认</span></div>
+  <div class="row"><span>全屏放映</span><span><span class="kbd">F</span> 或点击"全屏"</span></div>
+  <button class="navbtn close" id="closeHelp">知道了</button>
+</div></div>
+
+<script>
+
+(function(){
+  const slides=Array.from(document.querySelectorAll('.slide'));let cur=0;
+  const counter=document.getElementById('counter'),progress=document.getElementById('progress'),prevBtn=document.getElementById('prevBtn'),nextBtn=document.getElementById('nextBtn'),help=document.getElementById('help');
+  const ZKEY='__deck_zoom__';
+  function zoom(){const z=parseFloat(localStorage.getItem(ZKEY));return (isNaN(z)||z<0.7||z>2.2)?1:z;}
+  function setZoom(z){z=Math.max(0.7,Math.min(2.2,Math.round(z*10)/10));localStorage.setItem(ZKEY,String(z));
+    document.querySelectorAll('.inner').forEach(el=>el.style.zoom=z);
+    const t=document.getElementById('zoomTip');if(t){t.textContent='字号 '+Math.round(z*100)+'%';t.style.opacity=1;clearTimeout(t._tm);t._tm=setTimeout(()=>t.style.opacity=0,1000);}}
+  document.addEventListener('keydown',function(e){if(e.ctrlKey||e.altKey||e.metaKey)return;
+    if(e.key===']'||e.key==='】'){e.preventDefault();setZoom(zoom()+0.1);}
+    else if(e.key==='['||e.key==='【'){e.preventDefault();setZoom(zoom()-0.1);}
+    else if(e.key==='0'){e.preventDefault();setZoom(1);}});
+  function render(){slides.forEach((s,i)=>s.classList.toggle('active',i===cur));counter.textContent=(cur+1)+' / '+slides.length;progress.style.width=((cur+1)/slides.length*100)+'%';prevBtn.disabled=cur===0;nextBtn.disabled=cur===slides.length-1;slides[cur].scrollTop=0;}
+  function isQuiz(i){return slides[i].classList.contains('quiz-slide');}
+  function shown(i){const a=slides[i].querySelector('.ans');return a&&a.classList.contains('show');}
+  function next(){if(cur>=slides.length-1)return;if(isQuiz(cur)&&!shown(cur)){const a=slides[cur].querySelector('.ans');if(a){a.classList.add('show');const h=slides[cur].querySelector('.reveal-hint');if(h)h.textContent='答案已显示 · 再按一次继续';return;}}cur++;render();}
+  function prev(){if(isQuiz(cur)&&shown(cur)){const a=slides[cur].querySelector('.ans');a.classList.remove('show');const h=slides[cur].querySelector('.reveal-hint');if(h)h.textContent='按翻页键 / 空格 显示答案，再按一次继续';return;}if(cur>0){cur--;render();}}
+  function go(n){if(n>=0&&n<slides.length){cur=n;render();}}
+  prevBtn.onclick=prev;nextBtn.onclick=next;
+  document.addEventListener('keydown',function(e){
+    if(help.classList.contains('show')){if(e.key==='Escape'||e.key==='h'||e.key==='H'){help.classList.remove('show');e.preventDefault();}return;}
+    const k=e.key;
+    if(['PageDown',' ','Spacebar','ArrowRight','ArrowDown','Enter'].includes(k)){e.preventDefault();next();return;}
+    if(['PageUp','ArrowLeft','ArrowUp','Backspace'].includes(k)){e.preventDefault();prev();return;}
+    if(k==='Home'){e.preventDefault();go(0);return;}if(k==='End'){e.preventDefault();go(slides.length-1);return;}
+    if(k==='h'||k==='H'||k==='?'){e.preventDefault();help.classList.add('show');return;}
+    if(k==='f'||k==='F'){e.preventDefault();toggleFull();return;}});
+  let tx=0,ty=0;document.addEventListener('touchstart',e=>{tx=e.changedTouches[0].clientX;ty=e.changedTouches[0].clientY;},{passive:true});
+  document.addEventListener('touchend',e=>{const dx=e.changedTouches[0].clientX-tx,dy=e.changedTouches[0].clientY-ty;if(Math.abs(dx)>60&&Math.abs(dx)>Math.abs(dy))dx<0?next():prev();},{passive:true});
+  function toggleFull(){if(!document.fullscreenElement)document.documentElement.requestFullscreen&&document.documentElement.requestFullscreen();else document.exitFullscreen&&document.exitFullscreen();}
+  document.getElementById('fullBtn').onclick=toggleFull;document.getElementById('helpBtn').onclick=()=>help.classList.add('show');document.getElementById('closeHelp').onclick=()=>help.classList.remove('show');help.onclick=e=>{if(e.target===help)help.classList.remove('show');};
+  document.querySelectorAll('.inner').forEach(el=>el.style.zoom=zoom());
+  render();
+})();
+
+</script>
+</body>
+</html>

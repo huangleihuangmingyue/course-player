@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>课题1 我们周围的空气 · 翻页课件</title>
+<style>
+  :root{--ink:#1a2230;--muted:#6b7280;--line:#e5e7eb;--soft:#f6f8fb;--accent:#0f766e;--accent-soft:#ecfdf5;--max:1000px;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html,body{height:100%;}
+  body{background:#fff;color:var(--ink);overflow:hidden;font-family:"PingFang SC","Microsoft YaHei","Hiragino Sans GB","Source Han Sans SC",sans-serif;-webkit-font-smoothing:antialiased;}
+  #deck{position:relative;width:100vw;height:100vh;}
+  .slide{position:absolute;inset:0;display:none;padding:clamp(28px,5vh,60px) clamp(26px,6vw,88px) 94px;overflow-y:auto;}
+  .slide.active{display:flex;animation:fade .32s ease;}
+  @keyframes fade{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:none;}}
+  .inner{width:100%;max-width:var(--max);margin:auto;}
+  .kicker{font-size:17px;letter-spacing:.12em;color:var(--accent);font-weight:700;margin-bottom:16px;}
+  h1{font-size:clamp(48px,7vw,82px);line-height:1.15;letter-spacing:-.02em;margin-bottom:16px;}
+  h2{font-size:clamp(34px,4.6vw,56px);line-height:1.3;letter-spacing:-.01em;margin-bottom:24px;}
+  h3{font-size:clamp(24px,2.8vw,30px);margin:20px 0 9px;}
+  p{font-size:clamp(22px,2.4vw,30px);line-height:1.8;margin-bottom:13px;}
+  b,strong{font-weight:700;}
+  .muted{color:var(--muted);}
+  .tag{display:inline-block;font-size:15px;color:var(--muted);border:1px solid var(--line);border-radius:99px;padding:2px 11px;margin-left:10px;vertical-align:middle;font-weight:400;}
+  .cover{text-align:center;}
+  .cover .eyebrow{font-size:18px;color:var(--muted);letter-spacing:.14em;margin-bottom:24px;}
+  .cover .rule{width:60px;height:4px;background:var(--accent);border-radius:2px;margin:0 auto 32px;}
+  .cover .hint{font-size:18px;color:var(--muted);line-height:2;}
+  .kbd{display:inline-block;border:1px solid var(--line);border-bottom-width:2px;border-radius:5px;padding:1px 7px;margin:0 2px;font-size:15px;color:#374151;background:var(--soft);}
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:20px;}
+  @media(max-width:760px){.two{grid-template-columns:1fr;}}
+  .callout{background:var(--soft);border-radius:12px;padding:18px 24px;font-size:clamp(20px,2.2vw,26px);line-height:1.75;color:#4b5563;}
+  .callout b{color:var(--ink);}
+  .biglaw{background:var(--accent-soft);border-left:5px solid var(--accent);border-radius:0 14px 14px 0;padding:clamp(22px,3.4vw,38px);font-size:clamp(28px,3.8vw,44px);font-weight:700;line-height:1.65;}
+  .biglaw .lbl{display:block;font-size:15px;letter-spacing:.16em;color:var(--accent);margin-bottom:14px;}
+  .eq{display:inline-flex;flex-wrap:wrap;align-items:flex-start;background:var(--soft);border:1px dashed #cbd5e1;border-radius:12px;padding:34px 24px 14px;margin:8px 0;}
+  .eq .col{display:flex;flex-direction:column;align-items:center;min-width:26px;}
+  .eq .f{font-size:clamp(25px,2.9vw,34px);line-height:1.5;height:30px;white-space:nowrap;font-family:"Times New Roman",Times,serif;}
+  .eq .op{font-size:clamp(23px,2.7vw,30px);line-height:1.5;height:30px;color:#9ca3af;padding:0 8px;white-space:nowrap;}
+  .eq .mark{display:flex;align-items:center;justify-content:center;height:30px;padding:0 10px;position:relative;}
+  .eq .cond{position:absolute;top:-20px;font-size:17px;color:var(--muted);line-height:1.5;white-space:nowrap;}
+  .eq .arr{font-size:32px;line-height:1;color:var(--accent);white-space:nowrap;}
+  .eq .eqsign{font-size:28px;line-height:1;color:var(--accent);white-space:nowrap;}
+  .eq .mr{font-size:clamp(18px,1.9vw,22px);line-height:1.4;height:22px;color:#6b7280;white-space:nowrap;font-family:"Times New Roman",Times,serif;}
+  .eq .mrph{height:22px;}
+  .eqnote{font-size:17px;color:var(--muted);margin-top:8px;line-height:1.7;}
+  .cols3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
+  @media(max-width:760px){.cols3{grid-template-columns:1fr;}}
+  .cols3 .box{border:1px solid var(--line);border-radius:12px;padding:20px;}
+  .cols3 .box .t{font-size:17px;color:var(--accent);font-weight:700;margin-bottom:10px;}
+  .cols3 .box p{font-size:clamp(19px,2vw,24px);}
+  ol,ul{padding-left:26px;}
+  li{font-size:clamp(22px,2.4vw,30px);line-height:1.8;margin-bottom:10px;}
+  .qno{display:inline-block;background:var(--accent);color:#fff;font-size:17px;font-weight:700;border-radius:7px;padding:3px 10px;margin-bottom:16px;}
+  .qtext{font-size:clamp(25px,2.9vw,34px);line-height:1.7;font-weight:600;margin-bottom:17px;}
+  .qsub{font-size:clamp(20px,2.2vw,26px);line-height:1.8;margin-bottom:6px;}
+  .opts{list-style:none;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:8px 20px;}
+  .opts li{font-size:clamp(22px,2.4vw,30px);margin:0;padding:6px 12px;background:var(--soft);border-radius:8px;}
+  @media(max-width:760px){.opts{grid-template-columns:1fr;}}
+  .ans{display:none;margin-top:20px;padding:18px 24px;background:var(--accent-soft);border-radius:12px;font-size:clamp(20px,2.2vw,26px);line-height:1.8;color:#334155;}
+  .ans.show{display:block;animation:fade .25s ease;}
+  .ans .key{color:var(--accent);font-weight:700;}
+  .ans p{font-size:inherit;margin-bottom:9px;}
+  .reveal-hint{font-size:17px;color:var(--muted);margin-top:16px;}
+  /* 增强组件 */
+  .card{background:var(--soft);border:1px solid var(--line);border-radius:14px;padding:22px 26px;margin:12px 0;}
+  .card .ct{font-size:20px;color:var(--accent);font-weight:700;margin-bottom:12px;}
+  .card p{font-size:clamp(21px,2.2vw,27px);}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:12px 0;}
+  @media(max-width:760px){.grid2{grid-template-columns:1fr;}}
+  .grid2 .card{margin:0;}
+  table{border-collapse:collapse;width:100%;font-size:clamp(19px,2vw,25px);margin:14px 0;}
+  th,td{border:1px solid var(--line);padding:10px 14px;text-align:left;line-height:1.6;}
+  th{background:var(--accent-soft);color:var(--accent);font-weight:700;}
+  .def{border-left:4px solid var(--accent);background:var(--accent-soft);border-radius:0 12px 12px 0;padding:18px 24px;margin:14px 0;font-size:clamp(22px,2.4vw,29px);line-height:1.75;}
+  .def .dt{color:var(--accent);font-weight:700;}
+  .exp{background:#fffbeb;border:1px solid #fde68a;border-radius:14px;padding:20px 26px;margin:14px 0;}
+  .exp .et{font-size:19px;color:#b45309;font-weight:700;margin-bottom:10px;}
+  .exp p,.exp li{font-size:clamp(20px,2.1vw,26px);}
+  .flow{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin:16px 0;font-size:clamp(21px,2.3vw,28px);}
+  .flow .node{background:var(--accent-soft);border:1px solid #99f6e4;border-radius:10px;padding:10px 18px;font-weight:600;}
+  .flow .arw{color:var(--accent);font-size:26px;}
+  .chem{font-family:"Times New Roman",Times,serif;}
+  .note{font-size:clamp(19px,2vw,24px);color:var(--muted);line-height:1.75;margin-top:12px;}
+  #bar{position:fixed;left:0;right:0;bottom:0;height:62px;display:flex;align-items:center;justify-content:space-between;padding:0 clamp(18px,4vw,48px);background:rgba(255,255,255,.94);backdrop-filter:blur(8px);border-top:1px solid var(--line);z-index:20;}
+  #bar .grp{display:flex;align-items:center;gap:10px;}
+  .navbtn{font:inherit;font-size:18px;color:#374151;background:#fff;border:1px solid var(--line);border-radius:8px;padding:7px 15px;cursor:pointer;transition:.15s;}
+  .navbtn:hover:not(:disabled){color:var(--accent);border-color:#99f6e4;background:var(--accent-soft);}
+  .navbtn:disabled{opacity:.35;cursor:default;}
+  #counter{font-size:17px;color:var(--muted);min-width:74px;text-align:center;font-variant-numeric:tabular-nums;}
+  #progress{position:fixed;top:0;left:0;height:3px;background:var(--accent);z-index:30;transition:width .3s ease;}
+  #deckTitle{font-size:17px;color:var(--muted);max-width:44vw;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+  #help{display:none;position:fixed;inset:0;background:rgba(17,24,39,.45);z-index:50;align-items:center;justify-content:center;padding:24px;}
+  #help.show{display:flex;}
+  .helpcard{background:#fff;border-radius:16px;padding:32px 38px;max-width:520px;width:100%;box-shadow:0 20px 60px rgba(0,0,0,.15);}
+  .helpcard h3{font-size:28px;margin-bottom:16px;}
+  .helpcard .row{display:flex;justify-content:space-between;gap:20px;padding:9px 0;border-bottom:1px solid var(--line);font-size:19px;}
+  .helpcard .row:last-of-type{border-bottom:0;}
+  .helpcard .close{margin-top:20px;width:100%;}
+  @media print{#bar,#progress,#help,#zoomTip{display:none!important;}body{overflow:visible;}.slide{display:flex!important;position:relative;page-break-after:always;height:auto;min-height:100vh;}.ans{display:block!important;}}
+</style>
+</head>
+<body>
+<div id="progress"></div>
+<div id="zoomTip" style="position:fixed;top:16px;left:50%;transform:translateX(-50%);z-index:60;background:rgba(17,24,39,.85);color:#fff;padding:8px 22px;border-radius:99px;font-size:18px;opacity:0;transition:opacity .25s;pointer-events:none;"></div>
+<div id="deck">
+
+<section class="slide active"><div class="inner cover">
+  <div class="eyebrow">人教版九年级化学上册 · 第二单元 课题1</div>
+  <h1>我们周围的空气</h1>
+  <div class="rule"></div>
+  <p class="muted" style="font-size:clamp(22px,2.6vw,30px);">空气的成分 · 氧气含量的测定 · 纯净物与混合物 —— 从实验认识空气</p>
+  <div class="hint" style="margin-top:48px;">
+    <span class="kbd">PgDn</span>/<span class="kbd">空格</span>/<span class="kbd">→</span> 下一页　·　<span class="kbd">PgUp</span>/<span class="kbd">←</span> 上一页<br>翻页笔可直接翻页　·　练习页再按一次显示答案　·　按 <span class="kbd">H</span> 查看操作
+  </div>
+</div></section>
+
+<section class="slide"><div class="inner">
+
+<div class='kicker'>引入 · 教材 p30</div>
+<h2>看不见的空气，如何证明它的存在？</h2>
+<p>空气是<b>无色无臭</b>的，虽然看不见，但可以通过<b>呼吸</b>体会它的存在。那么，如何通过实验来测定空气的组成呢？</p>
+<div class='callout'>二百多年前，法国化学家<b>拉瓦锡</b>用定量实验研究了空气的成分，揭开了空气组成的谜底。</div>
+<p class='note'>从“猜想”到“实验测定”，这正是化学认识物质世界的基本路径。</p>
+
+</div></section>
+
+<section class="slide"><div class="inner">
+
+<div class='kicker'>一、空气的组成 · 拉瓦锡实验与成分比例 · 教材 p30—31</div>
+<h2>拉瓦锡怎样“测出”空气的成分</h2>
+<p>把少量<b>汞（Hg）</b>在密闭容器里连续加热<b>12 天</b>，银白色的液态汞变成<b>红色粉末</b>，空气体积减小；剩余气体既不能供给呼吸，也不能支持燃烧，是<b>氮气（N₂）</b>。</p>
+<p>红色粉末再加强热，得到<b>汞和氧气（O₂）</b>，且氧气体积恰好等于减小的体积。结论：<b>空气由氧气和氮气组成</b>。</p>
+<table><tr><th>成分</th><th>氮气</th><th>氧气</th><th>稀有气体</th><th>二氧化碳</th><th>其他气体</th></tr>
+<tr><td>体积分数</td><td><b>78%</b></td><td><b>21%</b></td><td>0.94%</td><td>0.04%</td><td>0.02%</td></tr></table>
+<div class='biglaw'><span class='lbl'>记忆主线</span>氮多氧少 —— 氮气约占 4/5，氧气约占 1/5</div>
+<div class='callout'><b>科学思维：</b>拉瓦锡用定量实验和严谨推理研究空气；后来人们又发现氦、氖、氩、氪、氙、氡等稀有气体，认识到空气还有其他成分，现已能精确测定。</div>
+
+</div></section>
+
+<section class="slide"><div class="inner">
+
+<div class='kicker'>二、空气中氧气含量的测定 · 实验探究 · 教材 p31</div>
+<h2>红磷燃烧实验：测出空气中的氧气</h2>
+<div class='card'><div class='ct'>反应原理（文字表达式）</div><div class='flow'><span class='node'>红磷（P）</span><span class='arw'>+</span><span class='node'>氧气（O₂）</span><span class='arw'>—点燃→</span><span class='node'>五氧化二磷（P₂O₅）</span></div></div>
+<div class='exp'><div class='et'>【探究实验】 教材图2-4 装置</div><ol>
+<li>在集气瓶内加入少量水，将水面上方空间分为 <b>5 等份</b>并做好标记；</li>
+<li>用弹簧夹夹紧乳胶管；燃烧匙内放入<b>足量的红磷</b>，点燃后立即伸入瓶中，塞紧橡胶塞；</li>
+<li>待红磷熄灭并<b>冷却至室温</b>，打开弹簧夹，观察烧杯中的水被吸入集气瓶，<b>瓶内液面上升约至刻度 1</b>。</li>
+</ol></div>
+<div class='callout'>请讨论并解释：进入集气瓶中水的体积，为什么会约为瓶内空气体积的 <b>1/5</b>？</div>
+
+</div></section>
+
+<section class="slide"><div class="inner">
+
+<div class='kicker'>实验分析 · 教材 p32 思考与讨论</div>
+<h2>液面为什么上升？剩余气体是什么？</h2>
+<p>红磷燃烧<b>消耗了瓶内的氧气</b>，生成固体五氧化二磷，使瓶内气体减少、压强减小；打开弹簧夹后，烧杯中的水被吸入集气瓶，进入水的体积约等于<b>消耗掉的氧气体积</b>。</p>
+<div class='def'><span class='dt'>成功关键：</span>红磷要<b>足量</b>、装置<b>气密性良好</b>、必须<b>冷却至室温</b>再打开弹簧夹。</div>
+<p>集气瓶内剩下的气体主要是<b>氮气</b>：燃烧着的红磷熄灭，说明氮气<b>不能支持燃烧</b>；液面上升到一定高度后不再上升，说明氮气<b>不易溶于水</b>。</p>
+<div class='callout'><b>科学探究与实践：</b>教材 p32 介绍数字化实验——用<b>氧气传感器</b>连接数据采集器和计算机，可直接采集并显示空气中氧气的含量。</div>
+
+</div></section>
+
+<section class="slide"><div class="inner">
+
+<div class='kicker'>三、纯净物与混合物 · 教材 p32</div>
+<h2>混合物与纯净物</h2>
+<div class='grid2'>
+<div class='card'><div class='ct'>混合物</div><p>由<b>两种或两种以上</b>物质混合而成的物质。组成混合物的各种成分<b>保持着它们各自的性质</b>。如：<b>空气</b>。</p></div>
+<div class='card'><div class='ct'>纯净物</div><p>只由<b>一种</b>物质组成，可以用<b>化学符号</b>表示。如：氮气 N₂、氧气 O₂、二氧化碳 CO₂、红磷 P、五氧化二磷 P₂O₅。</p></div>
+</div>
+<div class='biglaw'><span class='lbl'>判断关键</span>看物质种类，不看是否“洁净”——“洁净的空气”仍是混合物</div>
+<p class='note'>空气由氮气、氧气、稀有气体、二氧化碳等多种物质组成，是混合物；其中的每一种气体分别只由一种物质组成，都是纯净物。</p>
+
+</div></section>
+
+<section class="slide"><div class="inner">
+
+<div class='kicker'>四、空气是一种宝贵的资源 · 教材 p33—34</div>
+<h2>氧气与氮气：用途来自性质</h2>
+<div class='grid2'>
+<div class='card'><div class='ct'>氧气 · 过去曾叫“养气”</div><p>燃料燃烧离不开氧气；<b>医疗急救、炼钢、化工生产、气割、气焊和航空航天</b>等都要用到氧气。</p></div>
+<div class='card'><div class='ct'>氮气 · 化学性质不活泼</div><p>是制造<b>硝酸和氮肥</b>的重要原料；常用作<b>保护气</b>（焊接金属、食品包装充氮防腐）；<b>液氮</b>可冷冻治疗，并为超导材料提供低温环境。</p></div>
+</div>
+<table><tr><th>氮气的物理性质</th><th>颜色</th><th>气味</th><th>标准状况下密度</th><th>熔点</th><th>沸点</th><th>溶解性</th></tr>
+<tr><td>数值 / 描述</td><td>无色</td><td>无臭</td><td>1.251 g/L</td><td>-210 ℃</td><td>-196 ℃</td><td>不易溶于水</td></tr></table>
+<p class='note'>标准状况指温度为 0 ℃、压强为 101 kPa 时的情况。</p>
+
+</div></section>
+
+<section class="slide"><div class="inner">
+
+<div class='kicker'>四、空气是一种宝贵的资源 · 稀有气体 · 教材 p34—35</div>
+<h2>稀有气体：量少，却很重要</h2>
+<p>稀有气体包括<b>氦、氖、氩、氪、氙和氡</b>。它们都<b>没有颜色、没有气味</b>，<b>化学性质很不活泼</b>（过去曾叫“惰性气体”）。</p>
+<div class='grid2'>
+<div class='card'><div class='ct'>通电发光</div><p>通电时能发出<b>不同颜色的光</b>，可用于航标灯、照明灯、闪光灯、<b>霓虹灯</b>等。</p></div>
+<div class='card'><div class='ct'>低温与医疗</div><p>液态氦能营造低温环境，用于磁共振成像仪的<b>超导磁体冷却</b>；氩氦刀可低温冷冻微创治疗肿瘤。</p></div>
+</div>
+<div class='callout'><b>化学观念：</b>性质决定用途。氮气“不活泼”所以可作保护气，稀有气体“通电发光”所以能做霓虹灯。</div>
+
+</div></section>
+
+<section class="slide"><div class="inner">
+
+<div class='kicker'>五、保护大气环境 · 教材 p35—36</div>
+<h2>保护我们赖以生存的空气</h2>
+<p>随着工业的发展，排放到空气中的<b>有害气体和烟尘</b>造成空气污染，会严重损害人体健康、影响作物生长、破坏生态平衡；<b>臭氧层破坏和酸雨</b>也与空气污染有关。</p>
+<p>人类正在积极行动：使用<b>清洁能源</b>、加强<b>空气质量监测</b>、积极<b>植树种草</b>，持续深入打好蓝天保卫战。</p>
+<div class='card'><div class='ct'>资料卡片 · 空气质量指数（AQI）</div><p>目前计入空气质量评价的主要污染物：<b>二氧化硫、一氧化碳、二氧化氮、可吸入颗粒物（PM10）、细颗粒物（PM2.5）和臭氧</b>等。指数 0~50 为“优”，51~100 为“良”，数值越大污染越重。</p></div>
+<div class='callout'><b>科学态度与责任：</b>关注空气质量，从身边小事做起——绿色出行、节约能源、植树护绿。</div>
+
+</div></section>
+
+<section class="slide"><div class="inner">
+
+<div class='kicker'>学完本课题你知道了什么 · 教材 p37</div>
+<h2>三句话，梳理本课题</h2>
+<div class='card'><div class='ct'>1　空气的成分</div><p>按体积计算，大约是：氮气 <b>78%</b>、氧气 <b>21%</b>、稀有气体等其他成分约 <b>1%</b>；可用红磷燃烧实验测定其中氧气的含量。</p></div>
+<div class='card'><div class='ct'>2　物质分类</div><p>纯净物由<b>一种</b>物质组成，混合物由<b>两种或两种以上</b>物质组成。氧气、氮气等是纯净物，空气是混合物。</p></div>
+<div class='card'><div class='ct'>3　空气是宝贵的资源</div><p>氧气、氮气、稀有气体用途广泛；要保护大气环境，防止污染空气。</p></div>
+
+</div></section>
+
+<section class="slide quiz-slide"><div class="inner">
+  <span class="qno">练习 1</span>
+  <div class="qtext">空气中含量较高且化学性质不活泼的气体是（　）。</div>
+  <ul class="opts"><li>A. 氧气</li><li>B. 氮气</li><li>C. 二氧化碳</li><li>D. 水蒸气</li></ul>
+  <div class="ans"><p><span class='key'>答案：B</span>　教材 p31：空气中氮气约占 78%，含量最高；教材 p34 指出氮气的化学性质不如氧气活泼，常作保护气。氧气性质较活泼，二氧化碳和水蒸气在空气中含量都很低。故选 B。</p></div>
+  <div class="reveal-hint">按翻页键 / 空格 显示答案，再按一次继续</div>
+</div></section>
+
+<section class="slide quiz-slide"><div class="inner">
+  <span class="qno">练习 2</span>
+  <div class="qtext">科学家对火星的大气进行分析，得到下表所示数据：<br><span class='muted'>二氧化碳 95%、氮气 2.7%、氩气 1.6%（体积分数）</span><br>与地球大气的成分相比，火星大气中含量更高的是（　）。</div>
+  <ul class="opts"><li>A. 氮气</li><li>B. 氮气和氩气</li><li>C. 二氧化碳和氮气</li><li>D. 二氧化碳和氩气</li></ul>
+  <div class="ans"><p><span class='key'>答案：D</span>　地球大气中二氧化碳仅约 0.04%、稀有气体约 0.94%、氮气约 78%。火星大气中二氧化碳高达 95%，氩气 1.6% 也高于地球稀有气体的比例，而氮气 2.7% 远低于地球的 78%。因此含量更高的是二氧化碳和氩气，选 D。</p></div>
+  <div class="reveal-hint">按翻页键 / 空格 显示答案，再按一次继续</div>
+</div></section>
+
+<section class="slide quiz-slide"><div class="inner">
+  <span class="qno">练习 3</span>
+  <div class="qtext">下列物质中，属于混合物的是（　）。</div>
+  <ul class="opts"><li>A. 冰</li><li>B. 液态氧</li><li>C. 五氧化二磷</li><li>D. 蜡烛燃烧后的产物</li></ul>
+  <div class="ans"><p><span class='key'>答案：D</span>　冰（固态水）、液态氧、五氧化二磷都只由一种物质组成，是纯净物；蜡烛燃烧后生成二氧化碳和水等多种物质，属于混合物（教材 p32：混合物由两种或两种以上物质混合而成）。故选 D。</p></div>
+  <div class="reveal-hint">按翻页键 / 空格 显示答案，再按一次继续</div>
+</div></section>
+
+<section class="slide"><div class="inner cover">
+  <div class="rule" style="margin-bottom:32px;"></div>
+  <h1 style="font-size:clamp(42px,6.5vw,70px);">课题1 · 小结</h1>
+  <p class="muted" style="font-size:clamp(23px,2.9vw,32px);">空气的成分与测定 · 纯净物和混合物 · 空气是宝贵的资源，要保护大气环境</p>
+  <div class="hint" style="margin-top:40px;">按 <span class="kbd">Home</span> 回到第一页　·　按 <span class="kbd">End</span> 到末页</div>
+</div></section>
+
+</div>
+
+<div id="bar">
+  <div class="grp"><button class="navbtn" id="prevBtn">← 上一页</button><button class="navbtn" id="nextBtn">下一页 →</button><span id="counter">1 / 14</span></div>
+  <div class="grp"><span id="deckTitle">第二单元 课题1 我们周围的空气</span><button class="navbtn" id="fullBtn">⛶ 全屏</button><button class="navbtn" id="helpBtn">? 操作</button></div>
+</div>
+<div id="help"><div class="helpcard">
+  <h3>翻页操作说明</h3>
+  <div class="row"><span>下一页</span><span><span class="kbd">PgDn</span> <span class="kbd">空格</span> <span class="kbd">→</span> <span class="kbd">↓</span></span></div>
+  <div class="row"><span>上一页</span><span><span class="kbd">PgUp</span> <span class="kbd">←</span> <span class="kbd">↑</span></span></div>
+  <div class="row"><span>首页 / 末页</span><span><span class="kbd">Home</span> / <span class="kbd">End</span></span></div>
+  <div class="row"><span>练习页显示答案</span><span>在题目页再按一次"下一页"</span></div>
+  <div class="row"><span>字号放大 / 缩小</span><span><span class="kbd">]</span> 放大 · <span class="kbd">[</span> 缩小 · <span class="kbd">0</span> 恢复默认</span></div>
+  <div class="row"><span>全屏放映</span><span><span class="kbd">F</span> 或点击"全屏"</span></div>
+  <button class="navbtn close" id="closeHelp">知道了</button>
+</div></div>
+
+<script>
+
+(function(){
+  const slides=Array.from(document.querySelectorAll('.slide'));let cur=0;
+  const counter=document.getElementById('counter'),progress=document.getElementById('progress'),prevBtn=document.getElementById('prevBtn'),nextBtn=document.getElementById('nextBtn'),help=document.getElementById('help');
+  const ZKEY='__deck_zoom__';
+  function zoom(){const z=parseFloat(localStorage.getItem(ZKEY));return (isNaN(z)||z<0.7||z>2.2)?1:z;}
+  function setZoom(z){z=Math.max(0.7,Math.min(2.2,Math.round(z*10)/10));localStorage.setItem(ZKEY,String(z));
+    document.querySelectorAll('.inner').forEach(el=>el.style.zoom=z);
+    const t=document.getElementById('zoomTip');if(t){t.textContent='字号 '+Math.round(z*100)+'%';t.style.opacity=1;clearTimeout(t._tm);t._tm=setTimeout(()=>t.style.opacity=0,1000);}}
+  document.addEventListener('keydown',function(e){if(e.ctrlKey||e.altKey||e.metaKey)return;
+    if(e.key===']'||e.key==='】'){e.preventDefault();setZoom(zoom()+0.1);}
+    else if(e.key==='['||e.key==='【'){e.preventDefault();setZoom(zoom()-0.1);}
+    else if(e.key==='0'){e.preventDefault();setZoom(1);}});
+  function render(){slides.forEach((s,i)=>s.classList.toggle('active',i===cur));counter.textContent=(cur+1)+' / '+slides.length;progress.style.width=((cur+1)/slides.length*100)+'%';prevBtn.disabled=cur===0;nextBtn.disabled=cur===slides.length-1;slides[cur].scrollTop=0;}
+  function isQuiz(i){return slides[i].classList.contains('quiz-slide');}
+  function shown(i){const a=slides[i].querySelector('.ans');return a&&a.classList.contains('show');}
+  function next(){if(cur>=slides.length-1)return;if(isQuiz(cur)&&!shown(cur)){const a=slides[cur].querySelector('.ans');if(a){a.classList.add('show');const h=slides[cur].querySelector('.reveal-hint');if(h)h.textContent='答案已显示 · 再按一次继续';return;}}cur++;render();}
+  function prev(){if(isQuiz(cur)&&shown(cur)){const a=slides[cur].querySelector('.ans');a.classList.remove('show');const h=slides[cur].querySelector('.reveal-hint');if(h)h.textContent='按翻页键 / 空格 显示答案，再按一次继续';return;}if(cur>0){cur--;render();}}
+  function go(n){if(n>=0&&n<slides.length){cur=n;render();}}
+  prevBtn.onclick=prev;nextBtn.onclick=next;
+  document.addEventListener('keydown',function(e){
+    if(help.classList.contains('show')){if(e.key==='Escape'||e.key==='h'||e.key==='H'){help.classList.remove('show');e.preventDefault();}return;}
+    const k=e.key;
+    if(['PageDown',' ','Spacebar','ArrowRight','ArrowDown','Enter'].includes(k)){e.preventDefault();next();return;}
+    if(['PageUp','ArrowLeft','ArrowUp','Backspace'].includes(k)){e.preventDefault();prev();return;}
+    if(k==='Home'){e.preventDefault();go(0);return;}if(k==='End'){e.preventDefault();go(slides.length-1);return;}
+    if(k==='h'||k==='H'||k==='?'){e.preventDefault();help.classList.add('show');return;}
+    if(k==='f'||k==='F'){e.preventDefault();toggleFull();return;}});
+  let tx=0,ty=0;document.addEventListener('touchstart',e=>{tx=e.changedTouches[0].clientX;ty=e.changedTouches[0].clientY;},{passive:true});
+  document.addEventListener('touchend',e=>{const dx=e.changedTouches[0].clientX-tx,dy=e.changedTouches[0].clientY-ty;if(Math.abs(dx)>60&&Math.abs(dx)>Math.abs(dy))dx<0?next():prev();},{passive:true});
+  function toggleFull(){if(!document.fullscreenElement)document.documentElement.requestFullscreen&&document.documentElement.requestFullscreen();else document.exitFullscreen&&document.exitFullscreen();}
+  document.getElementById('fullBtn').onclick=toggleFull;document.getElementById('helpBtn').onclick=()=>help.classList.add('show');document.getElementById('closeHelp').onclick=()=>help.classList.remove('show');help.onclick=e=>{if(e.target===help)help.classList.remove('show');};
+  document.querySelectorAll('.inner').forEach(el=>el.style.zoom=zoom());
+  render();
+})();
+
+</script>
+</body>
+</html>

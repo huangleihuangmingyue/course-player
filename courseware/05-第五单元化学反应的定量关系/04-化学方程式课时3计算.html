@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>化学方程式 · 课时3 计算 · 翻页课件</title>
+<style>
+  :root{--ink:#1a2230;--muted:#6b7280;--line:#e5e7eb;--soft:#f6f8fb;--accent:#0f766e;--accent-soft:#ecfdf5;--max:1000px;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html,body{height:100%;}
+  body{background:#fff;color:var(--ink);overflow:hidden;font-family:"PingFang SC","Microsoft YaHei","Hiragino Sans GB","Source Han Sans SC",sans-serif;-webkit-font-smoothing:antialiased;}
+  #deck{position:relative;width:100vw;height:100vh;}
+  .slide{position:absolute;inset:0;display:none;padding:clamp(28px,5vh,60px) clamp(26px,6vw,88px) 94px;overflow-y:auto;}
+  .slide.active{display:flex;animation:fade .32s ease;}
+  @keyframes fade{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:none;}}
+  .inner{width:100%;max-width:var(--max);margin:auto;}
+  .kicker{font-size:17px;letter-spacing:.12em;color:var(--accent);font-weight:700;margin-bottom:16px;}
+  h1{font-size:clamp(48px,7vw,82px);line-height:1.15;letter-spacing:-.02em;margin-bottom:16px;}
+  h2{font-size:clamp(34px,4.6vw,56px);line-height:1.3;letter-spacing:-.01em;margin-bottom:24px;}
+  h3{font-size:clamp(24px,2.8vw,30px);margin:20px 0 9px;}
+  p{font-size:clamp(22px,2.4vw,30px);line-height:1.8;margin-bottom:13px;}
+  b,strong{font-weight:700;}
+  .muted{color:var(--muted);}
+  .tag{display:inline-block;font-size:15px;color:var(--muted);border:1px solid var(--line);border-radius:99px;padding:2px 11px;margin-left:10px;vertical-align:middle;font-weight:400;}
+  .cover{text-align:center;}
+  .cover .eyebrow{font-size:18px;color:var(--muted);letter-spacing:.14em;margin-bottom:24px;}
+  .cover .rule{width:60px;height:4px;background:var(--accent);border-radius:2px;margin:0 auto 32px;}
+  .cover .hint{font-size:18px;color:var(--muted);line-height:2;}
+  .kbd{display:inline-block;border:1px solid var(--line);border-bottom-width:2px;border-radius:5px;padding:1px 7px;margin:0 2px;font-size:15px;color:#374151;background:var(--soft);}
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:20px;}
+  @media(max-width:760px){.two{grid-template-columns:1fr;}}
+  .callout{background:var(--soft);border-radius:12px;padding:18px 24px;font-size:clamp(20px,2.2vw,26px);line-height:1.75;color:#4b5563;}
+  .callout b{color:var(--ink);}
+  .biglaw{background:var(--accent-soft);border-left:5px solid var(--accent);border-radius:0 14px 14px 0;padding:clamp(22px,3.4vw,38px);font-size:clamp(28px,3.8vw,44px);font-weight:700;line-height:1.65;}
+  .biglaw .lbl{display:block;font-size:15px;letter-spacing:.16em;color:var(--accent);margin-bottom:14px;}
+  /* 化学方程式（统一用等号＝，条件写在等号上方） */
+  .eq{display:inline-flex;flex-wrap:wrap;align-items:flex-start;background:var(--soft);border:1px dashed #cbd5e1;border-radius:12px;padding:34px 24px 14px;margin:8px 0;}
+  .eq .col{display:flex;flex-direction:column;align-items:center;min-width:26px;}
+  .eq .f{font-size:clamp(25px,2.9vw,34px);line-height:1.5;height:30px;white-space:nowrap;font-family:"Times New Roman",Times,serif;}
+  .eq .op{font-size:clamp(23px,2.7vw,30px);line-height:1.5;height:30px;color:#9ca3af;padding:0 8px;white-space:nowrap;}
+  .eq .mark{display:flex;align-items:center;justify-content:center;height:30px;padding:0 10px;position:relative;}
+  .eq .cond{position:absolute;top:-20px;font-size:17px;color:var(--muted);line-height:1.5;white-space:nowrap;}
+  .eq .arr{font-size:32px;line-height:1;color:var(--accent);white-space:nowrap;}
+  .eq .eqsign{font-size:28px;line-height:1;color:var(--accent);white-space:nowrap;}
+  .eq .mr{font-size:clamp(18px,1.9vw,22px);line-height:1.4;height:22px;color:#6b7280;white-space:nowrap;font-family:"Times New Roman",Times,serif;}
+  .eq .mrph{height:22px;}
+  .eqnote{font-size:17px;color:var(--muted);margin-top:8px;line-height:1.7;}
+  /* 意义三栏 */
+  .cols3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
+  @media(max-width:760px){.cols3{grid-template-columns:1fr;}}
+  .cols3 .box{border:1px solid var(--line);border-radius:12px;padding:20px;}
+  .cols3 .box .t{font-size:17px;color:var(--accent);font-weight:700;margin-bottom:10px;}
+  .cols3 .box p{font-size:clamp(19px,2vw,24px);}
+  ol,ul{padding-left:26px;}
+  li{font-size:clamp(22px,2.4vw,30px);line-height:1.8;margin-bottom:10px;}
+  .qno{display:inline-block;background:var(--accent);color:#fff;font-size:17px;font-weight:700;border-radius:7px;padding:3px 10px;margin-bottom:16px;}
+  .qtext{font-size:clamp(25px,2.9vw,34px);line-height:1.7;font-weight:600;margin-bottom:17px;}
+  .qsub{font-size:clamp(20px,2.2vw,26px);line-height:1.8;margin-bottom:6px;}
+  .opts{list-style:none;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:8px 20px;}
+  .opts li{font-size:clamp(22px,2.4vw,30px);margin:0;padding:6px 12px;background:var(--soft);border-radius:8px;}
+  @media(max-width:760px){.opts{grid-template-columns:1fr;}}
+  .ans{display:none;margin-top:20px;padding:18px 24px;background:var(--accent-soft);border-radius:12px;font-size:clamp(20px,2.2vw,26px);line-height:1.8;color:#334155;}
+  .ans.show{display:block;animation:fade .25s ease;}
+  .ans .key{color:var(--accent);font-weight:700;}
+  .ans p{font-size:inherit;margin-bottom:9px;}
+  .reveal-hint{font-size:17px;color:var(--muted);margin-top:16px;}
+  #bar{position:fixed;left:0;right:0;bottom:0;height:62px;display:flex;align-items:center;justify-content:space-between;padding:0 clamp(18px,4vw,48px);background:rgba(255,255,255,.94);backdrop-filter:blur(8px);border-top:1px solid var(--line);z-index:20;}
+  #bar .grp{display:flex;align-items:center;gap:10px;}
+  .navbtn{font:inherit;font-size:18px;color:#374151;background:#fff;border:1px solid var(--line);border-radius:8px;padding:7px 15px;cursor:pointer;transition:.15s;}
+  .navbtn:hover:not(:disabled){color:var(--accent);border-color:#99f6e4;background:var(--accent-soft);}
+  .navbtn:disabled{opacity:.35;cursor:default;}
+  #counter{font-size:17px;color:var(--muted);min-width:74px;text-align:center;font-variant-numeric:tabular-nums;}
+  #progress{position:fixed;top:0;left:0;height:3px;background:var(--accent);z-index:30;transition:width .3s ease;}
+  #deckTitle{font-size:17px;color:var(--muted);max-width:44vw;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+  #help{display:none;position:fixed;inset:0;background:rgba(17,24,39,.45);z-index:50;align-items:center;justify-content:center;padding:24px;}
+  #help.show{display:flex;}
+  .helpcard{background:#fff;border-radius:16px;padding:32px 38px;max-width:520px;width:100%;box-shadow:0 20px 60px rgba(0,0,0,.15);}
+  .helpcard h3{font-size:28px;margin-bottom:16px;}
+  .helpcard .row{display:flex;justify-content:space-between;gap:20px;padding:9px 0;border-bottom:1px solid var(--line);font-size:19px;}
+  .helpcard .row:last-of-type{border-bottom:0;}
+  .helpcard .close{margin-top:20px;width:100%;}
+  @media print{#bar,#progress,#help{display:none!important;}body{overflow:visible;}.slide{display:flex!important;position:relative;page-break-after:always;height:auto;min-height:100vh;}.ans{display:block!important;}}
+</style>
+</head>
+<body>
+<div id="progress"></div>
+<div id="zoomTip" style="position:fixed;top:16px;left:50%;transform:translateX(-50%);z-index:60;background:rgba(17,24,39,.85);color:#fff;padding:8px 22px;border-radius:99px;font-size:18px;opacity:0;transition:opacity .25s;pointer-events:none;"></div>
+
+<div id="deck">
+<!-- 1 封面 -->
+<section class="slide active"><div class="inner cover">
+  <div class="eyebrow">人教版九年级化学上册 · 第五单元 课题2 · 第3课时</div>
+  <h1>根据化学方程式的计算</h1>
+  <div class="rule"></div>
+  <p class="muted" style="font-size:clamp(22px,2.6vw,30px);">由一种物质的质量推算其他物质的质量</p>
+  <div class="hint" style="margin-top:48px;">
+    <span class="kbd">PgDn</span>/<span class="kbd">空格</span>/<span class="kbd">→</span> 下一页　·　<span class="kbd">PgUp</span>/<span class="kbd">←</span> 上一页<br>翻页笔可直接翻页　·　练习页再按一次显示答案　·　按 <span class="kbd">H</span> 查看操作
+  </div>
+</div></section>
+
+<!-- 2 引入 -->
+<section class="slide"><div class="inner">
+  <div class="kicker">三、根据化学方程式进行简单计算 · 课本 p120</div>
+  <h2>不仅要知道"是什么"，还要知道"有多少"</h2>
+  <p>在利用化学反应进行物质转化的过程中，我们不仅要知道使用哪些原料，生成什么物质，还要了解这些物质有多少。例如：用一定量的原料最多可以生产多少产品？制备一定量的产品最少需要多少原料？</p>
+  <div class="biglaw" style="font-size:clamp(26px,3.4vw,40px);margin-top:18px;">由于化学反应中各物质间存在<b>固定的质量比</b>，我们可以根据化学方程式所提供的信息，通过化学反应中一种物质的质量推算其他物质的质量。</div>
+  <p class="eqnote">更合理、高效地开发和利用资源。下面结合实例来了解计算的步骤和方法。</p>
+</div></section>
+
+<!-- 3 解题五步骤 -->
+<section class="slide"><div class="inner">
+  <div class="kicker">课本 p120 · 解题步骤</div>
+  <h2>根据化学方程式计算的五个步骤</h2>
+  <div class="cols3" style="grid-template-columns:repeat(5,1fr);">
+    <div class="box"><div class="t">（1）设</div><p>设未知量</p></div>
+    <div class="box"><div class="t">（2）写</div><p>写出反应的化学方程式</p></div>
+    <div class="box"><div class="t">（3）找</div><p>找出比例关系，写出相关物质的化学计量数与相对分子质量的乘积，以及已知量、未知量</p></div>
+    <div class="box"><div class="t">（4）列</div><p>列出比例式，求解</p></div>
+    <div class="box"><div class="t">（5）答</div><p>简明地写出答案</p></div>
+  </div>
+  <div class="callout" style="margin-top:22px;"><b>关键：</b>第（3）步的"质量比"= 化学计量数 × 相对分子质量之比。它来自化学方程式的定量意义。</div>
+</div></section>
+
+<!-- 4 例题1 题目 -->
+<section class="slide"><div class="inner">
+  <div class="kicker">课本 【例题1】· p120</div>
+  <h2>加热分解 7.9 g 高锰酸钾，可得氧气多少？</h2>
+  <p>在实验室使用高锰酸钾制取氧气时，如果加热分解 7.9 g 高锰酸钾，可以得到氧气的质量是多少？</p>
+  <div class="eq" style="margin-top:16px;">
+    <div class="col"><span class="f">2KMnO₄</span></div>
+    <div class="mark"><span class="cond">△</span><span class="arr">＝</span></div>
+    <div class="col"><span class="f">K₂MnO₄</span></div><div class="op">+</div>
+    <div class="col"><span class="f">MnO₂</span></div><div class="op">+</div>
+    <div class="col"><span class="f">O₂↑</span></div>
+  </div>
+  <p class="eqnote">先写出并配平化学方程式 —— 这是全部计算的基础。</p>
+</div></section>
+
+<!-- 5 例题1 解答 -->
+<section class="slide"><div class="inner">
+  <div class="kicker">课本 【例题1】· 完整书写格式</div>
+  <h2>例题1 解答：设 → 写 → 找 → 列 → 答</h2>
+  <div class="callout" style="font-size:clamp(22px,2.4vw,30px);line-height:2.1;">
+    <b>【解】</b>设：加热分解 7.9 g 高锰酸钾可以得到氧气的质量为 x。<br>
+    2KMnO₄ ＝(△) K₂MnO₄ + MnO₂ + O₂↑<br>
+    2×(39+55+16×4)　　　　　　　　　1×(16×2)<br>
+    　2×158　　　　　　　　　　　　　　32<br>
+    　7.9 g　　　　　　　　　　　　　　　x<br><br>
+    　<b>2×158 / 32 = 7.9 g / x</b><br>
+    　x = 32 × 7.9 g / (2×158) = <b>0.8 g</b><br>
+    <b>答：</b>加热分解 7.9 g 高锰酸钾，可以得到 0.8 g 氧气。
+  </div>
+  <p class="eqnote" style="margin-top:14px;">格式要点：相对分子质量写在化学式正下方；已知量与未知量对齐写在对应物质下方；列出比例式再求解。</p>
+</div></section>
+
+<!-- 6 例题2 -->
+<section class="slide"><div class="inner">
+  <div class="kicker">课本 【例题2】· p121</div>
+  <h2>制取 5.6 t 氧化钙，需碳酸钙多少？</h2>
+  <p>工业上，煅烧石灰石（主要成分是 CaCO₃）产生的生石灰（CaO）和二氧化碳可分别用于生产建筑材料和化肥。制取 5.6 t 氧化钙，需要碳酸钙的质量是多少？</p>
+  <div class="callout" style="font-size:clamp(22px,2.4vw,30px);line-height:2.1;">
+    <b>【解】</b>设：需要碳酸钙的质量为 x。<br>
+    CaCO₃ ＝(高温) CaO + CO₂↑<br>
+    　100　　　　　56<br>
+    　 x　　　　　5.6 t<br>
+    　100 / 56 = x / 5.6 t<br>
+    　x = 100 × 5.6 t / 56 = <b>10 t</b><br>
+    <b>答：</b>需要碳酸钙 10 t。
+  </div>
+  <p class="eqnote">实际运算中还可再简化，格式参照例题2（省去展开的相对分子质量计算过程）。</p>
+</div></section>
+
+<!-- 7 方法导引 -->
+<section class="slide"><div class="inner">
+  <div class="kicker">课本 · 方法导引（p121）</div>
+  <h2>从定性到定量：化学反应的定量认识</h2>
+  <p>在例题中，我们通过化学方程式描述高锰酸钾和碳酸钙的分解反应，根据反应物和生成物间的质量比例关系计算相关物质的质量。</p>
+  <p>这是在对化学反应<b>定性认识</b>的基础上，以化学方程式为工具，从<b>定量</b>的角度认识和应用化学反应规律。</p>
+  <div class="biglaw" style="font-size:clamp(26px,3.3vw,40px);margin-top:16px;">这将有助于我们在生产、生活和科学研究中，合理地利用化学反应开发各类资源。</div>
+  <div class="callout" style="margin-top:18px;"><b>需要注意的是：</b>在实际生产和科学研究中，很多原料和产品是不纯的，在进行计算时应考虑杂质问题，这将在以后的课程中学习。</div>
+</div></section>
+
+<!-- 8 小结 -->
+<section class="slide"><div class="inner">
+  <div class="kicker">课本 · 学完本课题你知道了什么</div>
+  <h2>本课题三条结论</h2>
+  <ol>
+    <li>化学方程式体现了化学反应中的物质转化关系与定量关系。</li>
+    <li>书写化学方程式要遵守两个原则：一是必须以客观事实为基础；二是要遵守质量守恒定律。</li>
+    <li>根据实际参加反应的一种反应物或生成物的质量，可以计算出其他反应物或生成物的质量。</li>
+  </ol>
+</div></section>
+
+<!-- 9 练习1 -->
+<section class="slide quiz-slide"><div class="inner">
+  <span class="qno">课本练习 8</span>
+  <div class="qtext">氢气在氯气中燃烧生成氯化氢：H₂ + Cl₂ ＝(点燃) 2HCl。计算 100 kg 氢气完全反应需要氯气的质量和生成氯化氢的质量。</div>
+  <div class="ans"><p>H₂ + Cl₂ ＝(点燃) 2HCl　质量比：2 ∶ 71 ∶ 73</p><p>设需要氯气质量为 x，生成氯化氢质量为 y。<br>2/71 = 100 kg/x → x = <b>3550 kg</b>；2/73 = 100 kg/y → y = <b>3650 kg</b>。<br>答：需要氯气 3550 kg，生成氯化氢 3650 kg（检验：100+3550=3650，质量守恒）。</p></div>
+  <div class="reveal-hint">按翻页键 / 空格 显示答案，再按一次继续</div>
+</div></section>
+
+<!-- 10 练习2 -->
+<section class="slide quiz-slide"><div class="inner">
+  <span class="qno">强化练习 1</span>
+  <div class="qtext">加热分解 6.3 g 高锰酸钾可制得氧气多少克？（相对原子质量 K-39 Mn-55 O-16）</div>
+  <div class="ans"><p>2KMnO₄ ＝(△) K₂MnO₄ + MnO₂ + O₂↑，质量比 316∶32。<br>设氧气质量为 x：316/32 = 6.3 g/x → x = 32×6.3/316 ≈ <b>0.64 g</b>。</p></div>
+  <div class="reveal-hint">按翻页键 / 空格 显示答案，再按一次继续</div>
+</div></section>
+
+<!-- 11 练习3 -->
+<section class="slide quiz-slide"><div class="inner">
+  <span class="qno">强化练习 2</span>
+  <div class="qtext">煅烧含 CaCO₃ 800 t 的石灰石（杂质不反应），最多可得 CaO 多少吨？</div>
+  <div class="ans"><p>CaCO₃ ＝(高温) CaO + CO₂↑，质量比 100∶56。<br>设 CaO 质量为 x：100/56 = 800 t/x → x = <b>448 t</b>。</p></div>
+  <div class="reveal-hint">按翻页键 / 空格 显示答案，再按一次继续</div>
+</div></section>
+
+<!-- 12 练习4 -->
+<section class="slide quiz-slide"><div class="inner">
+  <span class="qno">强化练习 3 · 纠错</span>
+  <div class="qtext">某同学计算"加热分解 15.8 g KMnO₄ 制氧气"时列出：158/32 = 15.8 g/x，解得 x = 3.2 g。请指出错误。</div>
+  <div class="ans"><p><span class="key">错误</span>：化学计量数未计入相对分子质量。KMnO₄ 前的系数是 2，应写 2×158=316，而不是 158。<br>正确：316/32 = 15.8 g/x → x = <b>1.6 g</b>。</p></div>
+  <div class="reveal-hint">按翻页键 / 空格 显示答案，再按一次继续</div>
+</div></section>
+
+<!-- 13 结束 -->
+<section class="slide"><div class="inner cover">
+  <div class="rule" style="margin-bottom:32px;"></div>
+  <h1 style="font-size:clamp(42px,6.5vw,70px);">第3课时 · 小结</h1>
+  <p class="muted" style="font-size:clamp(23px,2.9vw,32px);">设 · 写 · 找 · 列 · 答 —— 用质量比搭建已知与未知的桥梁</p>
+  <div class="hint" style="margin-top:40px;">按 <span class="kbd">Home</span> 回到第一页　·　按 <span class="kbd">End</span> 到末页</div>
+</div></section>
+
+
+</div>
+
+<div id="bar">
+  <div class="grp"><button class="navbtn" id="prevBtn">← 上一页</button><button class="navbtn" id="nextBtn">下一页 →</button><span id="counter">1 / 13</span></div>
+  <div class="grp"><span id="deckTitle">化学方程式 · 课时3 计算</span><button class="navbtn" id="fullBtn">⛶ 全屏</button><button class="navbtn" id="helpBtn">? 操作</button></div>
+</div>
+<div id="help"><div class="helpcard">
+  <h3>翻页操作说明</h3>
+  <div class="row"><span>下一页</span><span><span class="kbd">PgDn</span> <span class="kbd">空格</span> <span class="kbd">→</span> <span class="kbd">↓</span></span></div>
+  <div class="row"><span>上一页</span><span><span class="kbd">PgUp</span> <span class="kbd">←</span> <span class="kbd">↑</span></span></div>
+  <div class="row"><span>首页 / 末页</span><span><span class="kbd">Home</span> / <span class="kbd">End</span></span></div>
+  <div class="row"><span>练习页显示答案</span><span>在题目页再按一次"下一页"</span></div>
+  <div class="row"><span>字号放大 / 缩小</span><span><span class="kbd">]</span> 放大 · <span class="kbd">[</span> 缩小 · <span class="kbd">0</span> 恢复默认</span></div>
+  <div class="row"><span>全屏放映</span><span><span class="kbd">F</span> 或点击"全屏"</span></div>
+  <button class="navbtn close" id="closeHelp">知道了</button>
+</div></div>
+
+<script>
+(function(){
+  const slides=Array.from(document.querySelectorAll('.slide'));let cur=0,jumpBuf='',jumpTimer=null;
+  // —— 字号缩放：只缩放 .inner 内容，控制条固定；自动记忆 ——
+  const ZKEY='__deck_zoom__';
+  function zoom(){const z=parseFloat(localStorage.getItem(ZKEY));return (isNaN(z)||z<0.7||z>2.2)?1:z;}
+  function applyInitZoom(){document.querySelectorAll('.inner').forEach(el=>el.style.zoom=zoom());}
+  function setZoom(z){
+    z=Math.max(0.7,Math.min(2.2,Math.round(z*10)/10));
+    localStorage.setItem(ZKEY,String(z));
+    document.querySelectorAll('.inner').forEach(el=>el.style.zoom=z);
+    const t=document.getElementById('zoomTip');
+    if(t){t.textContent='字号 '+Math.round(z*100)+'%';t.style.opacity=1;clearTimeout(t._tm);t._tm=setTimeout(()=>t.style.opacity=0,1000);}
+  }
+  document.addEventListener('keydown',function(e){
+    if(e.ctrlKey||e.altKey||e.metaKey)return;
+    if(e.key===']'||e.key==='】'){e.preventDefault();setZoom(zoom()+0.1);}
+    else if(e.key==='['||e.key==='【'){e.preventDefault();setZoom(zoom()-0.1);}
+    else if(e.key==='0'){e.preventDefault();setZoom(1);}
+  });
+  const counter=document.getElementById('counter'),progress=document.getElementById('progress'),prevBtn=document.getElementById('prevBtn'),nextBtn=document.getElementById('nextBtn'),help=document.getElementById('help');
+  function render(){slides.forEach((s,i)=>s.classList.toggle('active',i===cur));counter.textContent=(cur+1)+' / '+slides.length;progress.style.width=((cur+1)/slides.length*100)+'%';prevBtn.disabled=cur===0;nextBtn.disabled=cur===slides.length-1;slides[cur].scrollTop=0;}
+  function isQuiz(i){return slides[i].classList.contains('quiz-slide');}
+  function shown(i){const a=slides[i].querySelector('.ans');return a&&a.classList.contains('show');}
+  function next(){if(cur>=slides.length-1)return;if(isQuiz(cur)&&!shown(cur)){const a=slides[cur].querySelector('.ans');if(a){a.classList.add('show');const h=slides[cur].querySelector('.reveal-hint');if(h)h.textContent='答案已显示 · 再按一次继续';return;}}cur++;render();}
+  function prev(){if(isQuiz(cur)&&shown(cur)){const a=slides[cur].querySelector('.ans');a.classList.remove('show');const h=slides[cur].querySelector('.reveal-hint');if(h)h.textContent='按翻页键 / 空格 显示答案，再按一次继续';return;}if(cur>0){cur--;render();}}
+  function go(n){if(n>=0&&n<slides.length){cur=n;render();}}
+  prevBtn.onclick=prev;nextBtn.onclick=next;
+  document.addEventListener('keydown',function(e){
+    if(help.classList.contains('show')){if(e.key==='Escape'||e.key==='h'||e.key==='H'){help.classList.remove('show');e.preventDefault();}return;}
+    const k=e.key;
+    if(['PageDown',' ','Spacebar','ArrowRight','ArrowDown','Enter'].includes(k)){e.preventDefault();next();return;}
+    if(['PageUp','ArrowLeft','ArrowUp','Backspace'].includes(k)){e.preventDefault();prev();return;}
+    if(k==='Home'){e.preventDefault();go(0);return;}if(k==='End'){e.preventDefault();go(slides.length-1);return;}
+    if(k==='h'||k==='H'||k==='?'){e.preventDefault();help.classList.add('show');return;}
+    if(k==='f'||k==='F'){e.preventDefault();toggleFull();return;}
+  });
+  let tx=0,ty=0;document.addEventListener('touchstart',e=>{tx=e.changedTouches[0].clientX;ty=e.changedTouches[0].clientY;},{passive:true});
+  document.addEventListener('touchend',e=>{const dx=e.changedTouches[0].clientX-tx,dy=e.changedTouches[0].clientY-ty;if(Math.abs(dx)>60&&Math.abs(dx)>Math.abs(dy))dx<0?next():prev();},{passive:true});
+  function toggleFull(){if(!document.fullscreenElement)document.documentElement.requestFullscreen&&document.documentElement.requestFullscreen();else document.exitFullscreen&&document.exitFullscreen();}
+  document.getElementById('fullBtn').onclick=toggleFull;document.getElementById('helpBtn').onclick=()=>help.classList.add('show');document.getElementById('closeHelp').onclick=()=>help.classList.remove('show');help.onclick=e=>{if(e.target===help)help.classList.remove('show');};
+  render(); applyInitZoom();
+})();
+
+</script>
+</body>
+</html>

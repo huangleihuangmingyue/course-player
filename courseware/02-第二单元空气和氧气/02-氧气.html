@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>课题2 氧气 · 翻页课件</title>
+<style>
+  :root{--ink:#1a2230;--muted:#6b7280;--line:#e5e7eb;--soft:#f6f8fb;--accent:#0f766e;--accent-soft:#ecfdf5;--max:1000px;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html,body{height:100%;}
+  body{background:#fff;color:var(--ink);overflow:hidden;font-family:"PingFang SC","Microsoft YaHei","Hiragino Sans GB","Source Han Sans SC",sans-serif;-webkit-font-smoothing:antialiased;}
+  #deck{position:relative;width:100vw;height:100vh;}
+  .slide{position:absolute;inset:0;display:none;padding:clamp(28px,5vh,60px) clamp(26px,6vw,88px) 94px;overflow-y:auto;}
+  .slide.active{display:flex;animation:fade .32s ease;}
+  @keyframes fade{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:none;}}
+  .inner{width:100%;max-width:var(--max);margin:auto;}
+  .kicker{font-size:17px;letter-spacing:.12em;color:var(--accent);font-weight:700;margin-bottom:16px;}
+  h1{font-size:clamp(48px,7vw,82px);line-height:1.15;letter-spacing:-.02em;margin-bottom:16px;}
+  h2{font-size:clamp(34px,4.6vw,56px);line-height:1.3;letter-spacing:-.01em;margin-bottom:24px;}
+  h3{font-size:clamp(24px,2.8vw,30px);margin:20px 0 9px;}
+  p{font-size:clamp(22px,2.4vw,30px);line-height:1.8;margin-bottom:13px;}
+  b,strong{font-weight:700;}
+  .muted{color:var(--muted);}
+  .tag{display:inline-block;font-size:15px;color:var(--muted);border:1px solid var(--line);border-radius:99px;padding:2px 11px;margin-left:10px;vertical-align:middle;font-weight:400;}
+  .cover{text-align:center;}
+  .cover .eyebrow{font-size:18px;color:var(--muted);letter-spacing:.14em;margin-bottom:24px;}
+  .cover .rule{width:60px;height:4px;background:var(--accent);border-radius:2px;margin:0 auto 32px;}
+  .cover .hint{font-size:18px;color:var(--muted);line-height:2;}
+  .kbd{display:inline-block;border:1px solid var(--line);border-bottom-width:2px;border-radius:5px;padding:1px 7px;margin:0 2px;font-size:15px;color:#374151;background:var(--soft);}
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:20px;}
+  @media(max-width:760px){.two{grid-template-columns:1fr;}}
+  .callout{background:var(--soft);border-radius:12px;padding:18px 24px;font-size:clamp(20px,2.2vw,26px);line-height:1.75;color:#4b5563;}
+  .callout b{color:var(--ink);}
+  .biglaw{background:var(--accent-soft);border-left:5px solid var(--accent);border-radius:0 14px 14px 0;padding:clamp(22px,3.4vw,38px);font-size:clamp(28px,3.8vw,44px);font-weight:700;line-height:1.65;}
+  .biglaw .lbl{display:block;font-size:15px;letter-spacing:.16em;color:var(--accent);margin-bottom:14px;}
+  .eq{display:inline-flex;flex-wrap:wrap;align-items:flex-start;background:var(--soft);border:1px dashed #cbd5e1;border-radius:12px;padding:34px 24px 14px;margin:8px 0;}
+  .eq .col{display:flex;flex-direction:column;align-items:center;min-width:26px;}
+  .eq .f{font-size:clamp(25px,2.9vw,34px);line-height:1.5;height:30px;white-space:nowrap;font-family:"Times New Roman",Times,serif;}
+  .eq .op{font-size:clamp(23px,2.7vw,30px);line-height:1.5;height:30px;color:#9ca3af;padding:0 8px;white-space:nowrap;}
+  .eq .mark{display:flex;align-items:center;justify-content:center;height:30px;padding:0 10px;position:relative;}
+  .eq .cond{position:absolute;top:-20px;font-size:17px;color:var(--muted);line-height:1.5;white-space:nowrap;}
+  .eq .arr{font-size:32px;line-height:1;color:var(--accent);white-space:nowrap;}
+  .eq .eqsign{font-size:28px;line-height:1;color:var(--accent);white-space:nowrap;}
+  .eq .mr{font-size:clamp(18px,1.9vw,22px);line-height:1.4;height:22px;color:#6b7280;white-space:nowrap;font-family:"Times New Roman",Times,serif;}
+  .eq .mrph{height:22px;}
+  .eqnote{font-size:17px;color:var(--muted);margin-top:8px;line-height:1.7;}
+  .cols3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
+  @media(max-width:760px){.cols3{grid-template-columns:1fr;}}
+  .cols3 .box{border:1px solid var(--line);border-radius:12px;padding:20px;}
+  .cols3 .box .t{font-size:17px;color:var(--accent);font-weight:700;margin-bottom:10px;}
+  .cols3 .box p{font-size:clamp(19px,2vw,24px);}
+  ol,ul{padding-left:26px;}
+  li{font-size:clamp(22px,2.4vw,30px);line-height:1.8;margin-bottom:10px;}
+  .qno{display:inline-block;background:var(--accent);color:#fff;font-size:17px;font-weight:700;border-radius:7px;padding:3px 10px;margin-bottom:16px;}
+  .qtext{font-size:clamp(25px,2.9vw,34px);line-height:1.7;font-weight:600;margin-bottom:17px;}
+  .qsub{font-size:clamp(20px,2.2vw,26px);line-height:1.8;margin-bottom:6px;}
+  .opts{list-style:none;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:8px 20px;}
+  .opts li{font-size:clamp(22px,2.4vw,30px);margin:0;padding:6px 12px;background:var(--soft);border-radius:8px;}
+  @media(max-width:760px){.opts{grid-template-columns:1fr;}}
+  .ans{display:none;margin-top:20px;padding:18px 24px;background:var(--accent-soft);border-radius:12px;font-size:clamp(20px,2.2vw,26px);line-height:1.8;color:#334155;}
+  .ans.show{display:block;animation:fade .25s ease;}
+  .ans .key{color:var(--accent);font-weight:700;}
+  .ans p{font-size:inherit;margin-bottom:9px;}
+  .reveal-hint{font-size:17px;color:var(--muted);margin-top:16px;}
+  /* 增强组件 */
+  .card{background:var(--soft);border:1px solid var(--line);border-radius:14px;padding:22px 26px;margin:12px 0;}
+  .card .ct{font-size:20px;color:var(--accent);font-weight:700;margin-bottom:12px;}
+  .card p{font-size:clamp(21px,2.2vw,27px);}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:12px 0;}
+  @media(max-width:760px){.grid2{grid-template-columns:1fr;}}
+  .grid2 .card{margin:0;}
+  table{border-collapse:collapse;width:100%;font-size:clamp(19px,2vw,25px);margin:14px 0;}
+  th,td{border:1px solid var(--line);padding:10px 14px;text-align:left;line-height:1.6;}
+  th{background:var(--accent-soft);color:var(--accent);font-weight:700;}
+  .def{border-left:4px solid var(--accent);background:var(--accent-soft);border-radius:0 12px 12px 0;padding:18px 24px;margin:14px 0;font-size:clamp(22px,2.4vw,29px);line-height:1.75;}
+  .def .dt{color:var(--accent);font-weight:700;}
+  .exp{background:#fffbeb;border:1px solid #fde68a;border-radius:14px;padding:20px 26px;margin:14px 0;}
+  .exp .et{font-size:19px;color:#b45309;font-weight:700;margin-bottom:10px;}
+  .exp p,.exp li{font-size:clamp(20px,2.1vw,26px);}
+  .flow{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin:16px 0;font-size:clamp(21px,2.3vw,28px);}
+  .flow .node{background:var(--accent-soft);border:1px solid #99f6e4;border-radius:10px;padding:10px 18px;font-weight:600;}
+  .flow .arw{color:var(--accent);font-size:26px;}
+  .chem{font-family:"Times New Roman",Times,serif;}
+  .note{font-size:clamp(19px,2vw,24px);color:var(--muted);line-height:1.75;margin-top:12px;}
+  #bar{position:fixed;left:0;right:0;bottom:0;height:62px;display:flex;align-items:center;justify-content:space-between;padding:0 clamp(18px,4vw,48px);background:rgba(255,255,255,.94);backdrop-filter:blur(8px);border-top:1px solid var(--line);z-index:20;}
+  #bar .grp{display:flex;align-items:center;gap:10px;}
+  .navbtn{font:inherit;font-size:18px;color:#374151;background:#fff;border:1px solid var(--line);border-radius:8px;padding:7px 15px;cursor:pointer;transition:.15s;}
+  .navbtn:hover:not(:disabled){color:var(--accent);border-color:#99f6e4;background:var(--accent-soft);}
+  .navbtn:disabled{opacity:.35;cursor:default;}
+  #counter{font-size:17px;color:var(--muted);min-width:74px;text-align:center;font-variant-numeric:tabular-nums;}
+  #progress{position:fixed;top:0;left:0;height:3px;background:var(--accent);z-index:30;transition:width .3s ease;}
+  #deckTitle{font-size:17px;color:var(--muted);max-width:44vw;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+  #help{display:none;position:fixed;inset:0;background:rgba(17,24,39,.45);z-index:50;align-items:center;justify-content:center;padding:24px;}
+  #help.show{display:flex;}
+  .helpcard{background:#fff;border-radius:16px;padding:32px 38px;max-width:520px;width:100%;box-shadow:0 20px 60px rgba(0,0,0,.15);}
+  .helpcard h3{font-size:28px;margin-bottom:16px;}
+  .helpcard .row{display:flex;justify-content:space-between;gap:20px;padding:9px 0;border-bottom:1px solid var(--line);font-size:19px;}
+  .helpcard .row:last-of-type{border-bottom:0;}
+  .helpcard .close{margin-top:20px;width:100%;}
+  @media print{#bar,#progress,#help,#zoomTip{display:none!important;}body{overflow:visible;}.slide{display:flex!important;position:relative;page-break-after:always;height:auto;min-height:100vh;}.ans{display:block!important;}}
+</style>
+</head>
+<body>
+<div id="progress"></div>
+<div id="zoomTip" style="position:fixed;top:16px;left:50%;transform:translateX(-50%);z-index:60;background:rgba(17,24,39,.85);color:#fff;padding:8px 22px;border-radius:99px;font-size:18px;opacity:0;transition:opacity .25s;pointer-events:none;"></div>
+<div id="deck">
+
+<section class="slide active"><div class="inner cover">
+  <div class="eyebrow">人教版九年级化学上册 · 第二单元 课题2</div>
+  <h1>氧气</h1>
+  <div class="rule"></div>
+  <p class="muted" style="font-size:clamp(22px,2.6vw,30px);">性质 · 用途 · 缓慢氧化 —— 从实验现象认识氧气</p>
+  <div class="hint" style="margin-top:48px;">
+    <span class="kbd">PgDn</span>/<span class="kbd">空格</span>/<span class="kbd">→</span> 下一页　·　<span class="kbd">PgUp</span>/<span class="kbd">←</span> 上一页<br>翻页笔可直接翻页　·　练习页再按一次显示答案　·　按 <span class="kbd">H</span> 查看操作
+  </div>
+</div></section>
+
+<section class="slide"><div class="inner">
+
+<div class='kicker'>引入 · 我们离不开的气体</div>
+<h2>氧气，为什么如此重要？</h2>
+<p>人和动植物的呼吸、燃料的燃烧、金属的锈蚀……都与氧气有关。氧气是空气中含量第二多的气体（约占体积的 21%）。</p>
+<div class='callout'>氧气有哪些<b>物理性质</b>和<b>化学性质</b>？我们如何用实验来检验它？</div>
+
+</div></section>
+
+<section class="slide"><div class="inner">
+
+<div class='kicker'>一、氧气的物理性质 · 教材 p38</div>
+<h2>无色无味的气体，不易溶于水</h2>
+<table><tr><th>性质</th><th>描述</th></tr>
+<tr><td>颜色、气味</td><td>通常情况下是无色、无味的气体</td></tr>
+<tr><td>密度</td><td>标准状况下 1.429 g/L，比空气（1.293 g/L）略大</td></tr>
+<tr><td>溶解性</td><td>不易溶于水：室温下 1 L 水只能溶解约 30 mL 氧气</td></tr>
+<tr><td>三态变化</td><td>101 kPa 时，-183.0 ℃ 变为淡蓝色液体，-218.8 ℃ 变为淡蓝色固体</td></tr></table>
+<p class='note'>正因为氧气不易溶于水，实验室可以用<b>排水法</b>收集氧气；密度比空气略大，也可用向上排空气法。</p>
+
+</div></section>
+
+<section class="slide"><div class="inner">
+
+<div class='kicker'>二、氧气的化学性质 · 实验2-1</div>
+<h2>氧气的检验：带火星的木条复燃</h2>
+<div class='exp'><div class='et'>【实验2-1】 氧气的检验</div><p>把带有火星的木条插入盛有氧气的集气瓶中，观察木条是否复燃。</p></div>
+<div class='def'><span class='dt'>结论：</span>带火星的木条在氧气中能够<b>复燃</b>，说明氧气能<b>支持燃烧</b>（助燃性）。</div>
+<p class='note'>注意：氧气具有助燃性，但氧气本身<b>不是燃料</b>，不能燃烧。检验氧气用带火星木条，观察燃烧剧烈程度用燃着木条。</p>
+
+</div></section>
+
+<section class="slide"><div class="inner">
+
+<div class='kicker'>实验2-2 / 2-3 · 教材 p38—39</div>
+<h2>木炭、硫在空气和氧气中燃烧的对比</h2>
+<table><tr><th>实验内容</th><th>在空气中</th><th>在氧气中</th></tr>
+<tr><td>木炭燃烧</td><td>发红，放热</td><td>发出白光，放出热量，生成能使澄清石灰水变浑浊的气体</td></tr>
+<tr><td>硫燃烧</td><td>淡蓝色火焰</td><td>明亮的蓝紫色火焰，放出热量，生成有刺激性气味的气体</td></tr></table>
+<div class='callout'>现象不同说明：<b>氧气浓度越大，燃烧越剧烈</b>。物质与氧气发生的反应都是<b>氧化反应</b>。</div>
+
+</div></section>
+
+<section class="slide"><div class="inner">
+
+<div class='kicker'>反应的文字表达式 · 教材 p39</div>
+<h2>用文字表达式描述燃烧反应</h2>
+<div class='card'><div class='ct'>木炭在氧气中燃烧</div><div class='flow'><span class='node'>碳</span><span class='arw'>+</span><span class='node'>氧气</span><span class='arw'>—点燃→</span><span class='node'>二氧化碳</span></div></div>
+<div class='card'><div class='ct'>硫在氧气中燃烧</div><div class='flow'><span class='node'>硫</span><span class='arw'>+</span><span class='node'>氧气</span><span class='arw'>—点燃→</span><span class='node'>二氧化硫</span></div></div>
+<p class='note'>这两个反应都放出热量，都是物质与氧发生的<b>氧化反应</b>，也都是<b>化合反应</b>（由两种或两种以上物质生成另一种物质）。</p>
+
+</div></section>
+
+<section class="slide"><div class="inner">
+
+<div class='kicker'>三、氧化反应与化合反应 · 教材 p39—40</div>
+<h2>两个重要概念，别混淆</h2>
+<div class='grid2'><div class='card'><div class='ct'>氧化反应</div><p>物质与<b>氧</b>发生的反应。强调“与氧反应”，如燃烧、缓慢氧化。</p></div>
+<div class='card'><div class='ct'>化合反应</div><p>由两种或两种以上物质生成<b>另一种物质</b>的反应。形式为“多变一”。</p></div></div>
+<div class='callout'>两者角度不同：氧化反应看“是否与氧反应”，化合反应看“生成物是否只有一种”。<b>有些反应既是氧化反应又是化合反应</b>（如木炭燃烧），但两者没有必然包含关系。</div>
+
+</div></section>
+
+<section class="slide"><div class="inner">
+
+<div class='kicker'>四、氧气的用途</div>
+<h2>供给呼吸 · 支持燃烧</h2>
+<div class='grid2'><div class='card'><div class='ct'>供给呼吸</div><p>医疗急救、潜水、登山、航天员生命保障——利用氧气能供给呼吸的性质。</p></div>
+<div class='card'><div class='ct'>支持燃烧</div><p>炼钢、气焊气割、火箭推进剂——利用氧气支持燃烧、使燃烧更剧烈的性质。</p></div></div>
+<p class='note'>性质决定用途：氧气的用途都由它的化学性质决定。</p>
+
+</div></section>
+
+<section class="slide"><div class="inner">
+
+<div class='kicker'>五、缓慢氧化与燃烧</div>
+<h2>都是氧化反应，剧烈程度不同</h2>
+<div class='flow'><span class='node'>缓慢氧化</span><span class='arw'>→</span><span class='node'>燃烧</span><span class='arw'>→</span><span class='node'>爆炸</span></div>
+<p>氧化反应按进行的剧烈程度，可分为<b>缓慢氧化</b>（如动植物呼吸、食物腐烂、酒和醋的酿造、铁生锈——不发光、放热缓慢）和<b>燃烧</b>（发光、放热、反应剧烈）。</p>
+<div class='biglaw' style='font-size:clamp(24px,3vw,38px);'><span class='lbl'>共同点</span>缓慢氧化和燃烧都是氧化反应，都放出热量；区别只在于反应剧烈程度。</div>
+
+</div></section>
+
+<section class="slide quiz-slide"><div class="inner">
+  <span class="qno">练习 1</span>
+  <div class="qtext">下列关于氧气性质的描述，正确的是（　）。</div>
+  <ul class="opts"><li>A. 氧气易溶于水</li><li>B. 氧气是无色有刺激性气味的气体</li><li>C. 氧气密度比空气略大，不易溶于水</li><li>D. 氧气能燃烧，可作燃料</li></ul>
+  <div class="ans"><p><span class='key'>答案：C</span>　氧气密度（1.429 g/L）比空气略大，不易溶于水；氧气无色无味；氧气支持燃烧但本身不能燃烧，不是燃料。</p></div>
+  <div class="reveal-hint">按翻页键 / 空格 显示答案，再按一次继续</div>
+</div></section>
+
+<section class="slide quiz-slide"><div class="inner">
+  <span class="qno">练习 2</span>
+  <div class="qtext">检验一瓶气体是否为氧气，最简便的方法是（　）。</div>
+  <ul class="opts"><li>A. 观察颜色</li><li>B. 闻气味</li><li>C. 将带火星的木条伸入瓶中，看是否复燃</li><li>D. 将燃着的木条伸入瓶中</li></ul>
+  <div class="ans"><p><span class='key'>答案：C</span>　氧气能使带火星的木条复燃，这是检验氧气的特征方法。</p></div>
+  <div class="reveal-hint">按翻页键 / 空格 显示答案，再按一次继续</div>
+</div></section>
+
+<section class="slide quiz-slide"><div class="inner">
+  <span class="qno">练习 3</span>
+  <div class="qtext">下列反应既属于氧化反应，又属于化合反应的是（　）。</div>
+  <ul class="opts"><li>A. 硫 + 氧气 → 二氧化硫</li><li>B. 石蜡 + 氧气 → 二氧化碳 + 水</li><li>C. 水 → 氢气 + 氧气</li><li>D. 二氧化碳 + 水 → 碳酸</li></ul>
+  <div class="ans"><p><span class='key'>答案：A</span>　A 既与氧反应（氧化反应）又“多变一”（化合反应）；B 是氧化反应但生成物有两种；C 是分解反应；D 是化合反应但不是氧化反应。</p></div>
+  <div class="reveal-hint">按翻页键 / 空格 显示答案，再按一次继续</div>
+</div></section>
+
+<section class="slide"><div class="inner cover">
+  <div class="rule" style="margin-bottom:32px;"></div>
+  <h1 style="font-size:clamp(42px,6.5vw,70px);">课题2 · 小结</h1>
+  <p class="muted" style="font-size:clamp(23px,2.9vw,32px);">氧气的性质 · 检验方法 · 氧化反应与化合反应</p>
+  <div class="hint" style="margin-top:40px;">按 <span class="kbd">Home</span> 回到第一页　·　按 <span class="kbd">End</span> 到末页</div>
+</div></section>
+
+</div>
+
+<div id="bar">
+  <div class="grp"><button class="navbtn" id="prevBtn">← 上一页</button><button class="navbtn" id="nextBtn">下一页 →</button><span id="counter">1 / 13</span></div>
+  <div class="grp"><span id="deckTitle">第二单元 课题2 氧气</span><button class="navbtn" id="fullBtn">⛶ 全屏</button><button class="navbtn" id="helpBtn">? 操作</button></div>
+</div>
+<div id="help"><div class="helpcard">
+  <h3>翻页操作说明</h3>
+  <div class="row"><span>下一页</span><span><span class="kbd">PgDn</span> <span class="kbd">空格</span> <span class="kbd">→</span> <span class="kbd">↓</span></span></div>
+  <div class="row"><span>上一页</span><span><span class="kbd">PgUp</span> <span class="kbd">←</span> <span class="kbd">↑</span></span></div>
+  <div class="row"><span>首页 / 末页</span><span><span class="kbd">Home</span> / <span class="kbd">End</span></span></div>
+  <div class="row"><span>练习页显示答案</span><span>在题目页再按一次"下一页"</span></div>
+  <div class="row"><span>字号放大 / 缩小</span><span><span class="kbd">]</span> 放大 · <span class="kbd">[</span> 缩小 · <span class="kbd">0</span> 恢复默认</span></div>
+  <div class="row"><span>全屏放映</span><span><span class="kbd">F</span> 或点击"全屏"</span></div>
+  <button class="navbtn close" id="closeHelp">知道了</button>
+</div></div>
+
+<script>
+
+(function(){
+  const slides=Array.from(document.querySelectorAll('.slide'));let cur=0;
+  const counter=document.getElementById('counter'),progress=document.getElementById('progress'),prevBtn=document.getElementById('prevBtn'),nextBtn=document.getElementById('nextBtn'),help=document.getElementById('help');
+  const ZKEY='__deck_zoom__';
+  function zoom(){const z=parseFloat(localStorage.getItem(ZKEY));return (isNaN(z)||z<0.7||z>2.2)?1:z;}
+  function setZoom(z){z=Math.max(0.7,Math.min(2.2,Math.round(z*10)/10));localStorage.setItem(ZKEY,String(z));
+    document.querySelectorAll('.inner').forEach(el=>el.style.zoom=z);
+    const t=document.getElementById('zoomTip');if(t){t.textContent='字号 '+Math.round(z*100)+'%';t.style.opacity=1;clearTimeout(t._tm);t._tm=setTimeout(()=>t.style.opacity=0,1000);}}
+  document.addEventListener('keydown',function(e){if(e.ctrlKey||e.altKey||e.metaKey)return;
+    if(e.key===']'||e.key==='】'){e.preventDefault();setZoom(zoom()+0.1);}
+    else if(e.key==='['||e.key==='【'){e.preventDefault();setZoom(zoom()-0.1);}
+    else if(e.key==='0'){e.preventDefault();setZoom(1);}});
+  function render(){slides.forEach((s,i)=>s.classList.toggle('active',i===cur));counter.textContent=(cur+1)+' / '+slides.length;progress.style.width=((cur+1)/slides.length*100)+'%';prevBtn.disabled=cur===0;nextBtn.disabled=cur===slides.length-1;slides[cur].scrollTop=0;}
+  function isQuiz(i){return slides[i].classList.contains('quiz-slide');}
+  function shown(i){const a=slides[i].querySelector('.ans');return a&&a.classList.contains('show');}
+  function next(){if(cur>=slides.length-1)return;if(isQuiz(cur)&&!shown(cur)){const a=slides[cur].querySelector('.ans');if(a){a.classList.add('show');const h=slides[cur].querySelector('.reveal-hint');if(h)h.textContent='答案已显示 · 再按一次继续';return;}}cur++;render();}
+  function prev(){if(isQuiz(cur)&&shown(cur)){const a=slides[cur].querySelector('.ans');a.classList.remove('show');const h=slides[cur].querySelector('.reveal-hint');if(h)h.textContent='按翻页键 / 空格 显示答案，再按一次继续';return;}if(cur>0){cur--;render();}}
+  function go(n){if(n>=0&&n<slides.length){cur=n;render();}}
+  prevBtn.onclick=prev;nextBtn.onclick=next;
+  document.addEventListener('keydown',function(e){
+    if(help.classList.contains('show')){if(e.key==='Escape'||e.key==='h'||e.key==='H'){help.classList.remove('show');e.preventDefault();}return;}
+    const k=e.key;
+    if(['PageDown',' ','Spacebar','ArrowRight','ArrowDown','Enter'].includes(k)){e.preventDefault();next();return;}
+    if(['PageUp','ArrowLeft','ArrowUp','Backspace'].includes(k)){e.preventDefault();prev();return;}
+    if(k==='Home'){e.preventDefault();go(0);return;}if(k==='End'){e.preventDefault();go(slides.length-1);return;}
+    if(k==='h'||k==='H'||k==='?'){e.preventDefault();help.classList.add('show');return;}
+    if(k==='f'||k==='F'){e.preventDefault();toggleFull();return;}});
+  let tx=0,ty=0;document.addEventListener('touchstart',e=>{tx=e.changedTouches[0].clientX;ty=e.changedTouches[0].clientY;},{passive:true});
+  document.addEventListener('touchend',e=>{const dx=e.changedTouches[0].clientX-tx,dy=e.changedTouches[0].clientY-ty;if(Math.abs(dx)>60&&Math.abs(dx)>Math.abs(dy))dx<0?next():prev();},{passive:true});
+  function toggleFull(){if(!document.fullscreenElement)document.documentElement.requestFullscreen&&document.documentElement.requestFullscreen();else document.exitFullscreen&&document.exitFullscreen();}
+  document.getElementById('fullBtn').onclick=toggleFull;document.getElementById('helpBtn').onclick=()=>help.classList.add('show');document.getElementById('closeHelp').onclick=()=>help.classList.remove('show');help.onclick=e=>{if(e.target===help)help.classList.remove('show');};
+  document.querySelectorAll('.inner').forEach(el=>el.style.zoom=zoom());
+  render();
+})();
+
+</script>
+</body>
+</html>

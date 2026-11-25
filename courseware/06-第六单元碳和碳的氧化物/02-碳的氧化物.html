@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>课题2 碳的氧化物 · 翻页课件</title>
+<style>
+  :root{--ink:#1a2230;--muted:#6b7280;--line:#e5e7eb;--soft:#f6f8fb;--accent:#0f766e;--accent-soft:#ecfdf5;--max:1000px;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html,body{height:100%;}
+  body{background:#fff;color:var(--ink);overflow:hidden;font-family:"PingFang SC","Microsoft YaHei","Hiragino Sans GB","Source Han Sans SC",sans-serif;-webkit-font-smoothing:antialiased;}
+  #deck{position:relative;width:100vw;height:100vh;}
+  .slide{position:absolute;inset:0;display:none;padding:clamp(28px,5vh,60px) clamp(26px,6vw,88px) 94px;overflow-y:auto;}
+  .slide.active{display:flex;animation:fade .32s ease;}
+  @keyframes fade{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:none;}}
+  .inner{width:100%;max-width:var(--max);margin:auto;}
+  .kicker{font-size:17px;letter-spacing:.12em;color:var(--accent);font-weight:700;margin-bottom:16px;}
+  h1{font-size:clamp(48px,7vw,82px);line-height:1.15;letter-spacing:-.02em;margin-bottom:16px;}
+  h2{font-size:clamp(34px,4.6vw,56px);line-height:1.3;letter-spacing:-.01em;margin-bottom:24px;}
+  h3{font-size:clamp(24px,2.8vw,30px);margin:20px 0 9px;}
+  p{font-size:clamp(22px,2.4vw,30px);line-height:1.8;margin-bottom:13px;}
+  b,strong{font-weight:700;}
+  .muted{color:var(--muted);}
+  .tag{display:inline-block;font-size:15px;color:var(--muted);border:1px solid var(--line);border-radius:99px;padding:2px 11px;margin-left:10px;vertical-align:middle;font-weight:400;}
+  .cover{text-align:center;}
+  .cover .eyebrow{font-size:18px;color:var(--muted);letter-spacing:.14em;margin-bottom:24px;}
+  .cover .rule{width:60px;height:4px;background:var(--accent);border-radius:2px;margin:0 auto 32px;}
+  .cover .hint{font-size:18px;color:var(--muted);line-height:2;}
+  .kbd{display:inline-block;border:1px solid var(--line);border-bottom-width:2px;border-radius:5px;padding:1px 7px;margin:0 2px;font-size:15px;color:#374151;background:var(--soft);}
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:20px;}
+  @media(max-width:760px){.two{grid-template-columns:1fr;}}
+  .callout{background:var(--soft);border-radius:12px;padding:18px 24px;font-size:clamp(20px,2.2vw,26px);line-height:1.75;color:#4b5563;}
+  .callout b{color:var(--ink);}
+  .biglaw{background:var(--accent-soft);border-left:5px solid var(--accent);border-radius:0 14px 14px 0;padding:clamp(22px,3.4vw,38px);font-size:clamp(28px,3.8vw,44px);font-weight:700;line-height:1.65;}
+  .biglaw .lbl{display:block;font-size:15px;letter-spacing:.16em;color:var(--accent);margin-bottom:14px;}
+  .eq{display:inline-flex;flex-wrap:wrap;align-items:flex-start;background:var(--soft);border:1px dashed #cbd5e1;border-radius:12px;padding:34px 24px 14px;margin:8px 0;}
+  .eq .col{display:flex;flex-direction:column;align-items:center;min-width:26px;}
+  .eq .f{font-size:clamp(25px,2.9vw,34px);line-height:1.5;height:30px;white-space:nowrap;font-family:"Times New Roman",Times,serif;}
+  .eq .op{font-size:clamp(23px,2.7vw,30px);line-height:1.5;height:30px;color:#9ca3af;padding:0 8px;white-space:nowrap;}
+  .eq .mark{display:flex;align-items:center;justify-content:center;height:30px;padding:0 10px;position:relative;}
+  .eq .cond{position:absolute;top:-20px;font-size:17px;color:var(--muted);line-height:1.5;white-space:nowrap;}
+  .eq .arr{font-size:32px;line-height:1;color:var(--accent);white-space:nowrap;}
+  .eq .eqsign{font-size:28px;line-height:1;color:var(--accent);white-space:nowrap;}
+  .eq .mr{font-size:clamp(18px,1.9vw,22px);line-height:1.4;height:22px;color:#6b7280;white-space:nowrap;font-family:"Times New Roman",Times,serif;}
+  .eq .mrph{height:22px;}
+  .eqnote{font-size:17px;color:var(--muted);margin-top:8px;line-height:1.7;}
+  .cols3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
+  @media(max-width:760px){.cols3{grid-template-columns:1fr;}}
+  .cols3 .box{border:1px solid var(--line);border-radius:12px;padding:20px;}
+  .cols3 .box .t{font-size:17px;color:var(--accent);font-weight:700;margin-bottom:10px;}
+  .cols3 .box p{font-size:clamp(19px,2vw,24px);}
+  ol,ul{padding-left:26px;}
+  li{font-size:clamp(22px,2.4vw,30px);line-height:1.8;margin-bottom:10px;}
+  .qno{display:inline-block;background:var(--accent);color:#fff;font-size:17px;font-weight:700;border-radius:7px;padding:3px 10px;margin-bottom:16px;}
+  .qtext{font-size:clamp(25px,2.9vw,34px);line-height:1.7;font-weight:600;margin-bottom:17px;}
+  .qsub{font-size:clamp(20px,2.2vw,26px);line-height:1.8;margin-bottom:6px;}
+  .opts{list-style:none;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:8px 20px;}
+  .opts li{font-size:clamp(22px,2.4vw,30px);margin:0;padding:6px 12px;background:var(--soft);border-radius:8px;}
+  @media(max-width:760px){.opts{grid-template-columns:1fr;}}
+  .ans{display:none;margin-top:20px;padding:18px 24px;background:var(--accent-soft);border-radius:12px;font-size:clamp(20px,2.2vw,26px);line-height:1.8;color:#334155;}
+  .ans.show{display:block;animation:fade .25s ease;}
+  .ans .key{color:var(--accent);font-weight:700;}
+  .ans p{font-size:inherit;margin-bottom:9px;}
+  .reveal-hint{font-size:17px;color:var(--muted);margin-top:16px;}
+  /* 增强组件 */
+  .card{background:var(--soft);border:1px solid var(--line);border-radius:14px;padding:22px 26px;margin:12px 0;}
+  .card .ct{font-size:20px;color:var(--accent);font-weight:700;margin-bottom:12px;}
+  .card p{font-size:clamp(21px,2.2vw,27px);}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:12px 0;}
+  @media(max-width:760px){.grid2{grid-template-columns:1fr;}}
+  .grid2 .card{margin:0;}
+  table{border-collapse:collapse;width:100%;font-size:clamp(19px,2vw,25px);margin:14px 0;}
+  th,td{border:1px solid var(--line);padding:10px 14px;text-align:left;line-height:1.6;}
+  th{background:var(--accent-soft);color:var(--accent);font-weight:700;}
+  .def{border-left:4px solid var(--accent);background:var(--accent-soft);border-radius:0 12px 12px 0;padding:18px 24px;margin:14px 0;font-size:clamp(22px,2.4vw,29px);line-height:1.75;}
+  .def .dt{color:var(--accent);font-weight:700;}
+  .exp{background:#fffbeb;border:1px solid #fde68a;border-radius:14px;padding:20px 26px;margin:14px 0;}
+  .exp .et{font-size:19px;color:#b45309;font-weight:700;margin-bottom:10px;}
+  .exp p,.exp li{font-size:clamp(20px,2.1vw,26px);}
+  .flow{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin:16px 0;font-size:clamp(21px,2.3vw,28px);}
+  .flow .node{background:var(--accent-soft);border:1px solid #99f6e4;border-radius:10px;padding:10px 18px;font-weight:600;}
+  .flow .arw{color:var(--accent);font-size:26px;}
+  .chem{font-family:"Times New Roman",Times,serif;}
+  .note{font-size:clamp(19px,2vw,24px);color:var(--muted);line-height:1.75;margin-top:12px;}
+  #bar{position:fixed;left:0;right:0;bottom:0;height:62px;display:flex;align-items:center;justify-content:space-between;padding:0 clamp(18px,4vw,48px);background:rgba(255,255,255,.94);backdrop-filter:blur(8px);border-top:1px solid var(--line);z-index:20;}
+  #bar .grp{display:flex;align-items:center;gap:10px;}
+  .navbtn{font:inherit;font-size:18px;color:#374151;background:#fff;border:1px solid var(--line);border-radius:8px;padding:7px 15px;cursor:pointer;transition:.15s;}
+  .navbtn:hover:not(:disabled){color:var(--accent);border-color:#99f6e4;background:var(--accent-soft);}
+  .navbtn:disabled{opacity:.35;cursor:default;}
+  #counter{font-size:17px;color:var(--muted);min-width:74px;text-align:center;font-variant-numeric:tabular-nums;}
+  #progress{position:fixed;top:0;left:0;height:3px;background:var(--accent);z-index:30;transition:width .3s ease;}
+  #deckTitle{font-size:17px;color:var(--muted);max-width:44vw;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+  #help{display:none;position:fixed;inset:0;background:rgba(17,24,39,.45);z-index:50;align-items:center;justify-content:center;padding:24px;}
+  #help.show{display:flex;}
+  .helpcard{background:#fff;border-radius:16px;padding:32px 38px;max-width:520px;width:100%;box-shadow:0 20px 60px rgba(0,0,0,.15);}
+  .helpcard h3{font-size:28px;margin-bottom:16px;}
+  .helpcard .row{display:flex;justify-content:space-between;gap:20px;padding:9px 0;border-bottom:1px solid var(--line);font-size:19px;}
+  .helpcard .row:last-of-type{border-bottom:0;}
+  .helpcard .close{margin-top:20px;width:100%;}
+  @media print{#bar,#progress,#help,#zoomTip{display:none!important;}body{overflow:visible;}.slide{display:flex!important;position:relative;page-break-after:always;height:auto;min-height:100vh;}.ans{display:block!important;}}
+</style>
+</head>
+<body>
+<div id="progress"></div>
+<div id="zoomTip" style="position:fixed;top:16px;left:50%;transform:translateX(-50%);z-index:60;background:rgba(17,24,39,.85);color:#fff;padding:8px 22px;border-radius:99px;font-size:18px;opacity:0;transition:opacity .25s;pointer-events:none;"></div>
+<div id="deck">
+
+<section class="slide active"><div class="inner cover">
+  <div class="eyebrow">人教版九年级化学上册 · 第六单元 课题2</div>
+  <h1>碳的氧化物</h1>
+  <div class="rule"></div>
+  <p class="muted" style="font-size:clamp(22px,2.6vw,30px);">CO₂ 与 CO —— 一个氧原子的差别，两种截然不同的性质</p>
+  <div class="hint" style="margin-top:48px;">
+    <span class="kbd">PgDn</span>/<span class="kbd">空格</span>/<span class="kbd">→</span> 下一页　·　<span class="kbd">PgUp</span>/<span class="kbd">←</span> 上一页<br>翻页笔可直接翻页　·　练习页再按一次显示答案　·　按 <span class="kbd">H</span> 查看操作
+  </div>
+</div></section>
+
+<section class="slide"><div class="inner">
+
+<div class='kicker'>引入 · 教材 p136</div>
+<h2>只差一个氧原子，性质大不同</h2>
+<p>常见的碳的氧化物有<b>二氧化碳</b>和<b>一氧化碳</b>。从化学式来看，1个二氧化碳（CO₂）分子比1个一氧化碳（CO）分子<b>多1个氧原子</b>，这就使得它们的性质有很大不同。</p>
+<div class='grid2'>
+<div class='card'><div class='ct'>二氧化碳 CO₂</div><p>相对分子质量 44 &gt; 29，密度比空气<b>大</b>；能溶于水；不能燃烧，也不支持燃烧。</p></div>
+<div class='card'><div class='ct'>一氧化碳 CO</div><p>相对分子质量 28 &lt; 29，密度比空气略小；难溶于水；<b>能够燃烧</b>，具有还原性和毒性。</p></div>
+</div>
+<p class='note'>小提示：空气的平均相对分子质量为29，气体相对分子质量大于29则密度比空气大。（教材 p137 脚注）</p>
+
+</div></section>
+
+<section class="slide"><div class="inner">
+
+<div class='kicker'>一、二氧化碳 · 实验6-3、6-4 · 教材 p136—137</div>
+<h2>倾倒与振荡，认识 CO₂ 的性质</h2>
+<div class='exp'><div class='et'>【实验6-3】 倾倒二氧化碳</div><p>将二氧化碳气体慢慢倒入烧杯中，观察现象并分析。</p></div>
+<div class='exp'><div class='et'>【实验6-4】 二氧化碳的溶解性</div><p>向一个收集满二氧化碳气体的质地较软的塑料瓶中加入约 1/3 容积的水，立即旋紧瓶盖，振荡，观察现象并分析。</p></div>
+<table><tr><th>颜色</th><th>气味</th><th>密度（与空气比较）</th><th>溶解性</th><th>是否支持燃烧</th></tr>
+<tr><td>无色</td><td>无臭（味）</td><td>比空气大</td><td>能溶于水</td><td>不能燃烧，也不支持燃烧</td></tr></table>
+<div class='callout'>通常状况下，<b>1体积水能溶解约1体积二氧化碳</b>，增大压强会溶解得更多。生产汽水等碳酸饮料正是利用了这一性质。</div>
+
+</div></section>
+
+<section class="slide"><div class="inner">
+
+<div class='kicker'>二氧化碳与水反应 · 实验6-5 · 教材 p137</div>
+<h2>三朵石蕊纸花，说明什么？</h2>
+<div class='exp'><div class='et'>【实验6-5】 二氧化碳与水的反应</div><p>取三朵用石蕊溶液染成紫色的<b>干燥</b>纸花：Ⅰ喷水；Ⅱ放入盛满二氧化碳的集气瓶中；Ⅲ喷水后再放入盛满二氧化碳的集气瓶中。观察颜色变化，再将第三朵纸花取出，小心用吹风机吹干。</p></div>
+<table><tr><th>实验</th><th>Ⅰ 喷水</th><th>Ⅱ 放入 CO₂ 中</th><th>Ⅲ 喷水后放入 CO₂ 中</th><th>吹干第三朵</th></tr>
+<tr><td>现象</td><td>仍为紫色</td><td>仍为紫色</td><td><b>变成红色</b></td><td>又变回紫色</td></tr></table>
+<div class='def'><span class='dt'>结论：</span>二氧化碳与水反应生成<b>碳酸</b>，碳酸能使紫色石蕊溶液变成<b>红色</b>（石蕊遇酸变红）。</div>
+<div class='flow'><span class='node'>二氧化碳 CO₂</span><span class='arw'>+</span><span class='node'>水 H₂O</span><span class='arw'>→</span><span class='node'>碳酸 H₂CO₃</span></div>
+
+</div></section>
+
+<section class="slide"><div class="inner">
+
+<div class='kicker'>碳酸的分解与 CO₂ 的检验 · 教材 p138</div>
+<h2>不稳定，易分解；石灰水，可检验</h2>
+<p>碳酸很不稳定，容易分解生成二氧化碳和水；吹干纸花时碳酸分解，二氧化碳逸出，所以纸花又变成紫色。</p>
+<div class='flow'><span class='node'>碳酸 H₂CO₃</span><span class='arw'>→</span><span class='node'>二氧化碳 CO₂↑</span><span class='arw'>+</span><span class='node'>水 H₂O</span></div>
+<div class='def'><span class='dt'>检验方法：</span>二氧化碳能使<b>澄清石灰水变浑浊</b>，因为 CO₂ 与氢氧化钙［Ca(OH)₂］反应生成白色的碳酸钙沉淀。这个反应可以用来<b>检验二氧化碳</b>。</div>
+<div class='flow'><span class='node'>二氧化碳 CO₂</span><span class='arw'>+</span><span class='node'>氢氧化钙 Ca(OH)₂</span><span class='arw'>→</span><span class='node'>碳酸钙 CaCO₃↓</span><span class='arw'>+</span><span class='node'>水 H₂O</span></div>
+<div class='callout'>检验 CO₂ 的特征现象是<b>澄清石灰水变浑浊</b>。（科学探究与实践）</div>
+
+</div></section>
+
+<section class="slide"><div class="inner">
+
+<div class='kicker'>干冰与二氧化碳的用途 · 教材 p138</div>
+<h2>性质决定用途</h2>
+<p>在一定条件下，二氧化碳气体会变成液体或固体。固态二氧化碳叫作<b>“干冰”</b>。干冰<b>升华时吸收大量的热</b>，因此可作制冷剂，广泛用于食品冷藏保鲜和运输、医疗上血液制品和疫苗的储存运输；向云层撒布干冰，水蒸气迅速冷凝成水滴，可用于<b>人工增雨</b>。</p>
+<div class='cols3'>
+<div class='box'><div class='t'>光合作用</div><p>二氧化碳是绿色植物光合作用的原料，可用作气体肥料。</p></div>
+<div class='box'><div class='t'>灭火</div><p>二氧化碳不能燃烧、也不支持燃烧，密度比空气大，可用来灭火。</p></div>
+<div class='box'><div class='t'>化工原料</div><p>用于生产汽水等碳酸饮料，也是重要的化工产品原料。</p></div>
+</div>
+<div class='biglaw'><span class='lbl'>化学观念</span>用途由性质决定</div>
+
+</div></section>
+
+<section class="slide"><div class="inner">
+
+<div class='kicker'>二氧化碳对生活和环境的影响 · 教材 p139—141</div>
+<h2>温室效应与低碳行动</h2>
+<p>二氧化碳<b>本身没有毒性</b>，但<b>不能供给呼吸</b>。空气中 CO₂ 超过正常含量时会影响健康：体积分数达 <b>3%</b> 使人呼吸急促，达 <b>10%</b> 使人丧失知觉、呼吸停止，以致死亡。因此人群密集的地方应注意通风换气。</p>
+<div class='def'><span class='dt'>温室效应：</span>大气中的二氧化碳像温室的玻璃或塑料薄膜，既让阳光透过，又吸收地面散发的热量，使地球升温。除 CO₂ 外，臭氧（O₃）、甲烷（CH₄）、一氧化二氮（N₂O）、氟氯代烷等也能产生温室效应。</div>
+<p>人类消耗化石燃料急剧增加、森林不断减少，使大气中 CO₂ 含量上升，温室效应增强，导致全球变暖：冰川融化、海平面升高、土地沙漠化、极端天气增多等。</p>
+<div class='callout'><b>低碳行动：</b>减少使用化石燃料、更多利用太阳能和风能等清洁能源、提高能源效率、大力植树造林、捕集利用与封存二氧化碳。我国明确提出：<b>二氧化碳排放力争于2030年前达到峰值，努力争取2060年前实现碳中和</b>。（科学态度与责任）</div>
+
+</div></section>
+
+<section class="slide"><div class="inner">
+
+<div class='kicker'>二、一氧化碳 · 教材 p141—142</div>
+<h2>可燃、可还原，但有剧毒</h2>
+<p>一氧化碳是一种<b>无色、无臭</b>的气体，<b>难溶于水</b>。它能够燃烧，燃烧时放出大量的热，火焰呈<b>蓝色</b>，是水煤气等气体燃料的主要成分。</p>
+<div class='flow'><span class='node'>一氧化碳 2CO</span><span class='arw'>+</span><span class='node'>氧气 O₂</span><span class='arw'>—点燃→</span><span class='node'>二氧化碳 2CO₂</span></div>
+<p>与木炭一样，CO 也能使氧化铜还原成铜，同时生成二氧化碳，可用于冶金工业（如炼铁）：</p>
+<div class='flow'><span class='node'>氧化铜 CuO</span><span class='arw'>+</span><span class='node'>一氧化碳 CO</span><span class='arw'>—△→</span><span class='node'>铜 Cu</span><span class='arw'>+</span><span class='node'>二氧化碳 CO₂</span></div>
+<div class='exp'><div class='et'>【毒性】 一氧化碳中毒</div><p>CO 极易与人体血液中的<b>血红蛋白结合</b>，使血红蛋白不能再与氧气结合，造成人体<b>缺氧</b>，严重时危及生命。冬天用煤火取暖一定要装烟囱、注意室内通风。轻度中毒应呼吸大量新鲜空气，严重的要立即送医院治疗。</p></div>
+<p class='note'>思考：煤气厂为什么在家用煤气中掺入微量具有难闻气味的气体？——便于及时发现泄漏，防止中毒和爆炸。</p>
+
+</div></section>
+
+<section class="slide"><div class="inner">
+
+<div class='kicker'>学完本课题你知道了什么 · 教材 p143</div>
+<h2>五个要点</h2>
+<ol>
+<li>CO₂不能燃烧，也不支持燃烧；能与水反应。</li>
+<li>CO₂使澄清石灰水变浑浊的反应可以用来<b>检验二氧化碳</b>。</li>
+<li>CO₂在生产生活中用途广泛，这些用途由其<b>性质</b>决定。</li>
+<li>CO₂是一种<b>温室气体</b>，低碳行动可防止温室效应进一步增强。</li>
+<li>CO能够燃烧，能与某些氧化物反应，具有<b>毒性</b>。</li>
+</ol>
+<div class='biglaw'><span class='lbl'>对比记忆</span>CO₂：不燃烧、不支持燃烧、无毒性但不能供给呼吸；CO：可燃、还原性、剧毒</div>
+
+</div></section>
+
+<section class="slide quiz-slide"><div class="inner">
+  <span class="qno">练习 1（教材 p143）</span>
+  <div class="qtext">下列关于二氧化碳用途的叙述中，不正确的是（　）。</div>
+  <ul class="opts"><li>A. 生产碳酸饮料</li><li>B. 用作气体肥料</li><li>C. 供给呼吸</li><li>D. 用于人工增雨</li></ul>
+  <div class="ans"><p><span class='key'>答案：C</span>　二氧化碳<b>不能供给呼吸</b>，不能用于供给呼吸；其余三项都是教材中列出的 CO₂ 用途。</p></div>
+  <div class="reveal-hint">按翻页键 / 空格 显示答案，再按一次继续</div>
+</div></section>
+
+<section class="slide quiz-slide"><div class="inner">
+  <span class="qno">练习 2（教材 p143）</span>
+  <div class="qtext">CO₂ 和 CO 具有相同的（　）。</div>
+  <ul class="opts"><li>A. 相对分子质量</li><li>B. 元素种类</li><li>C. 碳元素的质量分数</li><li>D. 分子种类</li></ul>
+  <div class="ans"><p><span class='key'>答案：B</span>　二者都由<b>碳、氧两种元素</b>组成；相对分子质量分别为44和28，碳元素质量分数、分子种类均不同。</p></div>
+  <div class="reveal-hint">按翻页键 / 空格 显示答案，再按一次继续</div>
+</div></section>
+
+<section class="slide quiz-slide"><div class="inner">
+  <span class="qno">练习 3（教材 p143）</span>
+  <div class="qtext">选择氧气、二氧化碳或一氧化碳填空：①能使带火星的木条复燃的是<b>　　</b>；②能使澄清石灰水变浑浊的是<b>　　</b>；③能使氧化铜还原成铜且有毒的是<b>　　</b>。</div>
+  
+  <div class="ans"><p><span class='key'>答案：①氧气　②二氧化碳　③一氧化碳</span>　氧气支持燃烧；CO₂ 与氢氧化钙反应生成白色碳酸钙沉淀；CO 既有还原性又能与血红蛋白结合，具有毒性。</p></div>
+  <div class="reveal-hint">按翻页键 / 空格 显示答案，再按一次继续</div>
+</div></section>
+
+<section class="slide"><div class="inner cover">
+  <div class="rule" style="margin-bottom:32px;"></div>
+  <h1 style="font-size:clamp(42px,6.5vw,70px);">课题2 · 小结</h1>
+  <p class="muted" style="font-size:clamp(23px,2.9vw,32px);">CO₂ 的性质、检验与用途 · 温室效应 · CO 的可燃性、还原性与毒性</p>
+  <div class="hint" style="margin-top:40px;">按 <span class="kbd">Home</span> 回到第一页　·　按 <span class="kbd">End</span> 到末页</div>
+</div></section>
+
+</div>
+
+<div id="bar">
+  <div class="grp"><button class="navbtn" id="prevBtn">← 上一页</button><button class="navbtn" id="nextBtn">下一页 →</button><span id="counter">1 / 13</span></div>
+  <div class="grp"><span id="deckTitle">第六单元 课题2 碳的氧化物</span><button class="navbtn" id="fullBtn">⛶ 全屏</button><button class="navbtn" id="helpBtn">? 操作</button></div>
+</div>
+<div id="help"><div class="helpcard">
+  <h3>翻页操作说明</h3>
+  <div class="row"><span>下一页</span><span><span class="kbd">PgDn</span> <span class="kbd">空格</span> <span class="kbd">→</span> <span class="kbd">↓</span></span></div>
+  <div class="row"><span>上一页</span><span><span class="kbd">PgUp</span> <span class="kbd">←</span> <span class="kbd">↑</span></span></div>
+  <div class="row"><span>首页 / 末页</span><span><span class="kbd">Home</span> / <span class="kbd">End</span></span></div>
+  <div class="row"><span>练习页显示答案</span><span>在题目页再按一次"下一页"</span></div>
+  <div class="row"><span>字号放大 / 缩小</span><span><span class="kbd">]</span> 放大 · <span class="kbd">[</span> 缩小 · <span class="kbd">0</span> 恢复默认</span></div>
+  <div class="row"><span>全屏放映</span><span><span class="kbd">F</span> 或点击"全屏"</span></div>
+  <button class="navbtn close" id="closeHelp">知道了</button>
+</div></div>
+
+<script>
+
+(function(){
+  const slides=Array.from(document.querySelectorAll('.slide'));let cur=0;
+  const counter=document.getElementById('counter'),progress=document.getElementById('progress'),prevBtn=document.getElementById('prevBtn'),nextBtn=document.getElementById('nextBtn'),help=document.getElementById('help');
+  const ZKEY='__deck_zoom__';
+  function zoom(){const z=parseFloat(localStorage.getItem(ZKEY));return (isNaN(z)||z<0.7||z>2.2)?1:z;}
+  function setZoom(z){z=Math.max(0.7,Math.min(2.2,Math.round(z*10)/10));localStorage.setItem(ZKEY,String(z));
+    document.querySelectorAll('.inner').forEach(el=>el.style.zoom=z);
+    const t=document.getElementById('zoomTip');if(t){t.textContent='字号 '+Math.round(z*100)+'%';t.style.opacity=1;clearTimeout(t._tm);t._tm=setTimeout(()=>t.style.opacity=0,1000);}}
+  document.addEventListener('keydown',function(e){if(e.ctrlKey||e.altKey||e.metaKey)return;
+    if(e.key===']'||e.key==='】'){e.preventDefault();setZoom(zoom()+0.1);}
+    else if(e.key==='['||e.key==='【'){e.preventDefault();setZoom(zoom()-0.1);}
+    else if(e.key==='0'){e.preventDefault();setZoom(1);}});
+  function render(){slides.forEach((s,i)=>s.classList.toggle('active',i===cur));counter.textContent=(cur+1)+' / '+slides.length;progress.style.width=((cur+1)/slides.length*100)+'%';prevBtn.disabled=cur===0;nextBtn.disabled=cur===slides.length-1;slides[cur].scrollTop=0;}
+  function isQuiz(i){return slides[i].classList.contains('quiz-slide');}
+  function shown(i){const a=slides[i].querySelector('.ans');return a&&a.classList.contains('show');}
+  function next(){if(cur>=slides.length-1)return;if(isQuiz(cur)&&!shown(cur)){const a=slides[cur].querySelector('.ans');if(a){a.classList.add('show');const h=slides[cur].querySelector('.reveal-hint');if(h)h.textContent='答案已显示 · 再按一次继续';return;}}cur++;render();}
+  function prev(){if(isQuiz(cur)&&shown(cur)){const a=slides[cur].querySelector('.ans');a.classList.remove('show');const h=slides[cur].querySelector('.reveal-hint');if(h)h.textContent='按翻页键 / 空格 显示答案，再按一次继续';return;}if(cur>0){cur--;render();}}
+  function go(n){if(n>=0&&n<slides.length){cur=n;render();}}
+  prevBtn.onclick=prev;nextBtn.onclick=next;
+  document.addEventListener('keydown',function(e){
+    if(help.classList.contains('show')){if(e.key==='Escape'||e.key==='h'||e.key==='H'){help.classList.remove('show');e.preventDefault();}return;}
+    const k=e.key;
+    if(['PageDown',' ','Spacebar','ArrowRight','ArrowDown','Enter'].includes(k)){e.preventDefault();next();return;}
+    if(['PageUp','ArrowLeft','ArrowUp','Backspace'].includes(k)){e.preventDefault();prev();return;}
+    if(k==='Home'){e.preventDefault();go(0);return;}if(k==='End'){e.preventDefault();go(slides.length-1);return;}
+    if(k==='h'||k==='H'||k==='?'){e.preventDefault();help.classList.add('show');return;}
+    if(k==='f'||k==='F'){e.preventDefault();toggleFull();return;}});
+  let tx=0,ty=0;document.addEventListener('touchstart',e=>{tx=e.changedTouches[0].clientX;ty=e.changedTouches[0].clientY;},{passive:true});
+  document.addEventListener('touchend',e=>{const dx=e.changedTouches[0].clientX-tx,dy=e.changedTouches[0].clientY-ty;if(Math.abs(dx)>60&&Math.abs(dx)>Math.abs(dy))dx<0?next():prev();},{passive:true});
+  function toggleFull(){if(!document.fullscreenElement)document.documentElement.requestFullscreen&&document.documentElement.requestFullscreen();else document.exitFullscreen&&document.exitFullscreen();}
+  document.getElementById('fullBtn').onclick=toggleFull;document.getElementById('helpBtn').onclick=()=>help.classList.add('show');document.getElementById('closeHelp').onclick=()=>help.classList.remove('show');help.onclick=e=>{if(e.target===help)help.classList.remove('show');};
+  document.querySelectorAll('.inner').forEach(el=>el.style.zoom=zoom());
+  render();
+})();
+
+</script>
+</body>
+</html>

@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>课题1 化学与人体健康 · 翻页课件</title>
+<style>
+  :root{--ink:#1a2230;--muted:#6b7280;--line:#e5e7eb;--soft:#f6f8fb;--accent:#0f766e;--accent-soft:#ecfdf5;--max:1000px;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html,body{height:100%;}
+  body{background:#fff;color:var(--ink);overflow:hidden;font-family:"PingFang SC","Microsoft YaHei","Hiragino Sans GB","Source Han Sans SC",sans-serif;-webkit-font-smoothing:antialiased;}
+  #deck{position:relative;width:100vw;height:100vh;}
+  .slide{position:absolute;inset:0;display:none;padding:clamp(28px,5vh,60px) clamp(26px,6vw,88px) 94px;overflow-y:auto;}
+  .slide.active{display:flex;animation:fade .32s ease;}
+  @keyframes fade{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:none;}}
+  .inner{width:100%;max-width:var(--max);margin:auto;}
+  .kicker{font-size:17px;letter-spacing:.12em;color:var(--accent);font-weight:700;margin-bottom:16px;}
+  h1{font-size:clamp(48px,7vw,82px);line-height:1.15;letter-spacing:-.02em;margin-bottom:16px;}
+  h2{font-size:clamp(34px,4.6vw,56px);line-height:1.3;letter-spacing:-.01em;margin-bottom:24px;}
+  h3{font-size:clamp(24px,2.8vw,30px);margin:20px 0 9px;}
+  p{font-size:clamp(22px,2.4vw,30px);line-height:1.8;margin-bottom:13px;}
+  b,strong{font-weight:700;}
+  .muted{color:var(--muted);}
+  .tag{display:inline-block;font-size:15px;color:var(--muted);border:1px solid var(--line);border-radius:99px;padding:2px 11px;margin-left:10px;vertical-align:middle;font-weight:400;}
+  .cover{text-align:center;}
+  .cover .eyebrow{font-size:18px;color:var(--muted);letter-spacing:.14em;margin-bottom:24px;}
+  .cover .rule{width:60px;height:4px;background:var(--accent);border-radius:2px;margin:0 auto 32px;}
+  .cover .hint{font-size:18px;color:var(--muted);line-height:2;}
+  .kbd{display:inline-block;border:1px solid var(--line);border-bottom-width:2px;border-radius:5px;padding:1px 7px;margin:0 2px;font-size:15px;color:#374151;background:var(--soft);}
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:20px;}
+  @media(max-width:760px){.two{grid-template-columns:1fr;}}
+  .callout{background:var(--soft);border-radius:12px;padding:18px 24px;font-size:clamp(20px,2.2vw,26px);line-height:1.75;color:#4b5563;}
+  .callout b{color:var(--ink);}
+  .biglaw{background:var(--accent-soft);border-left:5px solid var(--accent);border-radius:0 14px 14px 0;padding:clamp(22px,3.4vw,38px);font-size:clamp(28px,3.8vw,44px);font-weight:700;line-height:1.65;}
+  .biglaw .lbl{display:block;font-size:15px;letter-spacing:.16em;color:var(--accent);margin-bottom:14px;}
+  .eq{display:inline-flex;flex-wrap:wrap;align-items:flex-start;background:var(--soft);border:1px dashed #cbd5e1;border-radius:12px;padding:34px 24px 14px;margin:8px 0;}
+  .eq .col{display:flex;flex-direction:column;align-items:center;min-width:26px;}
+  .eq .f{font-size:clamp(25px,2.9vw,34px);line-height:1.5;height:30px;white-space:nowrap;font-family:"Times New Roman",Times,serif;}
+  .eq .op{font-size:clamp(23px,2.7vw,30px);line-height:1.5;height:30px;color:#9ca3af;padding:0 8px;white-space:nowrap;}
+  .eq .mark{display:flex;align-items:center;justify-content:center;height:30px;padding:0 10px;position:relative;}
+  .eq .cond{position:absolute;top:-20px;font-size:17px;color:var(--muted);line-height:1.5;white-space:nowrap;}
+  .eq .arr{font-size:32px;line-height:1;color:var(--accent);white-space:nowrap;}
+  .eq .eqsign{font-size:28px;line-height:1;color:var(--accent);white-space:nowrap;}
+  .eq .mr{font-size:clamp(18px,1.9vw,22px);line-height:1.4;height:22px;color:#6b7280;white-space:nowrap;font-family:"Times New Roman",Times,serif;}
+  .eq .mrph{height:22px;}
+  .eqnote{font-size:17px;color:var(--muted);margin-top:8px;line-height:1.7;}
+  .cols3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
+  @media(max-width:760px){.cols3{grid-template-columns:1fr;}}
+  .cols3 .box{border:1px solid var(--line);border-radius:12px;padding:20px;}
+  .cols3 .box .t{font-size:17px;color:var(--accent);font-weight:700;margin-bottom:10px;}
+  .cols3 .box p{font-size:clamp(19px,2vw,24px);}
+  ol,ul{padding-left:26px;}
+  li{font-size:clamp(22px,2.4vw,30px);line-height:1.8;margin-bottom:10px;}
+  .qno{display:inline-block;background:var(--accent);color:#fff;font-size:17px;font-weight:700;border-radius:7px;padding:3px 10px;margin-bottom:16px;}
+  .qtext{font-size:clamp(25px,2.9vw,34px);line-height:1.7;font-weight:600;margin-bottom:17px;}
+  .qsub{font-size:clamp(20px,2.2vw,26px);line-height:1.8;margin-bottom:6px;}
+  .opts{list-style:none;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:8px 20px;}
+  .opts li{font-size:clamp(22px,2.4vw,30px);margin:0;padding:6px 12px;background:var(--soft);border-radius:8px;}
+  @media(max-width:760px){.opts{grid-template-columns:1fr;}}
+  .ans{display:none;margin-top:20px;padding:18px 24px;background:var(--accent-soft);border-radius:12px;font-size:clamp(20px,2.2vw,26px);line-height:1.8;color:#334155;}
+  .ans.show{display:block;animation:fade .25s ease;}
+  .ans .key{color:var(--accent);font-weight:700;}
+  .ans p{font-size:inherit;margin-bottom:9px;}
+  .reveal-hint{font-size:17px;color:var(--muted);margin-top:16px;}
+  /* 增强组件 */
+  .card{background:var(--soft);border:1px solid var(--line);border-radius:14px;padding:22px 26px;margin:12px 0;}
+  .card .ct{font-size:20px;color:var(--accent);font-weight:700;margin-bottom:12px;}
+  .card p{font-size:clamp(21px,2.2vw,27px);}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:12px 0;}
+  @media(max-width:760px){.grid2{grid-template-columns:1fr;}}
+  .grid2 .card{margin:0;}
+  table{border-collapse:collapse;width:100%;font-size:clamp(19px,2vw,25px);margin:14px 0;}
+  th,td{border:1px solid var(--line);padding:10px 14px;text-align:left;line-height:1.6;}
+  th{background:var(--accent-soft);color:var(--accent);font-weight:700;}
+  .def{border-left:4px solid var(--accent);background:var(--accent-soft);border-radius:0 12px 12px 0;padding:18px 24px;margin:14px 0;font-size:clamp(22px,2.4vw,29px);line-height:1.75;}
+  .def .dt{color:var(--accent);font-weight:700;}
+  .exp{background:#fffbeb;border:1px solid #fde68a;border-radius:14px;padding:20px 26px;margin:14px 0;}
+  .exp .et{font-size:19px;color:#b45309;font-weight:700;margin-bottom:10px;}
+  .exp p,.exp li{font-size:clamp(20px,2.1vw,26px);}
+  .flow{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin:16px 0;font-size:clamp(21px,2.3vw,28px);}
+  .flow .node{background:var(--accent-soft);border:1px solid #99f6e4;border-radius:10px;padding:10px 18px;font-weight:600;}
+  .flow .arw{color:var(--accent);font-size:26px;}
+  .chem{font-family:"Times New Roman",Times,serif;}
+  .note{font-size:clamp(19px,2vw,24px);color:var(--muted);line-height:1.75;margin-top:12px;}
+  #bar{position:fixed;left:0;right:0;bottom:0;height:62px;display:flex;align-items:center;justify-content:space-between;padding:0 clamp(18px,4vw,48px);background:rgba(255,255,255,.94);backdrop-filter:blur(8px);border-top:1px solid var(--line);z-index:20;}
+  #bar .grp{display:flex;align-items:center;gap:10px;}
+  .navbtn{font:inherit;font-size:18px;color:#374151;background:#fff;border:1px solid var(--line);border-radius:8px;padding:7px 15px;cursor:pointer;transition:.15s;}
+  .navbtn:hover:not(:disabled){color:var(--accent);border-color:#99f6e4;background:var(--accent-soft);}
+  .navbtn:disabled{opacity:.35;cursor:default;}
+  #counter{font-size:17px;color:var(--muted);min-width:74px;text-align:center;font-variant-numeric:tabular-nums;}
+  #progress{position:fixed;top:0;left:0;height:3px;background:var(--accent);z-index:30;transition:width .3s ease;}
+  #deckTitle{font-size:17px;color:var(--muted);max-width:44vw;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+  #help{display:none;position:fixed;inset:0;background:rgba(17,24,39,.45);z-index:50;align-items:center;justify-content:center;padding:24px;}
+  #help.show{display:flex;}
+  .helpcard{background:#fff;border-radius:16px;padding:32px 38px;max-width:520px;width:100%;box-shadow:0 20px 60px rgba(0,0,0,.15);}
+  .helpcard h3{font-size:28px;margin-bottom:16px;}
+  .helpcard .row{display:flex;justify-content:space-between;gap:20px;padding:9px 0;border-bottom:1px solid var(--line);font-size:19px;}
+  .helpcard .row:last-of-type{border-bottom:0;}
+  .helpcard .close{margin-top:20px;width:100%;}
+  @media print{#bar,#progress,#help,#zoomTip{display:none!important;}body{overflow:visible;}.slide{display:flex!important;position:relative;page-break-after:always;height:auto;min-height:100vh;}.ans{display:block!important;}}
+</style>
+</head>
+<body>
+<div id="progress"></div>
+<div id="zoomTip" style="position:fixed;top:16px;left:50%;transform:translateX(-50%);z-index:60;background:rgba(17,24,39,.85);color:#fff;padding:8px 22px;border-radius:99px;font-size:18px;opacity:0;transition:opacity .25s;pointer-events:none;"></div>
+<div id="deck">
+
+<section class="slide active"><div class="inner cover">
+  <div class="eyebrow">人教版九年级化学下册 · 第十一单元 课题1</div>
+  <h1>化学与人体健康</h1>
+  <div class="rule"></div>
+  <p class="muted" style="font-size:clamp(22px,2.6vw,30px);">人体中的元素 · 六大营养素 · 合理膳食与用药 —— 用化学守护生命健康</p>
+  <div class="hint" style="margin-top:48px;">
+    <span class="kbd">PgDn</span>/<span class="kbd">空格</span>/<span class="kbd">→</span> 下一页　·　<span class="kbd">PgUp</span>/<span class="kbd">←</span> 上一页<br>翻页笔可直接翻页　·　练习页再按一次显示答案　·　按 <span class="kbd">H</span> 查看操作
+  </div>
+</div></section>
+
+<section class="slide"><div class="inner">
+
+<div class='kicker'>引入 · 人体中的物质与化学变化 · 教材 p94</div>
+<h2>人体也是一个“化学体系”</h2>
+<p>人体中的各种物质及其发生的化学变化，为生命活动提供了必需的<b>物质和能量基础</b>，与人体健康关系密切。</p>
+<div class='callout'>思考与讨论：人体从环境中摄取了哪些物质？其中含有哪些元素？各种元素是通过哪些物质进入人体、在人体中发生了怎样的变化？</div>
+
+</div></section>
+
+<section class="slide"><div class="inner">
+
+<div class='kicker'>一、人体中的元素 · 教材 p94—95 图11-1</div>
+<h2>常量元素与微量元素</h2>
+<p>所有生命都起源于自然，人体中的元素在自然界都能找到。在人体中含量<b>超过 0.01%</b> 的氧、碳、氢、氮等 <b>11 种元素</b>，其质量占人体质量的 <b>99% 以上</b>，称为<b>常量元素</b>。</p>
+<div class='flow'><span class='node'>O 61%</span><span class='arw'>·</span><span class='node'>C 23%</span><span class='arw'>·</span><span class='node'>H 10%</span><span class='arw'>·</span><span class='node'>N 2.6%</span><span class='arw'>……</span></div>
+<p>还有一些元素含量在 0.01% 以下，如<b>铁、锌、氟、碘</b>等，也是维持人体正常生命活动所必需的，称为<b>微量元素</b>。</p>
+<div class='def'><span class='dt'>存在形式：</span>氧、碳、氢、氮元素主要以蛋白质、脂肪、糖类、核酸等<b>有机化合物</b>和水的形式存在；其余元素主要以<b>无机盐</b>形式存在于骨骼和体液中。人体已知水占 60%~70%，思考：水以外含量最高的是哪种元素？</div>
+<div class='callout'>科学观念：元素通过新陈代谢保持含量相对稳定，有些构成人体组织，有些调节新陈代谢，共同保障健康。</div>
+
+</div></section>
+
+<section class="slide"><div class="inner">
+
+<div class='kicker'>部分元素对人体健康的影响 · 表11-1 · 教材 p95—96</div>
+<h2>不足或过量，都不利于健康</h2>
+<table><tr><th>元素</th><th>对人体健康的影响</th></tr>
+<tr><td>钙 Ca</td><td>骨骼和牙齿的重要成分；幼儿及青少年缺钙易患佝偻病，老年人缺钙易骨质疏松、骨折</td></tr>
+<tr><td>铁 Fe</td><td>血红蛋白的重要成分，参与氧气运输；缺铁会引起贫血</td></tr>
+<tr><td>碘 I</td><td>甲状腺激素的重要成分；成人缺碘致甲状腺肿大，儿童缺碘影响生长和智力发育，过量也会致病</td></tr>
+<tr><td>氟 F</td><td>主要存在于骨骼和牙齿中；缺氟易产生龋齿，过量引起氟斑牙和氟骨症</td></tr>
+<tr><td>钾 K / 钠 Na</td><td>维持酸碱平衡、神经肌肉功能和血压；钠摄入过多会增加患高血压和心血管疾病的风险</td></tr></table>
+<div class='callout'>人体必需元素摄入<b>不足或过量均不利于健康</b>；若摄入汞（Hg）、铅（Pb）、镉（Cd）等元素会对健康造成损害（如“痛痛病”“水俣病”），要防止有害元素危害环境和人体健康。</div>
+
+</div></section>
+
+<section class="slide"><div class="inner">
+
+<div class='kicker'>二、合理膳食 · 教材 p97</div>
+<h2>六大基本营养素</h2>
+<p>谷物、蔬菜、水果、肉类等食物看似千差万别，但从化学角度看，其成分主要是六类营养物质：</p>
+<div class='cols3'>
+<div class='box'><div class='t'>供能三类</div><p><b>糖类、蛋白质、油脂</b>——能为人体提供能量，也是构成人体组织的重要物质。</p></div>
+<div class='box'><div class='t'>调节三类</div><p><b>水、无机盐、维生素</b>——调节新陈代谢、维持身体健康（无机盐也称矿物质）。</p></div>
+<div class='box'><div class='t'>辨证看</div><p>没有“坏”营养素，只有<b>不合理的膳食结构</b>；按时适量进餐，避免营养不足或过剩。</p></div>
+</div>
+<div class='callout'>科学思维：糖类、蛋白质等相对分子质量较大的有机物进入人体后，在<b>酶</b>的作用下生成易被人体吸收利用的小分子物质，再被氧化或重新合成。</div>
+
+</div></section>
+
+<section class="slide"><div class="inner">
+
+<div class='kicker'>三大供能营养物质的转化 · 教材 p97—98</div>
+<h2>“吃进去”怎样变成能量？</h2>
+<div class='card'><div class='ct'>糖类——人体主要的供能物质</div>
+<p>粮食中的淀粉［(C₆H₁₀O₅)n］属于糖类，在消化道内与水发生一系列反应，最终生成<b>葡萄糖（C₆H₁₂O₆）</b>；葡萄糖在体内经缓慢氧化生成二氧化碳和水，同时提供能量。</p>
+<div class='flow'><span class='node'>C₆H₁₂O₆</span><span class='arw'>+</span><span class='node'>6O₂</span><span class='arw'>—酶→</span><span class='node'>6CO₂</span><span class='arw'>+</span><span class='node'>6H₂O</span></div></div>
+<div class='grid2'>
+<div class='card'><div class='ct'>蛋白质</div><p>在消化道内与水反应生成<b>氨基酸</b>；氨基酸重新合成人体所需多种蛋白质、促进生长发育，也可被氧化生成尿素、CO₂ 和 H₂O 并放出能量。</p></div>
+<div class='card'><div class='ct'>油脂</div><p>植物油脂常温多为液态（油），动物油脂多为固态（脂肪）。相同质量油脂氧化放出的能量比糖类<b>更多</b>，脂肪是重要的<b>备用能源</b>。</p></div>
+</div>
+
+</div></section>
+
+<section class="slide"><div class="inner">
+
+<div class='kicker'>合理膳食 · 图11-4 · 教材 p98</div>
+<h2>中国居民平衡膳食宝塔（2022）</h2>
+<p>按时适量进餐、保证营养均衡，同时注意<b>食品安全</b>，避免变质食物和有毒、有害物质。《中华人民共和国食品安全法》等法规有效保障了公众健康。</p>
+<table><tr><th>类别</th><th>每天建议摄入量</th><th>类别</th><th>每天建议摄入量</th></tr>
+<tr><td>谷类</td><td>200~300 g</td><td>蔬菜类</td><td>300~500 g</td></tr>
+<tr><td>水果类</td><td>200~350 g</td><td>动物性食物</td><td>120~200 g</td></tr>
+<tr><td>奶及奶制品</td><td>300~500 g</td><td>大豆及坚果类</td><td>25~35 g</td></tr>
+<tr><td>油</td><td>25~30 g</td><td>盐</td><td>＜5 g</td></tr>
+<tr><td>水</td><td>1500~1700 mL</td><td>活动</td><td>每天 6000 步</td></tr></table>
+<div class='callout'>科学态度与责任：偏食、挑食会造成营养不均衡。用“食物—成分—元素”的视角看标签，主动关注食品添加剂和食品安全。</div>
+
+</div></section>
+
+<section class="slide"><div class="inner">
+
+<div class='kicker'>三、合理用药 · 教材 p99—100</div>
+<h2>是药三分毒，务必合理使用</h2>
+<p>药物是用于<b>预防、治疗、诊断疾病</b>的化学物质，如主要来源于植物、动物和矿物的中药，以及用化学或生物方法人工合成的药物。药物为帮助人类战胜疾病、促进社会发展发挥了巨大作用。</p>
+<div class='def'><span class='dt'>合理用药：</span>遵从医生和药师的要求，仔细阅读药物说明书，在<b>正确的时间</b>以<b>适当的剂量和方式</b>用药，充分发挥药效、减少不良反应。</div>
+<div class='callout'><b>珍爱生命，远离毒品。</b>毒品会严重损害人体器官，使人产生强烈的药物依赖性，引发疾病和犯罪，对个人、家庭和社会危害极大。抗生素滥用会导致细菌耐药性升高，必须凭处方购买，在医师指导下合理使用。</div>
+<p class='note'>消毒防腐药（碘、过氧化氢、次氯酸钠、乙醇、苯酚、甲醛及含汞、银的化合物等）在规定剂量和范围内可用于体表、医疗器械及环境消毒，在防控传染病中发挥重要作用。</p>
+
+</div></section>
+
+<section class="slide"><div class="inner">
+
+<div class='kicker'>科学史话 · 教材 p99—100</div>
+<h2>青蒿素与青霉素：化学造福人类</h2>
+<div class='grid2'>
+<div class='card'><div class='ct'>青蒿素</div><p>我国科学家从传统中药中提取的抗疟疾有效成分。<b>屠呦呦</b>研究员因青蒿素研究获得 <b>2015 年诺贝尔生理学或医学奖</b>，体现了化学在中药现代化中的作用。</p></div>
+<div class='card'><div class='ct'>青霉素</div><p>1928 年弗莱明发现，英国化学家钱恩和病理学家弗洛里制备出有实用意义的青霉素，三人共享 <b>1945 年诺贝尔生理学或医学奖</b>。X 射线衍射法测定分子结构后，开辟了人工合成抗生素的道路。</p></div>
+</div>
+<div class='callout'>科学态度与责任：我国新中国成立后迅速建立抗生素工业，科学防控传染病；从青蒿素到青霉素，化学在防治疾病和应对突发公共卫生事件中作用重大。</div>
+
+</div></section>
+
+<section class="slide"><div class="inner">
+
+<div class='kicker'>学完本课题你知道了什么 · 教材 p101</div>
+<h2>三点收获</h2>
+<ol>
+<li>人体中的元素分<b>常量元素</b>和<b>微量元素</b>，必需元素摄入不足或过量均不利于健康，要防止摄入有害元素。</li>
+<li>营养物质主要包括<b>水、糖类、蛋白质、油脂、无机盐和维生素</b>；要合理膳食、全面摄入、保证营养均衡，注意食品安全。</li>
+<li>药物对保障人体健康具有重要作用，要<b>合理用药</b>；远离毒品。</li>
+</ol>
+<div class='callout'>科学观念：人体是物质与能量的统一体，“组成—变化—健康”是认识生命现象的化学视角。</div>
+
+</div></section>
+
+<section class="slide quiz-slide"><div class="inner">
+  <span class="qno">练习 1</span>
+  <div class="qtext">下列物质中，可以为人体提供能量的是（　）。①水　②葡萄糖　③牛奶　④花生油　⑤食盐</div>
+  <ul class="opts"><li>A. ①②③</li><li>B. ②③④</li><li>C. ①②③④</li><li>D. ②③④⑤</li></ul>
+  <div class="ans"><p><span class='key'>答案：B</span>　葡萄糖属糖类、牛奶含蛋白质和油脂、花生油富含油脂，三者都能为人体提供能量；水和食盐（无机盐）不能提供能量。</p></div>
+  <div class="reveal-hint">按翻页键 / 空格 显示答案，再按一次继续</div>
+</div></section>
+
+<section class="slide quiz-slide"><div class="inner">
+  <span class="qno">练习 2</span>
+  <div class="qtext">下列有关营养物质的说法中，<b>不正确</b>的是（　）。</div>
+  <ul class="opts"><li>A. 淀粉虽然没有甜味，但属于糖类</li><li>B. 蛋白质、糖类和油脂属于有机物</li><li>C. 谷物和肉类不能为人体提供维生素</li><li>D. 甘薯和马铃薯中含有淀粉，可以为人体提供能量</li></ul>
+  <div class="ans"><p><span class='key'>答案：C</span>　谷物、肉类中也含有维生素（如谷物含 B 族维生素），“不能提供维生素”的说法错误。淀粉属于糖类；蛋白质、糖类、油脂都是含碳的有机物；甘薯、马铃薯富含淀粉，可供能。</p></div>
+  <div class="reveal-hint">按翻页键 / 空格 显示答案，再按一次继续</div>
+</div></section>
+
+<section class="slide quiz-slide"><div class="inner">
+  <span class="qno">练习 3</span>
+  <div class="qtext">烟草燃烧产生的烟气中含烟碱（尼古丁，C₁₀H₁₄N₂）、焦油、一氧化碳和可吸入颗粒物等。下列有关说法中<b>不正确</b>的是（　）。</div>
+  <ul class="opts"><li>A. 吸烟危害人体健康</li><li>B. 尼古丁和一氧化碳都是有机物</li><li>C. 烟草中一定含有碳元素和氢元素</li><li>D. 尼古丁中碳元素的质量分数比一氧化碳中的大</li></ul>
+  <div class="ans"><p><span class='key'>答案：B</span>　一氧化碳（CO）虽然含碳，但属于无机物（碳的氧化物归入无机物），所以“都是有机物”错误。尼古丁含 C、H 元素，来自烟草；尼古丁中碳的质量分数约 74%，CO 中约 43%，D 正确。</p></div>
+  <div class="reveal-hint">按翻页键 / 空格 显示答案，再按一次继续</div>
+</div></section>
+
+<section class="slide"><div class="inner cover">
+  <div class="rule" style="margin-bottom:32px;"></div>
+  <h1 style="font-size:clamp(42px,6.5vw,70px);">课题1 · 小结</h1>
+  <p class="muted" style="font-size:clamp(23px,2.9vw,32px);">元素与健康 · 六大营养素与合理膳食 · 合理用药远离毒品</p>
+  <div class="hint" style="margin-top:40px;">按 <span class="kbd">Home</span> 回到第一页　·　按 <span class="kbd">End</span> 到末页</div>
+</div></section>
+
+</div>
+
+<div id="bar">
+  <div class="grp"><button class="navbtn" id="prevBtn">← 上一页</button><button class="navbtn" id="nextBtn">下一页 →</button><span id="counter">1 / 14</span></div>
+  <div class="grp"><span id="deckTitle">第十一单元 课题1 化学与人体健康</span><button class="navbtn" id="fullBtn">⛶ 全屏</button><button class="navbtn" id="helpBtn">? 操作</button></div>
+</div>
+<div id="help"><div class="helpcard">
+  <h3>翻页操作说明</h3>
+  <div class="row"><span>下一页</span><span><span class="kbd">PgDn</span> <span class="kbd">空格</span> <span class="kbd">→</span> <span class="kbd">↓</span></span></div>
+  <div class="row"><span>上一页</span><span><span class="kbd">PgUp</span> <span class="kbd">←</span> <span class="kbd">↑</span></span></div>
+  <div class="row"><span>首页 / 末页</span><span><span class="kbd">Home</span> / <span class="kbd">End</span></span></div>
+  <div class="row"><span>练习页显示答案</span><span>在题目页再按一次"下一页"</span></div>
+  <div class="row"><span>字号放大 / 缩小</span><span><span class="kbd">]</span> 放大 · <span class="kbd">[</span> 缩小 · <span class="kbd">0</span> 恢复默认</span></div>
+  <div class="row"><span>全屏放映</span><span><span class="kbd">F</span> 或点击"全屏"</span></div>
+  <button class="navbtn close" id="closeHelp">知道了</button>
+</div></div>
+
+<script>
+
+(function(){
+  const slides=Array.from(document.querySelectorAll('.slide'));let cur=0;
+  const counter=document.getElementById('counter'),progress=document.getElementById('progress'),prevBtn=document.getElementById('prevBtn'),nextBtn=document.getElementById('nextBtn'),help=document.getElementById('help');
+  const ZKEY='__deck_zoom__';
+  function zoom(){const z=parseFloat(localStorage.getItem(ZKEY));return (isNaN(z)||z<0.7||z>2.2)?1:z;}
+  function setZoom(z){z=Math.max(0.7,Math.min(2.2,Math.round(z*10)/10));localStorage.setItem(ZKEY,String(z));
+    document.querySelectorAll('.inner').forEach(el=>el.style.zoom=z);
+    const t=document.getElementById('zoomTip');if(t){t.textContent='字号 '+Math.round(z*100)+'%';t.style.opacity=1;clearTimeout(t._tm);t._tm=setTimeout(()=>t.style.opacity=0,1000);}}
+  document.addEventListener('keydown',function(e){if(e.ctrlKey||e.altKey||e.metaKey)return;
+    if(e.key===']'||e.key==='】'){e.preventDefault();setZoom(zoom()+0.1);}
+    else if(e.key==='['||e.key==='【'){e.preventDefault();setZoom(zoom()-0.1);}
+    else if(e.key==='0'){e.preventDefault();setZoom(1);}});
+  function render(){slides.forEach((s,i)=>s.classList.toggle('active',i===cur));counter.textContent=(cur+1)+' / '+slides.length;progress.style.width=((cur+1)/slides.length*100)+'%';prevBtn.disabled=cur===0;nextBtn.disabled=cur===slides.length-1;slides[cur].scrollTop=0;}
+  function isQuiz(i){return slides[i].classList.contains('quiz-slide');}
+  function shown(i){const a=slides[i].querySelector('.ans');return a&&a.classList.contains('show');}
+  function next(){if(cur>=slides.length-1)return;if(isQuiz(cur)&&!shown(cur)){const a=slides[cur].querySelector('.ans');if(a){a.classList.add('show');const h=slides[cur].querySelector('.reveal-hint');if(h)h.textContent='答案已显示 · 再按一次继续';return;}}cur++;render();}
+  function prev(){if(isQuiz(cur)&&shown(cur)){const a=slides[cur].querySelector('.ans');a.classList.remove('show');const h=slides[cur].querySelector('.reveal-hint');if(h)h.textContent='按翻页键 / 空格 显示答案，再按一次继续';return;}if(cur>0){cur--;render();}}
+  function go(n){if(n>=0&&n<slides.length){cur=n;render();}}
+  prevBtn.onclick=prev;nextBtn.onclick=next;
+  document.addEventListener('keydown',function(e){
+    if(help.classList.contains('show')){if(e.key==='Escape'||e.key==='h'||e.key==='H'){help.classList.remove('show');e.preventDefault();}return;}
+    const k=e.key;
+    if(['PageDown',' ','Spacebar','ArrowRight','ArrowDown','Enter'].includes(k)){e.preventDefault();next();return;}
+    if(['PageUp','ArrowLeft','ArrowUp','Backspace'].includes(k)){e.preventDefault();prev();return;}
+    if(k==='Home'){e.preventDefault();go(0);return;}if(k==='End'){e.preventDefault();go(slides.length-1);return;}
+    if(k==='h'||k==='H'||k==='?'){e.preventDefault();help.classList.add('show');return;}
+    if(k==='f'||k==='F'){e.preventDefault();toggleFull();return;}});
+  let tx=0,ty=0;document.addEventListener('touchstart',e=>{tx=e.changedTouches[0].clientX;ty=e.changedTouches[0].clientY;},{passive:true});
+  document.addEventListener('touchend',e=>{const dx=e.changedTouches[0].clientX-tx,dy=e.changedTouches[0].clientY-ty;if(Math.abs(dx)>60&&Math.abs(dx)>Math.abs(dy))dx<0?next():prev();},{passive:true});
+  function toggleFull(){if(!document.fullscreenElement)document.documentElement.requestFullscreen&&document.documentElement.requestFullscreen();else document.exitFullscreen&&document.exitFullscreen();}
+  document.getElementById('fullBtn').onclick=toggleFull;document.getElementById('helpBtn').onclick=()=>help.classList.add('show');document.getElementById('closeHelp').onclick=()=>help.classList.remove('show');help.onclick=e=>{if(e.target===help)help.classList.remove('show');};
+  document.querySelectorAll('.inner').forEach(el=>el.style.zoom=zoom());
+  render();
+})();
+
+</script>
+</body>
+</html>

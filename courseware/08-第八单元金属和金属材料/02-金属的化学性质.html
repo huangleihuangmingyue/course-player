@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>课题2 金属的化学性质 · 翻页课件</title>
+<style>
+  :root{--ink:#1a2230;--muted:#6b7280;--line:#e5e7eb;--soft:#f6f8fb;--accent:#0f766e;--accent-soft:#ecfdf5;--max:1000px;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html,body{height:100%;}
+  body{background:#fff;color:var(--ink);overflow:hidden;font-family:"PingFang SC","Microsoft YaHei","Hiragino Sans GB","Source Han Sans SC",sans-serif;-webkit-font-smoothing:antialiased;}
+  #deck{position:relative;width:100vw;height:100vh;}
+  .slide{position:absolute;inset:0;display:none;padding:clamp(28px,5vh,60px) clamp(26px,6vw,88px) 94px;overflow-y:auto;}
+  .slide.active{display:flex;animation:fade .32s ease;}
+  @keyframes fade{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:none;}}
+  .inner{width:100%;max-width:var(--max);margin:auto;}
+  .kicker{font-size:17px;letter-spacing:.12em;color:var(--accent);font-weight:700;margin-bottom:16px;}
+  h1{font-size:clamp(48px,7vw,82px);line-height:1.15;letter-spacing:-.02em;margin-bottom:16px;}
+  h2{font-size:clamp(34px,4.6vw,56px);line-height:1.3;letter-spacing:-.01em;margin-bottom:24px;}
+  h3{font-size:clamp(24px,2.8vw,30px);margin:20px 0 9px;}
+  p{font-size:clamp(22px,2.4vw,30px);line-height:1.8;margin-bottom:13px;}
+  b,strong{font-weight:700;}
+  .muted{color:var(--muted);}
+  .tag{display:inline-block;font-size:15px;color:var(--muted);border:1px solid var(--line);border-radius:99px;padding:2px 11px;margin-left:10px;vertical-align:middle;font-weight:400;}
+  .cover{text-align:center;}
+  .cover .eyebrow{font-size:18px;color:var(--muted);letter-spacing:.14em;margin-bottom:24px;}
+  .cover .rule{width:60px;height:4px;background:var(--accent);border-radius:2px;margin:0 auto 32px;}
+  .cover .hint{font-size:18px;color:var(--muted);line-height:2;}
+  .kbd{display:inline-block;border:1px solid var(--line);border-bottom-width:2px;border-radius:5px;padding:1px 7px;margin:0 2px;font-size:15px;color:#374151;background:var(--soft);}
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:20px;}
+  @media(max-width:760px){.two{grid-template-columns:1fr;}}
+  .callout{background:var(--soft);border-radius:12px;padding:18px 24px;font-size:clamp(20px,2.2vw,26px);line-height:1.75;color:#4b5563;}
+  .callout b{color:var(--ink);}
+  .biglaw{background:var(--accent-soft);border-left:5px solid var(--accent);border-radius:0 14px 14px 0;padding:clamp(22px,3.4vw,38px);font-size:clamp(28px,3.8vw,44px);font-weight:700;line-height:1.65;}
+  .biglaw .lbl{display:block;font-size:15px;letter-spacing:.16em;color:var(--accent);margin-bottom:14px;}
+  .eq{display:inline-flex;flex-wrap:wrap;align-items:flex-start;background:var(--soft);border:1px dashed #cbd5e1;border-radius:12px;padding:34px 24px 14px;margin:8px 0;}
+  .eq .col{display:flex;flex-direction:column;align-items:center;min-width:26px;}
+  .eq .f{font-size:clamp(25px,2.9vw,34px);line-height:1.5;height:30px;white-space:nowrap;font-family:"Times New Roman",Times,serif;}
+  .eq .op{font-size:clamp(23px,2.7vw,30px);line-height:1.5;height:30px;color:#9ca3af;padding:0 8px;white-space:nowrap;}
+  .eq .mark{display:flex;align-items:center;justify-content:center;height:30px;padding:0 10px;position:relative;}
+  .eq .cond{position:absolute;top:-20px;font-size:17px;color:var(--muted);line-height:1.5;white-space:nowrap;}
+  .eq .arr{font-size:32px;line-height:1;color:var(--accent);white-space:nowrap;}
+  .eq .eqsign{font-size:28px;line-height:1;color:var(--accent);white-space:nowrap;}
+  .eq .mr{font-size:clamp(18px,1.9vw,22px);line-height:1.4;height:22px;color:#6b7280;white-space:nowrap;font-family:"Times New Roman",Times,serif;}
+  .eq .mrph{height:22px;}
+  .eqnote{font-size:17px;color:var(--muted);margin-top:8px;line-height:1.7;}
+  .cols3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
+  @media(max-width:760px){.cols3{grid-template-columns:1fr;}}
+  .cols3 .box{border:1px solid var(--line);border-radius:12px;padding:20px;}
+  .cols3 .box .t{font-size:17px;color:var(--accent);font-weight:700;margin-bottom:10px;}
+  .cols3 .box p{font-size:clamp(19px,2vw,24px);}
+  ol,ul{padding-left:26px;}
+  li{font-size:clamp(22px,2.4vw,30px);line-height:1.8;margin-bottom:10px;}
+  .qno{display:inline-block;background:var(--accent);color:#fff;font-size:17px;font-weight:700;border-radius:7px;padding:3px 10px;margin-bottom:16px;}
+  .qtext{font-size:clamp(25px,2.9vw,34px);line-height:1.7;font-weight:600;margin-bottom:17px;}
+  .qsub{font-size:clamp(20px,2.2vw,26px);line-height:1.8;margin-bottom:6px;}
+  .opts{list-style:none;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:8px 20px;}
+  .opts li{font-size:clamp(22px,2.4vw,30px);margin:0;padding:6px 12px;background:var(--soft);border-radius:8px;}
+  @media(max-width:760px){.opts{grid-template-columns:1fr;}}
+  .ans{display:none;margin-top:20px;padding:18px 24px;background:var(--accent-soft);border-radius:12px;font-size:clamp(20px,2.2vw,26px);line-height:1.8;color:#334155;}
+  .ans.show{display:block;animation:fade .25s ease;}
+  .ans .key{color:var(--accent);font-weight:700;}
+  .ans p{font-size:inherit;margin-bottom:9px;}
+  .reveal-hint{font-size:17px;color:var(--muted);margin-top:16px;}
+  /* 增强组件 */
+  .card{background:var(--soft);border:1px solid var(--line);border-radius:14px;padding:22px 26px;margin:12px 0;}
+  .card .ct{font-size:20px;color:var(--accent);font-weight:700;margin-bottom:12px;}
+  .card p{font-size:clamp(21px,2.2vw,27px);}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:12px 0;}
+  @media(max-width:760px){.grid2{grid-template-columns:1fr;}}
+  .grid2 .card{margin:0;}
+  table{border-collapse:collapse;width:100%;font-size:clamp(19px,2vw,25px);margin:14px 0;}
+  th,td{border:1px solid var(--line);padding:10px 14px;text-align:left;line-height:1.6;}
+  th{background:var(--accent-soft);color:var(--accent);font-weight:700;}
+  .def{border-left:4px solid var(--accent);background:var(--accent-soft);border-radius:0 12px 12px 0;padding:18px 24px;margin:14px 0;font-size:clamp(22px,2.4vw,29px);line-height:1.75;}
+  .def .dt{color:var(--accent);font-weight:700;}
+  .exp{background:#fffbeb;border:1px solid #fde68a;border-radius:14px;padding:20px 26px;margin:14px 0;}
+  .exp .et{font-size:19px;color:#b45309;font-weight:700;margin-bottom:10px;}
+  .exp p,.exp li{font-size:clamp(20px,2.1vw,26px);}
+  .flow{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin:16px 0;font-size:clamp(21px,2.3vw,28px);}
+  .flow .node{background:var(--accent-soft);border:1px solid #99f6e4;border-radius:10px;padding:10px 18px;font-weight:600;}
+  .flow .arw{color:var(--accent);font-size:26px;}
+  .chem{font-family:"Times New Roman",Times,serif;}
+  .note{font-size:clamp(19px,2vw,24px);color:var(--muted);line-height:1.75;margin-top:12px;}
+  #bar{position:fixed;left:0;right:0;bottom:0;height:62px;display:flex;align-items:center;justify-content:space-between;padding:0 clamp(18px,4vw,48px);background:rgba(255,255,255,.94);backdrop-filter:blur(8px);border-top:1px solid var(--line);z-index:20;}
+  #bar .grp{display:flex;align-items:center;gap:10px;}
+  .navbtn{font:inherit;font-size:18px;color:#374151;background:#fff;border:1px solid var(--line);border-radius:8px;padding:7px 15px;cursor:pointer;transition:.15s;}
+  .navbtn:hover:not(:disabled){color:var(--accent);border-color:#99f6e4;background:var(--accent-soft);}
+  .navbtn:disabled{opacity:.35;cursor:default;}
+  #counter{font-size:17px;color:var(--muted);min-width:74px;text-align:center;font-variant-numeric:tabular-nums;}
+  #progress{position:fixed;top:0;left:0;height:3px;background:var(--accent);z-index:30;transition:width .3s ease;}
+  #deckTitle{font-size:17px;color:var(--muted);max-width:44vw;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+  #help{display:none;position:fixed;inset:0;background:rgba(17,24,39,.45);z-index:50;align-items:center;justify-content:center;padding:24px;}
+  #help.show{display:flex;}
+  .helpcard{background:#fff;border-radius:16px;padding:32px 38px;max-width:520px;width:100%;box-shadow:0 20px 60px rgba(0,0,0,.15);}
+  .helpcard h3{font-size:28px;margin-bottom:16px;}
+  .helpcard .row{display:flex;justify-content:space-between;gap:20px;padding:9px 0;border-bottom:1px solid var(--line);font-size:19px;}
+  .helpcard .row:last-of-type{border-bottom:0;}
+  .helpcard .close{margin-top:20px;width:100%;}
+  @media print{#bar,#progress,#help,#zoomTip{display:none!important;}body{overflow:visible;}.slide{display:flex!important;position:relative;page-break-after:always;height:auto;min-height:100vh;}.ans{display:block!important;}}
+</style>
+</head>
+<body>
+<div id="progress"></div>
+<div id="zoomTip" style="position:fixed;top:16px;left:50%;transform:translateX(-50%);z-index:60;background:rgba(17,24,39,.85);color:#fff;padding:8px 22px;border-radius:99px;font-size:18px;opacity:0;transition:opacity .25s;pointer-events:none;"></div>
+<div id="deck">
+
+<section class="slide active"><div class="inner cover">
+  <div class="eyebrow">人教版九年级化学下册 · 第八单元 课题2</div>
+  <h1>金属的化学性质</h1>
+  <div class="rule"></div>
+  <p class="muted" style="font-size:clamp(22px,2.6vw,30px);">与氧气、酸、盐溶液反应 —— 用实验比较金属活动性，认识置换反应</p>
+  <div class="hint" style="margin-top:48px;">
+    <span class="kbd">PgDn</span>/<span class="kbd">空格</span>/<span class="kbd">→</span> 下一页　·　<span class="kbd">PgUp</span>/<span class="kbd">←</span> 上一页<br>翻页笔可直接翻页　·　练习页再按一次显示答案　·　按 <span class="kbd">H</span> 查看操作
+  </div>
+</div></section>
+
+<section class="slide"><div class="inner">
+
+<div class='kicker'>引入 · 教材 p10</div>
+<h2>金属的用途，也由化学性质决定</h2>
+<p>金属的用途不仅与它们的<b>物理性质</b>有密切关系，而且与它们的<b>化学性质</b>有密切关系。</p>
+<div class='callout'>是不是所有金属都能与稀盐酸或稀硫酸反应？如何设计实验比较铝、铜、银的活动性顺序？</div>
+
+</div></section>
+
+<section class="slide"><div class="inner">
+
+<div class='kicker'>一、金属与氧气的反应 · 教材 p10</div>
+<h2>大多数金属能与氧气反应，难易程度不同</h2>
+<div class='grid2'><div class='card'><div class='ct'>常温下就能反应</div><p><b>镁、铝</b>等在常温下就能与氧气反应。铝在空气中与氧气反应，表面生成一层致密的氧化铝（Al₂O₃）薄膜，阻止铝进一步被氧化，因此铝有很好的抗腐蚀性能。</p></div>
+<div class='card'><div class='ct'>高温下才反应 / 不反应</div><p><b>铁、铜</b>常温下几乎不与氧气反应，高温时能与氧气反应；“真金不怕火炼”说明即使在高温时<b>金也不与氧气反应</b>。</p></div></div>
+<div class='card'><div class='ct'>铝与氧气反应（教材 p10）</div><div class='flow'><span class='node'>Al</span><span class='arw'>+</span><span class='node'>O₂</span><span class='arw'>—→</span><span class='node'>Al₂O₃</span></div><p class='note'>配平后：4Al + 3O₂ ═ 2Al₂O₃</p></div>
+<div class='biglaw' style='font-size:clamp(22px,2.6vw,30px);'><span class='lbl'>活动性</span>镁、铝比较活泼，铁、铜次之，金最不活泼</div>
+
+</div></section>
+
+<section class="slide"><div class="inner">
+
+<div class='kicker'>二、金属与稀盐酸、稀硫酸的反应 · 探究 · 教材 p10—11</div>
+<h2>提出问题，设计实验</h2>
+<div class='def'><span class='dt'>问题：</span>是不是所有的金属都能与稀盐酸或稀硫酸发生反应？从反应类型来看，金属与稀盐酸或稀硫酸的反应有什么特点？</div>
+<div class='exp'><div class='et'>【实验】 教材 p11</div><p>（1）在试管中放入少量<b>镁</b>，加入 5 mL 稀盐酸，将<b>燃着的木条</b>放在试管口，观察现象，判断生成了什么气体。参照上述步骤，分别向盛有少量<b>锌、铁、铜</b>的试管中加入 5 mL 稀盐酸，观察现象。</p>
+<p>（2）用<b>稀硫酸</b>代替稀盐酸进行上述实验。</p></div>
+<p class='note'>判断气体：能燃烧、产生淡蓝色火焰的气体是氢气（H₂）。</p>
+
+</div></section>
+
+<section class="slide"><div class="inner">
+
+<div class='kicker'>实验现象与化学方程式 · 教材 p11—12</div>
+<h2>谁能置换出酸中的氢？</h2>
+<table><tr><th>金属</th><th>与稀盐酸、稀硫酸反应的现象</th><th>化学方程式（稀盐酸）</th></tr>
+<tr><td>镁</td><td>反应剧烈，产生大量气泡，金属迅速溶解</td><td>Mg + 2HCl ═ MgCl₂ + H₂↑</td></tr>
+<tr><td>锌</td><td>反应较剧烈，产生较多气泡</td><td>Zn + 2HCl ═ ZnCl₂ + H₂↑</td></tr>
+<tr><td>铁</td><td>反应较慢，有气泡产生，溶液变为浅绿色</td><td>Fe + 2HCl ═ FeCl₂ + H₂↑</td></tr>
+<tr><td>铜</td><td><b>无明显现象</b>（不反应）</td><td>—</td></tr></table>
+<div class='callout'><b>分析与结论：</b>镁、锌、铁能与稀盐酸、稀硫酸反应，都生成可燃性气体——<b>氢气</b>；铜不能反应。说明镁、锌、铁的金属活动性比铜强，它们能置换出酸中的氢。</div>
+
+</div></section>
+
+<section class="slide"><div class="inner">
+
+<div class='kicker'>置换反应 · 教材 p12</div>
+<h2>一种单质 + 一种化合物 → 另一种单质 + 另一种化合物</h2>
+<div class='flow'><span class='node'>单质</span><span class='arw'>+</span><span class='node'>化合物</span><span class='arw'>—→</span><span class='node'>另一种单质</span><span class='arw'>+</span><span class='node'>另一种化合物</span></div>
+<div class='def'><span class='dt'>置换反应：</span>由一种单质与一种化合物反应，生成另一种单质和另一种化合物的反应。</div>
+<div class='card'><div class='ct'>示例：铁与硫酸铜溶液反应</div><div class='flow'><span class='node'>Fe</span><span class='arw'>+</span><span class='node'>CuSO₄</span><span class='arw'>—→</span><span class='node'>FeSO₄</span><span class='arw'>+</span><span class='node'>Cu</span></div><p class='note'>铁丝放入硫酸铜溶液，铁丝上有红色的铜生成，说明铁的活动性比铜强。</p></div>
+<div class='callout'><b>科学思维：</b>置换反应与化合反应（“多变一”）、分解反应（“一变多”）、复分解反应并列，是按反应物和生成物类别与数量对反应进行分类的方法。</div>
+
+</div></section>
+
+<section class="slide"><div class="inner">
+
+<div class='kicker'>三、金属活动性顺序 · 探究 · 教材 p12—13</div>
+<h2>如何探究铝、铜、银的活动性顺序？</h2>
+<div class='exp'><div class='et'>【实验】 教材 p12—13</div><p>（1）将一根用砂纸<b>打磨过</b>的铝丝浸入硫酸铜溶液中，过一会儿取出，观察现象。</p>
+<p>（2）将一根洁净的铜丝浸入硝酸银溶液中，过一会儿取出，观察现象。</p>
+<p>（3）将另一根洁净的铜丝浸入硫酸铝溶液中，过一会儿取出，观察现象。</p></div>
+<table><tr><th>实验内容</th><th>现象</th><th>结论</th></tr>
+<tr><td>铝丝 + 硫酸铜溶液</td><td>铝丝表面有红色固体析出，蓝色溶液逐渐变浅</td><td>Al ＞ Cu</td></tr>
+<tr><td>铜丝 + 硝酸银溶液</td><td>铜丝表面有银白色固体析出，溶液由无色变蓝色</td><td>Cu ＞ Ag</td></tr>
+<tr><td>铜丝 + 硫酸铝溶液</td><td>无明显现象（不反应）</td><td>Al ＞ Cu</td></tr></table>
+<p class='note'>铝丝要用砂纸打磨，目的是除去表面的氧化膜（Al₂O₃）。结论：<b>Al ＞ Cu ＞ Ag</b>。</p>
+
+</div></section>
+
+<section class="slide"><div class="inner">
+
+<div class='kicker'>金属活动性顺序 · 教材 p13—14</div>
+<h2>常见金属在水溶液中的活动性顺序</h2>
+<div class='biglaw' style='font-size:clamp(18px,2.3vw,28px);'><span class='lbl'>由强到弱</span>K　Ca　Na　Mg　Al　Zn　Fe　Sn　Pb　(H)　Cu　Hg　Ag　Pt　Au</div>
+<ol><li>金属的位置<b>越靠前</b>，它的活动性就<b>越强</b>。</li>
+<li>位于<b>氢前面</b>的金属能置换出稀盐酸、稀硫酸中的氢。</li>
+<li>位于<b>前面的金属</b>能把位于后面的金属从它们化合物的溶液里置换出来。</li></ol>
+<div class='callout'>金属活动性顺序可以用来预测常见金属的某些化学性质，并解释有关的实验现象和实际应用。</div>
+
+</div></section>
+
+<section class="slide"><div class="inner">
+
+<div class='kicker'>方法导引：预测 · 教材 p14</div>
+<h2>从已有信息出发，用实验验证预测</h2>
+<div class='flow'><span class='node'>已有信息</span><span class='arw'>→</span><span class='node'>物质的性质</span><span class='arw'>→</span><span class='node'>预测</span><span class='arw'>→</span><span class='node'>设计实验</span><span class='arw'>→</span><span class='node'>验证</span></div>
+<p>预测是在已有信息的基础上，依据一定规律和方法对未知事物所进行的一种推测。在化学研究中，可以通过化学实验等方法来验证所作预测的合理性。</p>
+<div class='def'><span class='dt'>学完本课题你知道了什么：</span>很多金属能与氧气、稀盐酸、稀硫酸等反应，但难易程度不同；由一种单质与一种化合物反应生成另一种单质和另一种化合物的反应叫置换反应。</div>
+<div class='callout'><b>科学探究与实践：</b>作出预测 → 设计实验 → 观察现象 → 得出结论，是研究金属活动性的基本路径。</div>
+
+</div></section>
+
+<section class="slide quiz-slide"><div class="inner">
+  <span class="qno">课本练习 1</span>
+  <div class="qtext">（教材 p15 第1题）下列金属中，金属活动性最弱的是（　）。</div>
+  <ul class="opts"><li>A. 铁</li><li>B. 银</li><li>C. 锌</li><li>D. 铜</li></ul>
+  <div class="ans"><p><span class='key'>答案：B</span>　金属活动性顺序中 Zn ＞ Fe ＞ Cu ＞ Ag，银的位置最靠后，活动性最弱。</p></div>
+  <div class="reveal-hint">按翻页键 / 空格 显示答案，再按一次继续</div>
+</div></section>
+
+<section class="slide quiz-slide"><div class="inner">
+  <span class="qno">课本练习 2</span>
+  <div class="qtext">（教材 p15 第2题）下列物质中，<b>不能</b>由金属与稀盐酸反应直接生成的是（　）。</div>
+  <ul class="opts"><li>A. ZnCl₂</li><li>B. FeCl₂</li><li>C. CuCl₂</li><li>D. MgCl₂</li></ul>
+  <div class="ans"><p><span class='key'>答案：C</span>　铜位于氢后，不能与稀盐酸反应，故不能直接生成 CuCl₂；锌、铁、镁都能与稀盐酸反应生成对应的氯化物（铁生成 FeCl₂）。</p></div>
+  <div class="reveal-hint">按翻页键 / 空格 显示答案，再按一次继续</div>
+</div></section>
+
+<section class="slide quiz-slide"><div class="inner">
+  <span class="qno">强化练习</span>
+  <div class="qtext">（教材 p15 第7题改编）将 X、Y 分别放入稀硫酸中，X 溶解并产生氢气，Y 不反应；将 Y、Z 分别放入硝酸银溶液中，Y 表面有银析出，Z 表面无变化。则三种金属的活动性顺序是（　）。</div>
+  <ul class="opts"><li>A. X ＞ Y ＞ Z</li><li>B. Y ＞ X ＞ Z</li><li>C. Z ＞ Y ＞ X</li><li>D. X ＞ Z ＞ Y</li></ul>
+  <div class="ans"><p><span class='key'>答案：A</span>　X 能与稀硫酸反应而 Y 不能，说明 X ＞ H ＞ Y；Y 能置换出银而 Z 不能，说明 Y ＞ Ag ＞ Z。故活动性 X ＞ Y ＞ Z。</p></div>
+  <div class="reveal-hint">按翻页键 / 空格 显示答案，再按一次继续</div>
+</div></section>
+
+<section class="slide"><div class="inner cover">
+  <div class="rule" style="margin-bottom:32px;"></div>
+  <h1 style="font-size:clamp(42px,6.5vw,70px);">课题2 · 小结</h1>
+  <p class="muted" style="font-size:clamp(23px,2.9vw,32px);">金属与氧气、酸、盐溶液反应 · 置换反应 · 金属活动性顺序</p>
+  <div class="hint" style="margin-top:40px;">按 <span class="kbd">Home</span> 回到第一页　·　按 <span class="kbd">End</span> 到末页</div>
+</div></section>
+
+</div>
+
+<div id="bar">
+  <div class="grp"><button class="navbtn" id="prevBtn">← 上一页</button><button class="navbtn" id="nextBtn">下一页 →</button><span id="counter">1 / 13</span></div>
+  <div class="grp"><span id="deckTitle">第八单元 课题2 金属的化学性质</span><button class="navbtn" id="fullBtn">⛶ 全屏</button><button class="navbtn" id="helpBtn">? 操作</button></div>
+</div>
+<div id="help"><div class="helpcard">
+  <h3>翻页操作说明</h3>
+  <div class="row"><span>下一页</span><span><span class="kbd">PgDn</span> <span class="kbd">空格</span> <span class="kbd">→</span> <span class="kbd">↓</span></span></div>
+  <div class="row"><span>上一页</span><span><span class="kbd">PgUp</span> <span class="kbd">←</span> <span class="kbd">↑</span></span></div>
+  <div class="row"><span>首页 / 末页</span><span><span class="kbd">Home</span> / <span class="kbd">End</span></span></div>
+  <div class="row"><span>练习页显示答案</span><span>在题目页再按一次"下一页"</span></div>
+  <div class="row"><span>字号放大 / 缩小</span><span><span class="kbd">]</span> 放大 · <span class="kbd">[</span> 缩小 · <span class="kbd">0</span> 恢复默认</span></div>
+  <div class="row"><span>全屏放映</span><span><span class="kbd">F</span> 或点击"全屏"</span></div>
+  <button class="navbtn close" id="closeHelp">知道了</button>
+</div></div>
+
+<script>
+
+(function(){
+  const slides=Array.from(document.querySelectorAll('.slide'));let cur=0;
+  const counter=document.getElementById('counter'),progress=document.getElementById('progress'),prevBtn=document.getElementById('prevBtn'),nextBtn=document.getElementById('nextBtn'),help=document.getElementById('help');
+  const ZKEY='__deck_zoom__';
+  function zoom(){const z=parseFloat(localStorage.getItem(ZKEY));return (isNaN(z)||z<0.7||z>2.2)?1:z;}
+  function setZoom(z){z=Math.max(0.7,Math.min(2.2,Math.round(z*10)/10));localStorage.setItem(ZKEY,String(z));
+    document.querySelectorAll('.inner').forEach(el=>el.style.zoom=z);
+    const t=document.getElementById('zoomTip');if(t){t.textContent='字号 '+Math.round(z*100)+'%';t.style.opacity=1;clearTimeout(t._tm);t._tm=setTimeout(()=>t.style.opacity=0,1000);}}
+  document.addEventListener('keydown',function(e){if(e.ctrlKey||e.altKey||e.metaKey)return;
+    if(e.key===']'||e.key==='】'){e.preventDefault();setZoom(zoom()+0.1);}
+    else if(e.key==='['||e.key==='【'){e.preventDefault();setZoom(zoom()-0.1);}
+    else if(e.key==='0'){e.preventDefault();setZoom(1);}});
+  function render(){slides.forEach((s,i)=>s.classList.toggle('active',i===cur));counter.textContent=(cur+1)+' / '+slides.length;progress.style.width=((cur+1)/slides.length*100)+'%';prevBtn.disabled=cur===0;nextBtn.disabled=cur===slides.length-1;slides[cur].scrollTop=0;}
+  function isQuiz(i){return slides[i].classList.contains('quiz-slide');}
+  function shown(i){const a=slides[i].querySelector('.ans');return a&&a.classList.contains('show');}
+  function next(){if(cur>=slides.length-1)return;if(isQuiz(cur)&&!shown(cur)){const a=slides[cur].querySelector('.ans');if(a){a.classList.add('show');const h=slides[cur].querySelector('.reveal-hint');if(h)h.textContent='答案已显示 · 再按一次继续';return;}}cur++;render();}
+  function prev(){if(isQuiz(cur)&&shown(cur)){const a=slides[cur].querySelector('.ans');a.classList.remove('show');const h=slides[cur].querySelector('.reveal-hint');if(h)h.textContent='按翻页键 / 空格 显示答案，再按一次继续';return;}if(cur>0){cur--;render();}}
+  function go(n){if(n>=0&&n<slides.length){cur=n;render();}}
+  prevBtn.onclick=prev;nextBtn.onclick=next;
+  document.addEventListener('keydown',function(e){
+    if(help.classList.contains('show')){if(e.key==='Escape'||e.key==='h'||e.key==='H'){help.classList.remove('show');e.preventDefault();}return;}
+    const k=e.key;
+    if(['PageDown',' ','Spacebar','ArrowRight','ArrowDown','Enter'].includes(k)){e.preventDefault();next();return;}
+    if(['PageUp','ArrowLeft','ArrowUp','Backspace'].includes(k)){e.preventDefault();prev();return;}
+    if(k==='Home'){e.preventDefault();go(0);return;}if(k==='End'){e.preventDefault();go(slides.length-1);return;}
+    if(k==='h'||k==='H'||k==='?'){e.preventDefault();help.classList.add('show');return;}
+    if(k==='f'||k==='F'){e.preventDefault();toggleFull();return;}});
+  let tx=0,ty=0;document.addEventListener('touchstart',e=>{tx=e.changedTouches[0].clientX;ty=e.changedTouches[0].clientY;},{passive:true});
+  document.addEventListener('touchend',e=>{const dx=e.changedTouches[0].clientX-tx,dy=e.changedTouches[0].clientY-ty;if(Math.abs(dx)>60&&Math.abs(dx)>Math.abs(dy))dx<0?next():prev();},{passive:true});
+  function toggleFull(){if(!document.fullscreenElement)document.documentElement.requestFullscreen&&document.documentElement.requestFullscreen();else document.exitFullscreen&&document.exitFullscreen();}
+  document.getElementById('fullBtn').onclick=toggleFull;document.getElementById('helpBtn').onclick=()=>help.classList.add('show');document.getElementById('closeHelp').onclick=()=>help.classList.remove('show');help.onclick=e=>{if(e.target===help)help.classList.remove('show');};
+  document.querySelectorAll('.inner').forEach(el=>el.style.zoom=zoom());
+  render();
+})();
+
+</script>
+</body>
+</html>

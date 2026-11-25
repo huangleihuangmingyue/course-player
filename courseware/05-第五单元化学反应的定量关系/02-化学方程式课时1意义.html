@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>化学方程式 · 课时1 意义 · 翻页课件</title>
+<style>
+  :root{--ink:#1a2230;--muted:#6b7280;--line:#e5e7eb;--soft:#f6f8fb;--accent:#0f766e;--accent-soft:#ecfdf5;--max:1000px;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html,body{height:100%;}
+  body{background:#fff;color:var(--ink);overflow:hidden;font-family:"PingFang SC","Microsoft YaHei","Hiragino Sans GB","Source Han Sans SC",sans-serif;-webkit-font-smoothing:antialiased;}
+  #deck{position:relative;width:100vw;height:100vh;}
+  .slide{position:absolute;inset:0;display:none;padding:clamp(28px,5vh,60px) clamp(26px,6vw,88px) 94px;overflow-y:auto;}
+  .slide.active{display:flex;animation:fade .32s ease;}
+  @keyframes fade{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:none;}}
+  .inner{width:100%;max-width:var(--max);margin:auto;}
+  .kicker{font-size:17px;letter-spacing:.12em;color:var(--accent);font-weight:700;margin-bottom:16px;}
+  h1{font-size:clamp(48px,7vw,82px);line-height:1.15;letter-spacing:-.02em;margin-bottom:16px;}
+  h2{font-size:clamp(34px,4.6vw,56px);line-height:1.3;letter-spacing:-.01em;margin-bottom:24px;}
+  h3{font-size:clamp(24px,2.8vw,30px);margin:20px 0 9px;}
+  p{font-size:clamp(22px,2.4vw,30px);line-height:1.8;margin-bottom:13px;}
+  b,strong{font-weight:700;}
+  .muted{color:var(--muted);}
+  .tag{display:inline-block;font-size:15px;color:var(--muted);border:1px solid var(--line);border-radius:99px;padding:2px 11px;margin-left:10px;vertical-align:middle;font-weight:400;}
+  .cover{text-align:center;}
+  .cover .eyebrow{font-size:18px;color:var(--muted);letter-spacing:.14em;margin-bottom:24px;}
+  .cover .rule{width:60px;height:4px;background:var(--accent);border-radius:2px;margin:0 auto 32px;}
+  .cover .hint{font-size:18px;color:var(--muted);line-height:2;}
+  .kbd{display:inline-block;border:1px solid var(--line);border-bottom-width:2px;border-radius:5px;padding:1px 7px;margin:0 2px;font-size:15px;color:#374151;background:var(--soft);}
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:20px;}
+  @media(max-width:760px){.two{grid-template-columns:1fr;}}
+  .callout{background:var(--soft);border-radius:12px;padding:18px 24px;font-size:clamp(20px,2.2vw,26px);line-height:1.75;color:#4b5563;}
+  .callout b{color:var(--ink);}
+  .biglaw{background:var(--accent-soft);border-left:5px solid var(--accent);border-radius:0 14px 14px 0;padding:clamp(22px,3.4vw,38px);font-size:clamp(28px,3.8vw,44px);font-weight:700;line-height:1.65;}
+  .biglaw .lbl{display:block;font-size:15px;letter-spacing:.16em;color:var(--accent);margin-bottom:14px;}
+  /* 化学方程式（统一用等号＝，条件写在等号上方） */
+  .eq{display:inline-flex;flex-wrap:wrap;align-items:flex-start;background:var(--soft);border:1px dashed #cbd5e1;border-radius:12px;padding:34px 24px 14px;margin:8px 0;}
+  .eq .col{display:flex;flex-direction:column;align-items:center;min-width:26px;}
+  .eq .f{font-size:clamp(25px,2.9vw,34px);line-height:1.5;height:30px;white-space:nowrap;font-family:"Times New Roman",Times,serif;}
+  .eq .op{font-size:clamp(23px,2.7vw,30px);line-height:1.5;height:30px;color:#9ca3af;padding:0 8px;white-space:nowrap;}
+  .eq .mark{display:flex;align-items:center;justify-content:center;height:30px;padding:0 10px;position:relative;}
+  .eq .cond{position:absolute;top:-20px;font-size:17px;color:var(--muted);line-height:1.5;white-space:nowrap;}
+  .eq .arr{font-size:32px;line-height:1;color:var(--accent);white-space:nowrap;}
+  .eq .eqsign{font-size:28px;line-height:1;color:var(--accent);white-space:nowrap;}
+  .eq .mr{font-size:clamp(18px,1.9vw,22px);line-height:1.4;height:22px;color:#6b7280;white-space:nowrap;font-family:"Times New Roman",Times,serif;}
+  .eq .mrph{height:22px;}
+  .eqnote{font-size:17px;color:var(--muted);margin-top:8px;line-height:1.7;}
+  /* 意义三栏 */
+  .cols3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
+  @media(max-width:760px){.cols3{grid-template-columns:1fr;}}
+  .cols3 .box{border:1px solid var(--line);border-radius:12px;padding:20px;}
+  .cols3 .box .t{font-size:17px;color:var(--accent);font-weight:700;margin-bottom:10px;}
+  .cols3 .box p{font-size:clamp(19px,2vw,24px);}
+  ol,ul{padding-left:26px;}
+  li{font-size:clamp(22px,2.4vw,30px);line-height:1.8;margin-bottom:10px;}
+  .qno{display:inline-block;background:var(--accent);color:#fff;font-size:17px;font-weight:700;border-radius:7px;padding:3px 10px;margin-bottom:16px;}
+  .qtext{font-size:clamp(25px,2.9vw,34px);line-height:1.7;font-weight:600;margin-bottom:17px;}
+  .qsub{font-size:clamp(20px,2.2vw,26px);line-height:1.8;margin-bottom:6px;}
+  .opts{list-style:none;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:8px 20px;}
+  .opts li{font-size:clamp(22px,2.4vw,30px);margin:0;padding:6px 12px;background:var(--soft);border-radius:8px;}
+  @media(max-width:760px){.opts{grid-template-columns:1fr;}}
+  .ans{display:none;margin-top:20px;padding:18px 24px;background:var(--accent-soft);border-radius:12px;font-size:clamp(20px,2.2vw,26px);line-height:1.8;color:#334155;}
+  .ans.show{display:block;animation:fade .25s ease;}
+  .ans .key{color:var(--accent);font-weight:700;}
+  .ans p{font-size:inherit;margin-bottom:9px;}
+  .reveal-hint{font-size:17px;color:var(--muted);margin-top:16px;}
+  #bar{position:fixed;left:0;right:0;bottom:0;height:62px;display:flex;align-items:center;justify-content:space-between;padding:0 clamp(18px,4vw,48px);background:rgba(255,255,255,.94);backdrop-filter:blur(8px);border-top:1px solid var(--line);z-index:20;}
+  #bar .grp{display:flex;align-items:center;gap:10px;}
+  .navbtn{font:inherit;font-size:18px;color:#374151;background:#fff;border:1px solid var(--line);border-radius:8px;padding:7px 15px;cursor:pointer;transition:.15s;}
+  .navbtn:hover:not(:disabled){color:var(--accent);border-color:#99f6e4;background:var(--accent-soft);}
+  .navbtn:disabled{opacity:.35;cursor:default;}
+  #counter{font-size:17px;color:var(--muted);min-width:74px;text-align:center;font-variant-numeric:tabular-nums;}
+  #progress{position:fixed;top:0;left:0;height:3px;background:var(--accent);z-index:30;transition:width .3s ease;}
+  #deckTitle{font-size:17px;color:var(--muted);max-width:44vw;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+  #help{display:none;position:fixed;inset:0;background:rgba(17,24,39,.45);z-index:50;align-items:center;justify-content:center;padding:24px;}
+  #help.show{display:flex;}
+  .helpcard{background:#fff;border-radius:16px;padding:32px 38px;max-width:520px;width:100%;box-shadow:0 20px 60px rgba(0,0,0,.15);}
+  .helpcard h3{font-size:28px;margin-bottom:16px;}
+  .helpcard .row{display:flex;justify-content:space-between;gap:20px;padding:9px 0;border-bottom:1px solid var(--line);font-size:19px;}
+  .helpcard .row:last-of-type{border-bottom:0;}
+  .helpcard .close{margin-top:20px;width:100%;}
+  @media print{#bar,#progress,#help{display:none!important;}body{overflow:visible;}.slide{display:flex!important;position:relative;page-break-after:always;height:auto;min-height:100vh;}.ans{display:block!important;}}
+</style>
+</head>
+<body>
+<div id="progress"></div>
+<div id="zoomTip" style="position:fixed;top:16px;left:50%;transform:translateX(-50%);z-index:60;background:rgba(17,24,39,.85);color:#fff;padding:8px 22px;border-radius:99px;font-size:18px;opacity:0;transition:opacity .25s;pointer-events:none;"></div>
+
+<div id="deck">
+
+<!-- 1 封面 -->
+<section class="slide active"><div class="inner cover">
+  <div class="eyebrow">人教版九年级化学上册 · 第五单元 课题2 · 第1课时</div>
+  <h1>化学方程式的意义</h1>
+  <div class="rule"></div>
+  <p class="muted" style="font-size:clamp(22px,2.6vw,30px);">用化学式表示化学反应 · 定性与定量双重信息</p>
+  <div class="hint" style="margin-top:48px;">
+    <span class="kbd">PgDn</span>/<span class="kbd">空格</span>/<span class="kbd">→</span> 下一页　·　<span class="kbd">PgUp</span>/<span class="kbd">←</span> 上一页<br>翻页笔可直接翻页　·　练习页再按一次显示答案　·　按 <span class="kbd">H</span> 查看操作
+  </div>
+</div></section>
+
+<!-- 2 引入 -->
+<section class="slide"><div class="inner">
+  <div class="kicker">引入 · 课本原文</div>
+  <h2>怎样才能准确、简便地描述化学变化？</h2>
+  <p>怎样才能准确、简便地描述化学变化，体现其中的物质转化关系与定量关系，从而更好地为生产、生活和科学研究服务呢？</p>
+  <div class="callout" style="margin-top:20px;">我们已经知道，木炭在氧气中燃烧生成二氧化碳的反应可以用<b>文字</b>表示为：</div>
+  <div class="eq" style="margin-top:14px;">
+    <div class="col"><span class="f">碳</span></div>
+    <div class="op">+</div>
+    <div class="col"><span class="f">氧气</span></div>
+    <div class="mark"><span class="cond">点燃</span><span class="arr">＝</span></div>
+    <div class="col"><span class="f">二氧化碳</span></div>
+  </div>
+  <div class="eqnote">文字表达式上方标注"反应条件"，下方标出"反应物""生成物"。用文字表示化学反应书写起来不够简便。</div>
+</div></section>
+
+<!-- 3 从文字到符号 -->
+<section class="slide"><div class="inner">
+  <div class="kicker">一、化学方程式 · 课本 p117</div>
+  <h2>用化学式表示：C + O₂ ＝(点燃) CO₂</h2>
+  <p>化学家用<b>化学式</b>等国际通用的化学符号来表示反应物和生成物的组成，以及各物质间的量的关系。例如，木炭在氧气中燃烧生成二氧化碳的反应可表示为：</p>
+  <div class="eq">
+    <div class="col"><span class="f">C</span><span class="mr">相对原子质量 12</span></div>
+    <div class="op">+</div>
+    <div class="col"><span class="f">O₂</span><span class="mr">16×2 = 32</span></div>
+    <div class="mark"><span class="cond">点燃</span><span class="arr">＝</span></div>
+    <div class="col"><span class="f">CO₂</span><span class="mr">12+16×2 = 44</span></div>
+  </div>
+  <div class="biglaw" style="font-size:clamp(26px,3.4vw,40px);margin-top:20px;">
+    <span class="lbl">化学方程式 chemical equation</span>
+    这种用化学式来表示化学反应的式子，叫作化学方程式。
+  </div>
+</div></section>
+
+<!-- 4 质的方面 -->
+<section class="slide"><div class="inner">
+  <div class="kicker">意义① · 质的方面</div>
+  <h2>体现物质转化关系：反应物、生成物、反应条件</h2>
+  <p>化学方程式中的<b>反应物、生成物和反应条件</b>，体现了化学反应中的物质转化关系。</p>
+  <div class="eq">
+    <div class="col"><span class="f">C</span></div>
+    <div class="op">+</div>
+    <div class="col"><span class="f">O₂</span></div>
+    <div class="mark"><span class="cond">点燃（反应条件）</span><span class="arr">＝</span></div>
+    <div class="col"><span class="f">CO₂</span></div>
+  </div>
+  <div class="cols3" style="margin-top:22px;">
+    <div class="box"><div class="t">反应物</div><p>碳（C）、氧气（O₂）<br>—— 参加反应的物质</p></div>
+    <div class="box"><div class="t">反应条件</div><p>点燃<br>—— 反应发生所需条件</p></div>
+    <div class="box"><div class="t">生成物</div><p>二氧化碳（CO₂）<br>—— 反应后生成的物质</p></div>
+  </div>
+  <p class="muted" style="margin-top:18px;">读法：碳和氧气在点燃的条件下反应，生成二氧化碳。</p>
+</div></section>
+
+<!-- 5 量的方面 -->
+<section class="slide"><div class="inner">
+  <div class="kicker">意义② · 量的方面 · 课本 p117—118</div>
+  <h2>体现定量关系：各物质间的质量比</h2>
+  <p>化学方程式中各物质的<b>相对分子质量（或相对原子质量）</b>等信息，体现了化学反应的定量关系，如质量守恒和比例关系。</p>
+  <div class="eq">
+    <div class="col"><span class="f">C</span><span class="mr">12</span></div>
+    <div class="op">+</div>
+    <div class="col"><span class="f">O₂</span><span class="mr">16×2</span></div>
+    <div class="mark"><span class="cond">点燃</span><span class="arr">＝</span></div>
+    <div class="col"><span class="f">CO₂</span><span class="mr">12+16×2</span></div>
+  </div>
+  <div class="eq" style="margin-top:8px;">
+    <div class="col"><span class="f">12</span><span class="mrph"></span></div>
+    <div class="op">+</div>
+    <div class="col"><span class="f">32</span><span class="mrph"></span></div>
+    <div class="mark"><span class="cond">&nbsp;</span><span class="arr">＝</span></div>
+    <div class="col"><span class="f">44</span><span class="mrph"></span></div>
+  </div>
+  <div class="biglaw" style="font-size:clamp(27px,3.6vw,42px);margin-top:18px;">12 ∶ 32 ∶ 44</div>
+  <p class="eqnote">每 12 份质量的碳与 32 份质量的氧气恰好完全反应，生成 44 份质量的二氧化碳 —— 且 12 + 32 = 44，遵守质量守恒。</p>
+</div></section>
+
+<!-- 6 思考与讨论 -->
+<section class="slide"><div class="inner">
+  <div class="kicker">课本 · 思考与讨论（p118）</div>
+  <h2>从定性和定量角度，你能获得哪些信息？</h2>
+  <p>从定性和定量的角度分析以下反应的化学方程式，你能从中获得哪些信息？</p>
+  <h3>（1）铁与硫酸铜溶液反应（西汉时期就已发现）</h3>
+  <div class="eq">
+    <div class="col"><span class="f">Fe</span></div><div class="op">+</div>
+    <div class="col"><span class="f">CuSO₄</span></div>
+    <div class="mark"><span class="cond">&nbsp;</span><span class="eqsign">＝</span></div>
+    <div class="col"><span class="f">Cu</span></div><div class="op">+</div>
+    <div class="col"><span class="f">FeSO₄</span></div>
+  </div>
+  <h3>（2）氢气在氧气中燃烧生成水（氢能利用的化学基础）</h3>
+  <div class="eq">
+    <div class="col"><span class="f">2H₂</span></div><div class="op">+</div>
+    <div class="col"><span class="f">O₂</span></div>
+    <div class="mark"><span class="cond">点燃</span><span class="arr">＝</span></div>
+    <div class="col"><span class="f">2H₂O</span></div>
+  </div>
+  <div class="eqnote">化学方程式统一用等号"＝"连接反应物与生成物；反应条件（如点燃）写在等号上方。</div>
+</div></section>
+
+<!-- 7 小结 -->
+<section class="slide"><div class="inner">
+  <div class="kicker">课本 · 学完本课题你知道了什么</div>
+  <h2>化学方程式两层含义</h2>
+  <div class="cols3" style="grid-template-columns:1fr 1fr;">
+    <div class="box"><div class="t">定性 —— 物质转化关系</div><p>表明反应物、生成物和反应条件；读出"谁和谁在什么条件下反应生成什么"。</p></div>
+    <div class="box"><div class="t">定量 —— 比例关系</div><p>表明各物质间的质量比（相对分子质量×化学计量数之比）；为后续计算提供依据。</p></div>
+  </div>
+  <div class="biglaw" style="margin-top:26px;font-size:clamp(26px,3.3vw,40px);">化学方程式体现了化学反应中的物质转化关系与定量关系。</div>
+</div></section>
+
+<!-- 8 练习1 -->
+<section class="slide quiz-slide"><div class="inner">
+  <span class="qno">课本练习 1</span>
+  <div class="qtext">从化学方程式中不能获得的信息是（　）。</div>
+  <ul class="opts"><li>A. 反应物和生成物</li><li>B. 反应的快慢</li><li>C. 反应发生所需要的条件</li><li>D. 反应物和生成物的质量比</li></ul>
+  <div class="ans"><p><span class="key">答案：B</span>　化学方程式能表示反应物、生成物、反应条件（定性）以及各物质质量比（定量），但不能表示反应进行的快慢。</p></div>
+  <div class="reveal-hint">按翻页键 / 空格 显示答案，再按一次继续</div>
+</div></section>
+
+<!-- 9 练习2 -->
+<section class="slide quiz-slide"><div class="inner">
+  <span class="qno">课本练习 2</span>
+  <div class="qtext">铝在氧气中燃烧生成氧化铝。在这个反应中，铝、氧气、氧化铝的质量比是（　）。</div>
+  <ul class="opts"><li>A. 27∶32∶102</li><li>B. 108∶96∶204</li><li>C. 4∶3∶2</li><li>D. 27∶16∶43</li></ul>
+  <div class="ans"><p><span class="key">答案：B</span>　化学方程式 4Al + 3O₂ ＝(点燃) 2Al₂O₃，质量比 = 4×27 ∶ 3×32 ∶ 2×102 = 108∶96∶204。</p></div>
+  <div class="reveal-hint">按翻页键 / 空格 显示答案，再按一次继续</div>
+</div></section>
+
+<!-- 10 练习3 -->
+<section class="slide quiz-slide"><div class="inner">
+  <span class="qno">课本练习 3</span>
+  <div class="qtext">硫与氧气反应生成二氧化硫。该反应的化学方程式是______；它不仅表明反应物是____，生成物是____，反应条件是____，还表示在点燃条件下，每____份质量的硫与____份质量的氧气恰好完全反应，生成____份质量的二氧化硫。</div>
+  <div class="ans"><p><span class="key">答案</span>　S + O₂ ＝(点燃) SO₂；反应物是硫和氧气，生成物是二氧化硫，反应条件是点燃；每 <b>32</b> 份质量的硫与 <b>32</b> 份质量的氧气恰好完全反应，生成 <b>64</b> 份质量的二氧化硫。</p></div>
+  <div class="reveal-hint">按翻页键 / 空格 显示答案，再按一次继续</div>
+</div></section>
+
+<!-- 11 练习4 -->
+<section class="slide quiz-slide"><div class="inner">
+  <span class="qno">课本练习 4</span>
+  <div class="qtext">天然气主要成分 X 在空气中完全燃烧：X + 2O₂ ＝(点燃) CO₂ + aH₂O。X 只含两种元素，则 a = ___，X 的化学式为 ___，推断依据是 ___。</div>
+  <div class="ans"><p><span class="key">答案</span>　a = <b>2</b>，X 为 <b>CH₄</b>。依据：化学反应前后原子的种类和数目不变（质量守恒定律）。右侧有 1 个 C、4 个 H、4 个 O，左侧 2O₂ 提供 4 个 O，故 X 含 1C+4H，即 CH₄。</p></div>
+  <div class="reveal-hint">按翻页键 / 空格 显示答案，再按一次继续</div>
+</div></section>
+
+<!-- 12 强化1 -->
+<section class="slide quiz-slide"><div class="inner">
+  <span class="qno">强化练习 1</span>
+  <div class="qtext">读方程式："2Mg + O₂ ＝(点燃) 2MgO"，请说出它表示的三条信息。</div>
+  <div class="ans"><p>① 质的方面：镁和氧气在点燃条件下反应生成氧化镁；<br>② 量的方面：每 48 份质量的镁与 32 份质量的氧气恰好完全反应，生成 80 份质量的氧化镁（48∶32∶80）；<br>③ 微观方面：每 2 个镁原子与 1 个氧分子反应生成 2 个氧化镁"分子单元"，反应前后原子种类和数目不变。</p></div>
+  <div class="reveal-hint">按翻页键 / 空格 显示答案，再按一次继续</div>
+</div></section>
+
+<!-- 13 强化2 -->
+<section class="slide quiz-slide"><div class="inner">
+  <span class="qno">强化练习 2</span>
+  <div class="qtext">下列化学方程式中，"点燃"的标注位置正确的是（　）。</div>
+  <div class="eq" style="margin-bottom:8px;"><div class="col"><span class="f">C</span></div><div class="op">+</div><div class="col"><span class="f">O₂</span></div><div class="mark"><span class="cond">点燃</span><span class="arr">＝</span></div><div class="col"><span class="f">CO₂</span></div></div>
+  <div class="eq"><div class="col"><span class="f">C</span></div><div class="op">+</div><div class="col"><span class="f">O₂</span></div><div class="mark"><span class="cond">&nbsp;</span><span class="eqsign">＝</span></div><div class="col"><span class="f">CO₂ 点燃</span></div></div>
+  <div class="ans"><p><span class="key">答案</span>　第一种正确。书写格式：反应条件写在<b>等号上方</b>；不能把条件写在生成物后面，也不必写成"点燃"在等号下方的形式。</p></div>
+  <div class="reveal-hint">按翻页键 / 空格 显示答案，再按一次继续</div>
+</div></section>
+
+<!-- 14 结束 -->
+<section class="slide"><div class="inner cover">
+  <div class="rule" style="margin-bottom:32px;"></div>
+  <h1 style="font-size:clamp(42px,6.5vw,70px);">第1课时 · 小结</h1>
+  <p class="muted" style="font-size:clamp(23px,2.9vw,32px);">化学方程式 = 物质转化关系（定性） + 比例关系（定量）</p>
+  <div class="hint" style="margin-top:40px;">按 <span class="kbd">Home</span> 回到第一页　·　按 <span class="kbd">End</span> 到末页</div>
+</div></section>
+
+</div>
+
+<div id="bar">
+  <div class="grp"><button class="navbtn" id="prevBtn">← 上一页</button><button class="navbtn" id="nextBtn">下一页 →</button><span id="counter">1 / 14</span></div>
+  <div class="grp"><span id="deckTitle">化学方程式 · 课时1 意义</span><button class="navbtn" id="fullBtn">⛶ 全屏</button><button class="navbtn" id="helpBtn">? 操作</button></div>
+</div>
+<div id="help"><div class="helpcard">
+  <h3>翻页操作说明</h3>
+  <div class="row"><span>下一页</span><span><span class="kbd">PgDn</span> <span class="kbd">空格</span> <span class="kbd">→</span> <span class="kbd">↓</span></span></div>
+  <div class="row"><span>上一页</span><span><span class="kbd">PgUp</span> <span class="kbd">←</span> <span class="kbd">↑</span></span></div>
+  <div class="row"><span>首页 / 末页</span><span><span class="kbd">Home</span> / <span class="kbd">End</span></span></div>
+  <div class="row"><span>练习页显示答案</span><span>在题目页再按一次"下一页"</span></div>
+  <div class="row"><span>字号放大 / 缩小</span><span><span class="kbd">]</span> 放大 · <span class="kbd">[</span> 缩小 · <span class="kbd">0</span> 恢复默认</span></div>
+  <div class="row"><span>全屏放映</span><span><span class="kbd">F</span> 或点击"全屏"</span></div>
+  <button class="navbtn close" id="closeHelp">知道了</button>
+</div></div>
+
+<script>
+(function(){
+  const slides=Array.from(document.querySelectorAll('.slide'));let cur=0,jumpBuf='',jumpTimer=null;
+  // —— 字号缩放：只缩放 .inner 内容，控制条固定；自动记忆 ——
+  const ZKEY='__deck_zoom__';
+  function zoom(){const z=parseFloat(localStorage.getItem(ZKEY));return (isNaN(z)||z<0.7||z>2.2)?1:z;}
+  function applyInitZoom(){document.querySelectorAll('.inner').forEach(el=>el.style.zoom=zoom());}
+  function setZoom(z){
+    z=Math.max(0.7,Math.min(2.2,Math.round(z*10)/10));
+    localStorage.setItem(ZKEY,String(z));
+    document.querySelectorAll('.inner').forEach(el=>el.style.zoom=z);
+    const t=document.getElementById('zoomTip');
+    if(t){t.textContent='字号 '+Math.round(z*100)+'%';t.style.opacity=1;clearTimeout(t._tm);t._tm=setTimeout(()=>t.style.opacity=0,1000);}
+  }
+  document.addEventListener('keydown',function(e){
+    if(e.ctrlKey||e.altKey||e.metaKey)return;
+    if(e.key===']'||e.key==='】'){e.preventDefault();setZoom(zoom()+0.1);}
+    else if(e.key==='['||e.key==='【'){e.preventDefault();setZoom(zoom()-0.1);}
+    else if(e.key==='0'){e.preventDefault();setZoom(1);}
+  });
+  const counter=document.getElementById('counter'),progress=document.getElementById('progress'),prevBtn=document.getElementById('prevBtn'),nextBtn=document.getElementById('nextBtn'),help=document.getElementById('help');
+  function render(){slides.forEach((s,i)=>s.classList.toggle('active',i===cur));counter.textContent=(cur+1)+' / '+slides.length;progress.style.width=((cur+1)/slides.length*100)+'%';prevBtn.disabled=cur===0;nextBtn.disabled=cur===slides.length-1;slides[cur].scrollTop=0;}
+  function isQuiz(i){return slides[i].classList.contains('quiz-slide');}
+  function shown(i){const a=slides[i].querySelector('.ans');return a&&a.classList.contains('show');}
+  function next(){if(cur>=slides.length-1)return;if(isQuiz(cur)&&!shown(cur)){const a=slides[cur].querySelector('.ans');if(a){a.classList.add('show');const h=slides[cur].querySelector('.reveal-hint');if(h)h.textContent='答案已显示 · 再按一次继续';return;}}cur++;render();}
+  function prev(){if(isQuiz(cur)&&shown(cur)){const a=slides[cur].querySelector('.ans');a.classList.remove('show');const h=slides[cur].querySelector('.reveal-hint');if(h)h.textContent='按翻页键 / 空格 显示答案，再按一次继续';return;}if(cur>0){cur--;render();}}
+  function go(n){if(n>=0&&n<slides.length){cur=n;render();}}
+  prevBtn.onclick=prev;nextBtn.onclick=next;
+  document.addEventListener('keydown',function(e){
+    if(help.classList.contains('show')){if(e.key==='Escape'||e.key==='h'||e.key==='H'){help.classList.remove('show');e.preventDefault();}return;}
+    const k=e.key;
+    if(['PageDown',' ','Spacebar','ArrowRight','ArrowDown','Enter'].includes(k)){e.preventDefault();next();return;}
+    if(['PageUp','ArrowLeft','ArrowUp','Backspace'].includes(k)){e.preventDefault();prev();return;}
+    if(k==='Home'){e.preventDefault();go(0);return;}if(k==='End'){e.preventDefault();go(slides.length-1);return;}
+    if(k==='h'||k==='H'||k==='?'){e.preventDefault();help.classList.add('show');return;}
+    if(k==='f'||k==='F'){e.preventDefault();toggleFull();return;}
+  });
+  let tx=0,ty=0;document.addEventListener('touchstart',e=>{tx=e.changedTouches[0].clientX;ty=e.changedTouches[0].clientY;},{passive:true});
+  document.addEventListener('touchend',e=>{const dx=e.changedTouches[0].clientX-tx,dy=e.changedTouches[0].clientY-ty;if(Math.abs(dx)>60&&Math.abs(dx)>Math.abs(dy))dx<0?next():prev();},{passive:true});
+  function toggleFull(){if(!document.fullscreenElement)document.documentElement.requestFullscreen&&document.documentElement.requestFullscreen();else document.exitFullscreen&&document.exitFullscreen();}
+  document.getElementById('fullBtn').onclick=toggleFull;document.getElementById('helpBtn').onclick=()=>help.classList.add('show');document.getElementById('closeHelp').onclick=()=>help.classList.remove('show');help.onclick=e=>{if(e.target===help)help.classList.remove('show');};
+  render(); applyInitZoom();
+})();
+
+</script>
+</body>
+</html>

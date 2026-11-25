@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>课题2 原子结构 · 翻页课件</title>
+<style>
+  :root{--ink:#1a2230;--muted:#6b7280;--line:#e5e7eb;--soft:#f6f8fb;--accent:#0f766e;--accent-soft:#ecfdf5;--max:1000px;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html,body{height:100%;}
+  body{background:#fff;color:var(--ink);overflow:hidden;font-family:"PingFang SC","Microsoft YaHei","Hiragino Sans GB","Source Han Sans SC",sans-serif;-webkit-font-smoothing:antialiased;}
+  #deck{position:relative;width:100vw;height:100vh;}
+  .slide{position:absolute;inset:0;display:none;padding:clamp(28px,5vh,60px) clamp(26px,6vw,88px) 94px;overflow-y:auto;}
+  .slide.active{display:flex;animation:fade .32s ease;}
+  @keyframes fade{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:none;}}
+  .inner{width:100%;max-width:var(--max);margin:auto;}
+  .kicker{font-size:17px;letter-spacing:.12em;color:var(--accent);font-weight:700;margin-bottom:16px;}
+  h1{font-size:clamp(48px,7vw,82px);line-height:1.15;letter-spacing:-.02em;margin-bottom:16px;}
+  h2{font-size:clamp(34px,4.6vw,56px);line-height:1.3;letter-spacing:-.01em;margin-bottom:24px;}
+  h3{font-size:clamp(24px,2.8vw,30px);margin:20px 0 9px;}
+  p{font-size:clamp(22px,2.4vw,30px);line-height:1.8;margin-bottom:13px;}
+  b,strong{font-weight:700;}
+  .muted{color:var(--muted);}
+  .tag{display:inline-block;font-size:15px;color:var(--muted);border:1px solid var(--line);border-radius:99px;padding:2px 11px;margin-left:10px;vertical-align:middle;font-weight:400;}
+  .cover{text-align:center;}
+  .cover .eyebrow{font-size:18px;color:var(--muted);letter-spacing:.14em;margin-bottom:24px;}
+  .cover .rule{width:60px;height:4px;background:var(--accent);border-radius:2px;margin:0 auto 32px;}
+  .cover .hint{font-size:18px;color:var(--muted);line-height:2;}
+  .kbd{display:inline-block;border:1px solid var(--line);border-bottom-width:2px;border-radius:5px;padding:1px 7px;margin:0 2px;font-size:15px;color:#374151;background:var(--soft);}
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:20px;}
+  @media(max-width:760px){.two{grid-template-columns:1fr;}}
+  .callout{background:var(--soft);border-radius:12px;padding:18px 24px;font-size:clamp(20px,2.2vw,26px);line-height:1.75;color:#4b5563;}
+  .callout b{color:var(--ink);}
+  .biglaw{background:var(--accent-soft);border-left:5px solid var(--accent);border-radius:0 14px 14px 0;padding:clamp(22px,3.4vw,38px);font-size:clamp(28px,3.8vw,44px);font-weight:700;line-height:1.65;}
+  .biglaw .lbl{display:block;font-size:15px;letter-spacing:.16em;color:var(--accent);margin-bottom:14px;}
+  .eq{display:inline-flex;flex-wrap:wrap;align-items:flex-start;background:var(--soft);border:1px dashed #cbd5e1;border-radius:12px;padding:34px 24px 14px;margin:8px 0;}
+  .eq .col{display:flex;flex-direction:column;align-items:center;min-width:26px;}
+  .eq .f{font-size:clamp(25px,2.9vw,34px);line-height:1.5;height:30px;white-space:nowrap;font-family:"Times New Roman",Times,serif;}
+  .eq .op{font-size:clamp(23px,2.7vw,30px);line-height:1.5;height:30px;color:#9ca3af;padding:0 8px;white-space:nowrap;}
+  .eq .mark{display:flex;align-items:center;justify-content:center;height:30px;padding:0 10px;position:relative;}
+  .eq .cond{position:absolute;top:-20px;font-size:17px;color:var(--muted);line-height:1.5;white-space:nowrap;}
+  .eq .arr{font-size:32px;line-height:1;color:var(--accent);white-space:nowrap;}
+  .eq .eqsign{font-size:28px;line-height:1;color:var(--accent);white-space:nowrap;}
+  .eq .mr{font-size:clamp(18px,1.9vw,22px);line-height:1.4;height:22px;color:#6b7280;white-space:nowrap;font-family:"Times New Roman",Times,serif;}
+  .eq .mrph{height:22px;}
+  .eqnote{font-size:17px;color:var(--muted);margin-top:8px;line-height:1.7;}
+  .cols3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
+  @media(max-width:760px){.cols3{grid-template-columns:1fr;}}
+  .cols3 .box{border:1px solid var(--line);border-radius:12px;padding:20px;}
+  .cols3 .box .t{font-size:17px;color:var(--accent);font-weight:700;margin-bottom:10px;}
+  .cols3 .box p{font-size:clamp(19px,2vw,24px);}
+  ol,ul{padding-left:26px;}
+  li{font-size:clamp(22px,2.4vw,30px);line-height:1.8;margin-bottom:10px;}
+  .qno{display:inline-block;background:var(--accent);color:#fff;font-size:17px;font-weight:700;border-radius:7px;padding:3px 10px;margin-bottom:16px;}
+  .qtext{font-size:clamp(25px,2.9vw,34px);line-height:1.7;font-weight:600;margin-bottom:17px;}
+  .qsub{font-size:clamp(20px,2.2vw,26px);line-height:1.8;margin-bottom:6px;}
+  .opts{list-style:none;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:8px 20px;}
+  .opts li{font-size:clamp(22px,2.4vw,30px);margin:0;padding:6px 12px;background:var(--soft);border-radius:8px;}
+  @media(max-width:760px){.opts{grid-template-columns:1fr;}}
+  .ans{display:none;margin-top:20px;padding:18px 24px;background:var(--accent-soft);border-radius:12px;font-size:clamp(20px,2.2vw,26px);line-height:1.8;color:#334155;}
+  .ans.show{display:block;animation:fade .25s ease;}
+  .ans .key{color:var(--accent);font-weight:700;}
+  .ans p{font-size:inherit;margin-bottom:9px;}
+  .reveal-hint{font-size:17px;color:var(--muted);margin-top:16px;}
+  /* 增强组件 */
+  .card{background:var(--soft);border:1px solid var(--line);border-radius:14px;padding:22px 26px;margin:12px 0;}
+  .card .ct{font-size:20px;color:var(--accent);font-weight:700;margin-bottom:12px;}
+  .card p{font-size:clamp(21px,2.2vw,27px);}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:12px 0;}
+  @media(max-width:760px){.grid2{grid-template-columns:1fr;}}
+  .grid2 .card{margin:0;}
+  table{border-collapse:collapse;width:100%;font-size:clamp(19px,2vw,25px);margin:14px 0;}
+  th,td{border:1px solid var(--line);padding:10px 14px;text-align:left;line-height:1.6;}
+  th{background:var(--accent-soft);color:var(--accent);font-weight:700;}
+  .def{border-left:4px solid var(--accent);background:var(--accent-soft);border-radius:0 12px 12px 0;padding:18px 24px;margin:14px 0;font-size:clamp(22px,2.4vw,29px);line-height:1.75;}
+  .def .dt{color:var(--accent);font-weight:700;}
+  .exp{background:#fffbeb;border:1px solid #fde68a;border-radius:14px;padding:20px 26px;margin:14px 0;}
+  .exp .et{font-size:19px;color:#b45309;font-weight:700;margin-bottom:10px;}
+  .exp p,.exp li{font-size:clamp(20px,2.1vw,26px);}
+  .flow{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin:16px 0;font-size:clamp(21px,2.3vw,28px);}
+  .flow .node{background:var(--accent-soft);border:1px solid #99f6e4;border-radius:10px;padding:10px 18px;font-weight:600;}
+  .flow .arw{color:var(--accent);font-size:26px;}
+  .chem{font-family:"Times New Roman",Times,serif;}
+  .note{font-size:clamp(19px,2vw,24px);color:var(--muted);line-height:1.75;margin-top:12px;}
+  #bar{position:fixed;left:0;right:0;bottom:0;height:62px;display:flex;align-items:center;justify-content:space-between;padding:0 clamp(18px,4vw,48px);background:rgba(255,255,255,.94);backdrop-filter:blur(8px);border-top:1px solid var(--line);z-index:20;}
+  #bar .grp{display:flex;align-items:center;gap:10px;}
+  .navbtn{font:inherit;font-size:18px;color:#374151;background:#fff;border:1px solid var(--line);border-radius:8px;padding:7px 15px;cursor:pointer;transition:.15s;}
+  .navbtn:hover:not(:disabled){color:var(--accent);border-color:#99f6e4;background:var(--accent-soft);}
+  .navbtn:disabled{opacity:.35;cursor:default;}
+  #counter{font-size:17px;color:var(--muted);min-width:74px;text-align:center;font-variant-numeric:tabular-nums;}
+  #progress{position:fixed;top:0;left:0;height:3px;background:var(--accent);z-index:30;transition:width .3s ease;}
+  #deckTitle{font-size:17px;color:var(--muted);max-width:44vw;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+  #help{display:none;position:fixed;inset:0;background:rgba(17,24,39,.45);z-index:50;align-items:center;justify-content:center;padding:24px;}
+  #help.show{display:flex;}
+  .helpcard{background:#fff;border-radius:16px;padding:32px 38px;max-width:520px;width:100%;box-shadow:0 20px 60px rgba(0,0,0,.15);}
+  .helpcard h3{font-size:28px;margin-bottom:16px;}
+  .helpcard .row{display:flex;justify-content:space-between;gap:20px;padding:9px 0;border-bottom:1px solid var(--line);font-size:19px;}
+  .helpcard .row:last-of-type{border-bottom:0;}
+  .helpcard .close{margin-top:20px;width:100%;}
+  @media print{#bar,#progress,#help,#zoomTip{display:none!important;}body{overflow:visible;}.slide{display:flex!important;position:relative;page-break-after:always;height:auto;min-height:100vh;}.ans{display:block!important;}}
+</style>
+</head>
+<body>
+<div id="progress"></div>
+<div id="zoomTip" style="position:fixed;top:16px;left:50%;transform:translateX(-50%);z-index:60;background:rgba(17,24,39,.85);color:#fff;padding:8px 22px;border-radius:99px;font-size:18px;opacity:0;transition:opacity .25s;pointer-events:none;"></div>
+<div id="deck">
+
+<section class="slide active"><div class="inner cover">
+  <div class="eyebrow">人教版九年级化学上册 · 第三单元 课题2</div>
+  <h1>原子结构</h1>
+  <div class="rule"></div>
+  <p class="muted" style="font-size:clamp(22px,2.6vw,30px);">从原子核到核外电子 —— 用模型认识微观世界</p>
+  <div class="hint" style="margin-top:48px;">
+    <span class="kbd">PgDn</span>/<span class="kbd">空格</span>/<span class="kbd">→</span> 下一页　·　<span class="kbd">PgUp</span>/<span class="kbd">←</span> 上一页<br>翻页笔可直接翻页　·　练习页再按一次显示答案　·　按 <span class="kbd">H</span> 查看操作
+  </div>
+</div></section>
+
+<section class="slide"><div class="inner">
+
+<div class='kicker'>引入 · 原子有多小？ · 教材 p65</div>
+<h2>一个乒乓球与一个地球之比</h2>
+<p>原子的体积很小。如果将一个原子与一个乒乓球相比，就相当于将一个乒乓球与一个地球相比（图3-8）。</p>
+<div class='grid2'><div class='card'><div class='ct'>原子的直径</div><p>约 <b>10⁻¹⁰ m</b></p></div>
+<div class='card'><div class='ct'>原子核的直径</div><p>约 <b>10⁻¹⁵～10⁻¹⁴ m</b></p></div></div>
+<div class='callout'>原子能够结合成分子的奥秘，正是人们在研究这小小原子的结构时逐步揭示出来的。</div>
+
+</div></section>
+
+<section class="slide"><div class="inner">
+
+<div class='kicker'>一、原子的构成 · 教材 p65</div>
+<h2>原子核居于中心，电子在核外运动</h2>
+<p>科学实验证明：原子是由居其中心的<b>原子核</b>与<b>核外电子</b>构成的。原子核一般由<b>质子</b>和<b>中子</b>构成。</p>
+<table><tr><th>粒子</th><th>电荷</th><th>位置</th></tr>
+<tr><td>质子</td><td>每个质子带 1 个单位正电荷</td><td>原子核内</td></tr>
+<tr><td>中子</td><td>不带电荷</td><td>原子核内</td></tr>
+<tr><td>电子</td><td>每个电子带 1 个单位负电荷</td><td>原子核外</td></tr></table>
+<p>原子核内质子所带正电荷与核外电子所带负电荷<b>数量相等、电性相反</b>，所以原子不显电性。</p>
+<div class='biglaw' style='font-size:clamp(24px,3vw,36px);'><span class='lbl'>数量关系</span>核电荷数 = 质子数 = 核外电子数</div>
+<p class='note'>表3-1 几种原子的构成：氢（1、0、1）、碳（6、6、6）、氧（8、8、8）、钠（11、12、11）、氯（17、18、17）。</p>
+
+</div></section>
+
+<section class="slide"><div class="inner">
+
+<div class='kicker'>二、原子核外电子的排布 · 教材 p66</div>
+<h2>电子在核外“分层”运动</h2>
+<p>如果把原子比作一个体育场，原子核只相当于体育场中的一只蚂蚁。核外有很大的空间，电子就在这个空间里不停地运动。</p>
+<p>在含有多个电子的原子中，电子具有不同的运动状态：<b>离核越近，能量越低；离核越远，能量越高</b>。</p>
+<div class='grid2'><div class='card'><div class='ct'>电子层</div><p>离核最近的是第一层，依次为第二、三、四、五、六、七层；离核最远的也叫<b>最外层</b>。</p></div>
+<div class='card'><div class='ct'>排布规律</div><p>核外电子最少只有 1 层，最多有 7 层；<b>最外层电子数一般不超过 8 个</b>（只有 1 层时不超过 2 个）。</p></div></div>
+<div class='callout'>科学思维：用“分层排布模型”描述看不见的电子运动，是化学中常用的建模方法（教材 p69 方法导引）。</div>
+
+</div></section>
+
+<section class="slide"><div class="inner">
+
+<div class='kicker'>原子结构示意图 · 教材 p66</div>
+<h2>用示意图简明表示核外电子排布</h2>
+<p>图3-11 是氧原子的结构示意图：圈内“+8”表示<b>核电荷数为 8</b>，弧线上的数字表示该层电子数（第一层 2 个，第二层 6 个）。</p>
+<table><tr><th>原子</th><th>核电荷数</th><th>各电子层上的电子数</th></tr>
+<tr><td>氧 O</td><td>+8</td><td>2、6</td></tr>
+<tr><td>钠 Na</td><td>+11</td><td>2、8、1</td></tr>
+<tr><td>氯 Cl</td><td>+17</td><td>2、8、7</td></tr>
+<tr><td>氩 Ar</td><td>+18</td><td>2、8、8</td></tr></table>
+<p class='note'>教材 p66“资料卡片”列出了氢到氩等部分原子的结构示意图，可照此练习读图。</p>
+<div class='callout'>读图要点：核内数字 = 质子数 = 核外电子总数；各层电子数相加必须等于核电荷数。</div>
+
+</div></section>
+
+<section class="slide"><div class="inner">
+
+<div class='kicker'>最外层电子数与化学性质 · 教材 p67</div>
+<h2>最外层电子数决定原子的“性格”</h2>
+<div class='cols3'><div class='box'><div class='t'>稀有气体（氦、氖、氩）</div><p>最外层一般都有 8 个电子（氦为 2 个），是<b>相对稳定结构</b>，化学性质稳定。</p></div>
+<div class='box'><div class='t'>金属（钠、镁、铝）</div><p>最外层电子一般都<b>少于 4 个</b>，在化学反应中易<b>失去电子</b>。</p></div>
+<div class='box'><div class='t'>非金属（氯、氧、硫、磷）</div><p>最外层电子一般都<b>多于 4 个</b>，在化学反应中易<b>得到电子</b>。</p></div></div>
+<div class='biglaw' style='font-size:clamp(23px,3vw,34px);'><span class='lbl'>核心结论</span>金属、非金属的化学性质与其核外电子排布，特别是最外层电子数有关；它们都趋向于达到相对稳定结构。</div>
+
+</div></section>
+
+<section class="slide"><div class="inner">
+
+<div class='kicker'>探究 · 钠与氯气的反应 · 教材 p67</div>
+<h2>电子转移形成了离子</h2>
+<p>钠原子最外层有 1 个电子，氯原子最外层有 7 个电子。当钠与氯气反应时，钠原子最外层的 1 个电子<b>转移</b>到氯原子的最外层，使两者都形成相对稳定结构（图3-12）。</p>
+<div class='flow'><span class='node'>钠原子（2、8、1）</span><span class='arw'>+ 氯原子（2、8、7）→</span><span class='node'>钠离子 Na⁺</span><span class='arw'>+</span><span class='node'>氯离子 Cl⁻</span></div>
+<div class='def'><span class='dt'>离子：</span>带电荷的原子叫作离子。带正电荷的叫<b>阳离子</b>（如 Na⁺），带负电荷的叫<b>阴离子</b>（如 Cl⁻）。</div>
+<p>带相反电荷的钠离子与氯离子相互作用就形成了<b>氯化钠</b>。可见，<b>离子也是构成物质的微观粒子</b>。</p>
+<p class='note'>右上角的“+”“−”表示电性：Na⁺ 表示 1 个钠离子带 1 个单位正电荷，Cl⁻ 表示 1 个氯离子带 1 个单位负电荷。</p>
+
+</div></section>
+
+<section class="slide"><div class="inner">
+
+<div class='kicker'>三、相对原子质量 · 教材 p68</div>
+<h2>用相对质量“称”原子</h2>
+<p>1 个氢原子质量约为 1.67×10⁻²⁷ kg，1 个氧原子质量约为 2.66×10⁻²⁶ kg，数值太小，书写和使用都不方便。</p>
+<div class='def'><span class='dt'>相对原子质量（Ar）：</span>以一种碳原子（碳-12，含 6 个质子和 6 个中子）质量的 <b>1/12</b> 为标准，其他原子的质量与它相比得到的比值。</div>
+<p>根据这个标准，氢的相对原子质量约为 <b>1</b>，氧的相对原子质量约为 <b>16</b>。</p>
+<table><tr><th>粒子</th><th>质量</th></tr>
+<tr><td>质子</td><td>1.672 6×10⁻²⁷ kg（相对质量约 1）</td></tr>
+<tr><td>中子</td><td>1.674 9×10⁻²⁷ kg（相对质量约 1）</td></tr>
+<tr><td>电子</td><td>约为质子质量的 1/1836，可忽略</td></tr></table>
+<p class='note'>整个原子的质量主要集中在原子核上。张青莲院士主持测定的多种元素相对原子质量被确认为国际标准（教材 p68）。</p>
+
+</div></section>
+
+<section class="slide"><div class="inner">
+
+<div class='kicker'>科学史话 · 原子模型的演变 · 教材 p69—70</div>
+<h2>模型随证据而更新</h2>
+<div class='cols3'><div class='box'><div class='t'>道尔顿模型（1808年）</div><p>“实心球模型”：原子是不可再分的实心小球。</p></div>
+<div class='box'><div class='t'>汤姆孙模型（19世纪末）</div><p>发现电子后提出：正电荷均匀分布，电子镶嵌其中。</p></div>
+<div class='box'><div class='t'>卢瑟福模型（1911年）</div><p>α 粒子散射实验后提出“核式结构模型”：原子核很小但几乎集中全部质量，电子在核外运动。</p></div></div>
+<div class='callout'>方法导引：模型是对原型的模拟，构建模型应以客观事实为依据，通过类比、简化和抽象突出主要特征；随着认识深入，模型也会改变。</div>
+<div class='callout'>科学态度与责任：电子、质子和中子的发现使认识深入原子内部——敢于质疑、基于证据，才能不断逼近真理。</div>
+
+</div></section>
+
+<section class="slide"><div class="inner">
+
+<div class='kicker'>学完本课题你知道了什么 · 教材 p70</div>
+<h2>一张图，四个要点</h2>
+<div class='card'><div class='ct'>原子的构成</div><div class='flow'><span class='node'>原子</span><span class='arw'>→</span><span class='node'>原子核（质子＋中子）</span><span class='arw'>＋</span><span class='node'>核外电子</span></div>
+<p class='note'>质子带正电，电子带负电，中子不带电；核电荷数 = 质子数 = 核外电子数。</p></div>
+<ol><li>核外电子<b>分层排布</b>，可用原子结构示意图表示。</li>
+<li>构成物质的微观粒子除原子、分子外还有<b>离子</b>；带电荷的原子叫作离子。</li>
+<li>以碳-12 原子质量的 1/12 为标准，得到<b>相对原子质量</b>。</li></ol>
+
+</div></section>
+
+<section class="slide quiz-slide"><div class="inner">
+  <span class="qno">课本练习</span>
+  <div class="qtext">下列各组微观粒子中，可以构成原子核的是（　）。</div>
+  <ul class="opts"><li>A. 质子和电子</li><li>B. 质子和中子</li><li>C. 电子和中子</li><li>D. 质子、中子和电子</li></ul>
+  <div class="ans"><p><span class='key'>答案：B</span>　原子核一般由质子和中子构成（普通氢原子只有 1 个质子、没有中子）；电子在核外运动，不属于原子核。</p></div>
+  <div class="reveal-hint">按翻页键 / 空格 显示答案，再按一次继续</div>
+</div></section>
+
+<section class="slide quiz-slide"><div class="inner">
+  <span class="qno">课本练习</span>
+  <div class="qtext">下列选项中，表示氧原子结构示意图的是（　）。</div>
+  <ul class="opts"><li>A. 核电荷数 +7，电子层 2、5</li><li>B. 核电荷数 +7，电子层 2、8</li><li>C. 核电荷数 +8，电子层 2、6</li><li>D. 核电荷数 +8，电子层 2、8</li></ul>
+  <div class="ans"><p><span class='key'>答案：C</span>　氧的核电荷数为 8，核外电子总数也为 8，分两层排布为 2、6。D 的电子总数为 10，与核电荷数不相等，不表示氧原子。</p></div>
+  <div class="reveal-hint">按翻页键 / 空格 显示答案，再按一次继续</div>
+</div></section>
+
+<section class="slide quiz-slide"><div class="inner">
+  <span class="qno">计算练习</span>
+  <div class="qtext">已知碳-12 原子的质量约为 1.993×10⁻²⁶ kg，一种铁原子的质量约为 9.288×10⁻²⁶ kg。计算这种铁原子的相对原子质量（保留一位小数）。</div>
+  
+  <div class="ans"><p><span class='key'>答案：约 55.9</span>　铁原子的相对原子质量 = 9.288×10⁻²⁶ kg ÷ (1.993×10⁻²⁶ kg × 1/12) = 9.288 × 12 ÷ 1.993 ≈ 55.9。相对原子质量是一个比值，<b>不带单位</b>。</p></div>
+  <div class="reveal-hint">按翻页键 / 空格 显示答案，再按一次继续</div>
+</div></section>
+
+<section class="slide"><div class="inner cover">
+  <div class="rule" style="margin-bottom:32px;"></div>
+  <h1 style="font-size:clamp(42px,6.5vw,70px);">课题2 · 小结</h1>
+  <p class="muted" style="font-size:clamp(23px,2.9vw,32px);">原子的构成 · 核外电子排布与离子 · 相对原子质量</p>
+  <div class="hint" style="margin-top:40px;">按 <span class="kbd">Home</span> 回到第一页　·　按 <span class="kbd">End</span> 到末页</div>
+</div></section>
+
+</div>
+
+<div id="bar">
+  <div class="grp"><button class="navbtn" id="prevBtn">← 上一页</button><button class="navbtn" id="nextBtn">下一页 →</button><span id="counter">1 / 14</span></div>
+  <div class="grp"><span id="deckTitle">第三单元 课题2 原子结构</span><button class="navbtn" id="fullBtn">⛶ 全屏</button><button class="navbtn" id="helpBtn">? 操作</button></div>
+</div>
+<div id="help"><div class="helpcard">
+  <h3>翻页操作说明</h3>
+  <div class="row"><span>下一页</span><span><span class="kbd">PgDn</span> <span class="kbd">空格</span> <span class="kbd">→</span> <span class="kbd">↓</span></span></div>
+  <div class="row"><span>上一页</span><span><span class="kbd">PgUp</span> <span class="kbd">←</span> <span class="kbd">↑</span></span></div>
+  <div class="row"><span>首页 / 末页</span><span><span class="kbd">Home</span> / <span class="kbd">End</span></span></div>
+  <div class="row"><span>练习页显示答案</span><span>在题目页再按一次"下一页"</span></div>
+  <div class="row"><span>字号放大 / 缩小</span><span><span class="kbd">]</span> 放大 · <span class="kbd">[</span> 缩小 · <span class="kbd">0</span> 恢复默认</span></div>
+  <div class="row"><span>全屏放映</span><span><span class="kbd">F</span> 或点击"全屏"</span></div>
+  <button class="navbtn close" id="closeHelp">知道了</button>
+</div></div>
+
+<script>
+
+(function(){
+  const slides=Array.from(document.querySelectorAll('.slide'));let cur=0;
+  const counter=document.getElementById('counter'),progress=document.getElementById('progress'),prevBtn=document.getElementById('prevBtn'),nextBtn=document.getElementById('nextBtn'),help=document.getElementById('help');
+  const ZKEY='__deck_zoom__';
+  function zoom(){const z=parseFloat(localStorage.getItem(ZKEY));return (isNaN(z)||z<0.7||z>2.2)?1:z;}
+  function setZoom(z){z=Math.max(0.7,Math.min(2.2,Math.round(z*10)/10));localStorage.setItem(ZKEY,String(z));
+    document.querySelectorAll('.inner').forEach(el=>el.style.zoom=z);
+    const t=document.getElementById('zoomTip');if(t){t.textContent='字号 '+Math.round(z*100)+'%';t.style.opacity=1;clearTimeout(t._tm);t._tm=setTimeout(()=>t.style.opacity=0,1000);}}
+  document.addEventListener('keydown',function(e){if(e.ctrlKey||e.altKey||e.metaKey)return;
+    if(e.key===']'||e.key==='】'){e.preventDefault();setZoom(zoom()+0.1);}
+    else if(e.key==='['||e.key==='【'){e.preventDefault();setZoom(zoom()-0.1);}
+    else if(e.key==='0'){e.preventDefault();setZoom(1);}});
+  function render(){slides.forEach((s,i)=>s.classList.toggle('active',i===cur));counter.textContent=(cur+1)+' / '+slides.length;progress.style.width=((cur+1)/slides.length*100)+'%';prevBtn.disabled=cur===0;nextBtn.disabled=cur===slides.length-1;slides[cur].scrollTop=0;}
+  function isQuiz(i){return slides[i].classList.contains('quiz-slide');}
+  function shown(i){const a=slides[i].querySelector('.ans');return a&&a.classList.contains('show');}
+  function next(){if(cur>=slides.length-1)return;if(isQuiz(cur)&&!shown(cur)){const a=slides[cur].querySelector('.ans');if(a){a.classList.add('show');const h=slides[cur].querySelector('.reveal-hint');if(h)h.textContent='答案已显示 · 再按一次继续';return;}}cur++;render();}
+  function prev(){if(isQuiz(cur)&&shown(cur)){const a=slides[cur].querySelector('.ans');a.classList.remove('show');const h=slides[cur].querySelector('.reveal-hint');if(h)h.textContent='按翻页键 / 空格 显示答案，再按一次继续';return;}if(cur>0){cur--;render();}}
+  function go(n){if(n>=0&&n<slides.length){cur=n;render();}}
+  prevBtn.onclick=prev;nextBtn.onclick=next;
+  document.addEventListener('keydown',function(e){
+    if(help.classList.contains('show')){if(e.key==='Escape'||e.key==='h'||e.key==='H'){help.classList.remove('show');e.preventDefault();}return;}
+    const k=e.key;
+    if(['PageDown',' ','Spacebar','ArrowRight','ArrowDown','Enter'].includes(k)){e.preventDefault();next();return;}
+    if(['PageUp','ArrowLeft','ArrowUp','Backspace'].includes(k)){e.preventDefault();prev();return;}
+    if(k==='Home'){e.preventDefault();go(0);return;}if(k==='End'){e.preventDefault();go(slides.length-1);return;}
+    if(k==='h'||k==='H'||k==='?'){e.preventDefault();help.classList.add('show');return;}
+    if(k==='f'||k==='F'){e.preventDefault();toggleFull();return;}});
+  let tx=0,ty=0;document.addEventListener('touchstart',e=>{tx=e.changedTouches[0].clientX;ty=e.changedTouches[0].clientY;},{passive:true});
+  document.addEventListener('touchend',e=>{const dx=e.changedTouches[0].clientX-tx,dy=e.changedTouches[0].clientY-ty;if(Math.abs(dx)>60&&Math.abs(dx)>Math.abs(dy))dx<0?next():prev();},{passive:true});
+  function toggleFull(){if(!document.fullscreenElement)document.documentElement.requestFullscreen&&document.documentElement.requestFullscreen();else document.exitFullscreen&&document.exitFullscreen();}
+  document.getElementById('fullBtn').onclick=toggleFull;document.getElementById('helpBtn').onclick=()=>help.classList.add('show');document.getElementById('closeHelp').onclick=()=>help.classList.remove('show');help.onclick=e=>{if(e.target===help)help.classList.remove('show');};
+  document.querySelectorAll('.inner').forEach(el=>el.style.zoom=zoom());
+  render();
+})();
+
+</script>
+</body>
+</html>

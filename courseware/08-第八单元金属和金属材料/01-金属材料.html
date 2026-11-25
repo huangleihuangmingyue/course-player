@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>课题1 金属材料 · 翻页课件</title>
+<style>
+  :root{--ink:#1a2230;--muted:#6b7280;--line:#e5e7eb;--soft:#f6f8fb;--accent:#0f766e;--accent-soft:#ecfdf5;--max:1000px;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html,body{height:100%;}
+  body{background:#fff;color:var(--ink);overflow:hidden;font-family:"PingFang SC","Microsoft YaHei","Hiragino Sans GB","Source Han Sans SC",sans-serif;-webkit-font-smoothing:antialiased;}
+  #deck{position:relative;width:100vw;height:100vh;}
+  .slide{position:absolute;inset:0;display:none;padding:clamp(28px,5vh,60px) clamp(26px,6vw,88px) 94px;overflow-y:auto;}
+  .slide.active{display:flex;animation:fade .32s ease;}
+  @keyframes fade{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:none;}}
+  .inner{width:100%;max-width:var(--max);margin:auto;}
+  .kicker{font-size:17px;letter-spacing:.12em;color:var(--accent);font-weight:700;margin-bottom:16px;}
+  h1{font-size:clamp(48px,7vw,82px);line-height:1.15;letter-spacing:-.02em;margin-bottom:16px;}
+  h2{font-size:clamp(34px,4.6vw,56px);line-height:1.3;letter-spacing:-.01em;margin-bottom:24px;}
+  h3{font-size:clamp(24px,2.8vw,30px);margin:20px 0 9px;}
+  p{font-size:clamp(22px,2.4vw,30px);line-height:1.8;margin-bottom:13px;}
+  b,strong{font-weight:700;}
+  .muted{color:var(--muted);}
+  .tag{display:inline-block;font-size:15px;color:var(--muted);border:1px solid var(--line);border-radius:99px;padding:2px 11px;margin-left:10px;vertical-align:middle;font-weight:400;}
+  .cover{text-align:center;}
+  .cover .eyebrow{font-size:18px;color:var(--muted);letter-spacing:.14em;margin-bottom:24px;}
+  .cover .rule{width:60px;height:4px;background:var(--accent);border-radius:2px;margin:0 auto 32px;}
+  .cover .hint{font-size:18px;color:var(--muted);line-height:2;}
+  .kbd{display:inline-block;border:1px solid var(--line);border-bottom-width:2px;border-radius:5px;padding:1px 7px;margin:0 2px;font-size:15px;color:#374151;background:var(--soft);}
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:20px;}
+  @media(max-width:760px){.two{grid-template-columns:1fr;}}
+  .callout{background:var(--soft);border-radius:12px;padding:18px 24px;font-size:clamp(20px,2.2vw,26px);line-height:1.75;color:#4b5563;}
+  .callout b{color:var(--ink);}
+  .biglaw{background:var(--accent-soft);border-left:5px solid var(--accent);border-radius:0 14px 14px 0;padding:clamp(22px,3.4vw,38px);font-size:clamp(28px,3.8vw,44px);font-weight:700;line-height:1.65;}
+  .biglaw .lbl{display:block;font-size:15px;letter-spacing:.16em;color:var(--accent);margin-bottom:14px;}
+  .eq{display:inline-flex;flex-wrap:wrap;align-items:flex-start;background:var(--soft);border:1px dashed #cbd5e1;border-radius:12px;padding:34px 24px 14px;margin:8px 0;}
+  .eq .col{display:flex;flex-direction:column;align-items:center;min-width:26px;}
+  .eq .f{font-size:clamp(25px,2.9vw,34px);line-height:1.5;height:30px;white-space:nowrap;font-family:"Times New Roman",Times,serif;}
+  .eq .op{font-size:clamp(23px,2.7vw,30px);line-height:1.5;height:30px;color:#9ca3af;padding:0 8px;white-space:nowrap;}
+  .eq .mark{display:flex;align-items:center;justify-content:center;height:30px;padding:0 10px;position:relative;}
+  .eq .cond{position:absolute;top:-20px;font-size:17px;color:var(--muted);line-height:1.5;white-space:nowrap;}
+  .eq .arr{font-size:32px;line-height:1;color:var(--accent);white-space:nowrap;}
+  .eq .eqsign{font-size:28px;line-height:1;color:var(--accent);white-space:nowrap;}
+  .eq .mr{font-size:clamp(18px,1.9vw,22px);line-height:1.4;height:22px;color:#6b7280;white-space:nowrap;font-family:"Times New Roman",Times,serif;}
+  .eq .mrph{height:22px;}
+  .eqnote{font-size:17px;color:var(--muted);margin-top:8px;line-height:1.7;}
+  .cols3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
+  @media(max-width:760px){.cols3{grid-template-columns:1fr;}}
+  .cols3 .box{border:1px solid var(--line);border-radius:12px;padding:20px;}
+  .cols3 .box .t{font-size:17px;color:var(--accent);font-weight:700;margin-bottom:10px;}
+  .cols3 .box p{font-size:clamp(19px,2vw,24px);}
+  ol,ul{padding-left:26px;}
+  li{font-size:clamp(22px,2.4vw,30px);line-height:1.8;margin-bottom:10px;}
+  .qno{display:inline-block;background:var(--accent);color:#fff;font-size:17px;font-weight:700;border-radius:7px;padding:3px 10px;margin-bottom:16px;}
+  .qtext{font-size:clamp(25px,2.9vw,34px);line-height:1.7;font-weight:600;margin-bottom:17px;}
+  .qsub{font-size:clamp(20px,2.2vw,26px);line-height:1.8;margin-bottom:6px;}
+  .opts{list-style:none;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:8px 20px;}
+  .opts li{font-size:clamp(22px,2.4vw,30px);margin:0;padding:6px 12px;background:var(--soft);border-radius:8px;}
+  @media(max-width:760px){.opts{grid-template-columns:1fr;}}
+  .ans{display:none;margin-top:20px;padding:18px 24px;background:var(--accent-soft);border-radius:12px;font-size:clamp(20px,2.2vw,26px);line-height:1.8;color:#334155;}
+  .ans.show{display:block;animation:fade .25s ease;}
+  .ans .key{color:var(--accent);font-weight:700;}
+  .ans p{font-size:inherit;margin-bottom:9px;}
+  .reveal-hint{font-size:17px;color:var(--muted);margin-top:16px;}
+  /* 增强组件 */
+  .card{background:var(--soft);border:1px solid var(--line);border-radius:14px;padding:22px 26px;margin:12px 0;}
+  .card .ct{font-size:20px;color:var(--accent);font-weight:700;margin-bottom:12px;}
+  .card p{font-size:clamp(21px,2.2vw,27px);}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:12px 0;}
+  @media(max-width:760px){.grid2{grid-template-columns:1fr;}}
+  .grid2 .card{margin:0;}
+  table{border-collapse:collapse;width:100%;font-size:clamp(19px,2vw,25px);margin:14px 0;}
+  th,td{border:1px solid var(--line);padding:10px 14px;text-align:left;line-height:1.6;}
+  th{background:var(--accent-soft);color:var(--accent);font-weight:700;}
+  .def{border-left:4px solid var(--accent);background:var(--accent-soft);border-radius:0 12px 12px 0;padding:18px 24px;margin:14px 0;font-size:clamp(22px,2.4vw,29px);line-height:1.75;}
+  .def .dt{color:var(--accent);font-weight:700;}
+  .exp{background:#fffbeb;border:1px solid #fde68a;border-radius:14px;padding:20px 26px;margin:14px 0;}
+  .exp .et{font-size:19px;color:#b45309;font-weight:700;margin-bottom:10px;}
+  .exp p,.exp li{font-size:clamp(20px,2.1vw,26px);}
+  .flow{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin:16px 0;font-size:clamp(21px,2.3vw,28px);}
+  .flow .node{background:var(--accent-soft);border:1px solid #99f6e4;border-radius:10px;padding:10px 18px;font-weight:600;}
+  .flow .arw{color:var(--accent);font-size:26px;}
+  .chem{font-family:"Times New Roman",Times,serif;}
+  .note{font-size:clamp(19px,2vw,24px);color:var(--muted);line-height:1.75;margin-top:12px;}
+  #bar{position:fixed;left:0;right:0;bottom:0;height:62px;display:flex;align-items:center;justify-content:space-between;padding:0 clamp(18px,4vw,48px);background:rgba(255,255,255,.94);backdrop-filter:blur(8px);border-top:1px solid var(--line);z-index:20;}
+  #bar .grp{display:flex;align-items:center;gap:10px;}
+  .navbtn{font:inherit;font-size:18px;color:#374151;background:#fff;border:1px solid var(--line);border-radius:8px;padding:7px 15px;cursor:pointer;transition:.15s;}
+  .navbtn:hover:not(:disabled){color:var(--accent);border-color:#99f6e4;background:var(--accent-soft);}
+  .navbtn:disabled{opacity:.35;cursor:default;}
+  #counter{font-size:17px;color:var(--muted);min-width:74px;text-align:center;font-variant-numeric:tabular-nums;}
+  #progress{position:fixed;top:0;left:0;height:3px;background:var(--accent);z-index:30;transition:width .3s ease;}
+  #deckTitle{font-size:17px;color:var(--muted);max-width:44vw;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+  #help{display:none;position:fixed;inset:0;background:rgba(17,24,39,.45);z-index:50;align-items:center;justify-content:center;padding:24px;}
+  #help.show{display:flex;}
+  .helpcard{background:#fff;border-radius:16px;padding:32px 38px;max-width:520px;width:100%;box-shadow:0 20px 60px rgba(0,0,0,.15);}
+  .helpcard h3{font-size:28px;margin-bottom:16px;}
+  .helpcard .row{display:flex;justify-content:space-between;gap:20px;padding:9px 0;border-bottom:1px solid var(--line);font-size:19px;}
+  .helpcard .row:last-of-type{border-bottom:0;}
+  .helpcard .close{margin-top:20px;width:100%;}
+  @media print{#bar,#progress,#help,#zoomTip{display:none!important;}body{overflow:visible;}.slide{display:flex!important;position:relative;page-break-after:always;height:auto;min-height:100vh;}.ans{display:block!important;}}
+</style>
+</head>
+<body>
+<div id="progress"></div>
+<div id="zoomTip" style="position:fixed;top:16px;left:50%;transform:translateX(-50%);z-index:60;background:rgba(17,24,39,.85);color:#fff;padding:8px 22px;border-radius:99px;font-size:18px;opacity:0;transition:opacity .25s;pointer-events:none;"></div>
+<div id="deck">
+
+<section class="slide active"><div class="inner cover">
+  <div class="eyebrow">人教版九年级化学下册 · 第八单元 课题1</div>
+  <h1>金属材料</h1>
+  <div class="rule"></div>
+  <p class="muted" style="font-size:clamp(22px,2.6vw,30px);">纯金属与合金 —— 从物理性质到用途，认识性质与用途的关系</p>
+  <div class="hint" style="margin-top:48px;">
+    <span class="kbd">PgDn</span>/<span class="kbd">空格</span>/<span class="kbd">→</span> 下一页　·　<span class="kbd">PgUp</span>/<span class="kbd">←</span> 上一页<br>翻页笔可直接翻页　·　练习页再按一次显示答案　·　按 <span class="kbd">H</span> 查看操作
+  </div>
+</div></section>
+
+<section class="slide"><div class="inner">
+
+<div class='kicker'>引入 · 使用金属材料的历史 · 教材 p2</div>
+<h2>金属材料，人类文明的见证</h2>
+<p>人类使用金属材料的历史十分悠久。三星堆遗址出土的青铜大面具距今已有 3 000 余年，山西永济黄河铁牛铸造于 724 年。</p>
+<div class='def'><span class='dt'>金属材料：</span>用<b>纯金属</b>或<b>合金</b>等制成的材料。</div>
+<div class='callout'>铁（iron）、铜（copper）、铝（aluminium）——金属有哪些物理性质？合金又有哪些特性？</div>
+
+</div></section>
+
+<section class="slide"><div class="inner">
+
+<div class='kicker'>一、常见金属的物理性质 · 教材 p2—3</div>
+<h2>共同的物理性质，各自的特性</h2>
+<p>大多数金属呈<b>银白色</b>，但<b>铜呈红色</b>、<b>金呈黄色</b>；金属有金属光泽，是电和热的优良导体，有延展性，密度较大，熔点较高。</p>
+<table><tr><th>比较项目</th><th>排序（由大到小 / 由高到低）</th></tr>
+<tr><td>导电性</td><td>银 100 ＞ 铜 99 ＞ 金 74 ＞ 铝 61 ＞ 锌 27 ＞ 铁 17 ＞ 铅 7</td></tr>
+<tr><td>密度/(g·cm⁻³)</td><td>金 19.3 ＞ 铅 11.3 ＞ 银 10.5 ＞ 铜 9.0 ＞ 铁 7.9 ＞ 锌 7.1 ＞ 铝 2.7</td></tr>
+<tr><td>熔点/℃</td><td>钨 3 414 ＞ 铁 1 538 ＞ 铜 1 085 ＞ 金 1 064 ＞ 银 962 ＞ 铝 660 ＞ 锡 232</td></tr>
+<tr><td>硬度</td><td>铬 9 ＞ 铁 4~5 ＞ 银 2.5~4 ＞ 铜、金 2.5~3 ＞ 铝 2~2.9 ＞ 铅 1.5</td></tr></table>
+<p class='note'>数据来自教材表8-1。金属的物理性质差别较大，因此用途各不相同。</p>
+
+</div></section>
+
+<section class="slide"><div class="inner">
+
+<div class='kicker'>金属之最与用途选择 · 教材 p4</div>
+<h2>性质决定用途，但不是唯一因素</h2>
+<div class='grid2'><div class='card'><div class='ct'>金属之最（资料卡片）</div><p>地壳中含量最高的金属元素——<b>铝</b>；人体中含量最高的金属元素——<b>钙</b>；目前世界年产量最高的金属——<b>铁</b>；导电、导热性最好的金属——<b>银</b>；硬度最大——<b>铬</b>；熔点最高——<b>钨</b>；熔点最低——<b>汞</b>；密度最大——<b>锇</b>；密度最小——<b>锂</b>。</p></div>
+<div class='card'><div class='ct'>思考与讨论（教材原题）</div><p>为什么菜刀、镰刀、锤子用铁而不用铝？银的导电性比铜好，电线为何用铜不用银？灯丝为何用钨不用锡？水龙头为何镀铬？</p></div></div>
+<div class='biglaw' style='font-size:clamp(20px,2.4vw,30px);'><span class='lbl'>结论</span>性质在很大程度上决定用途；还要考虑价格、资源、废料是否易回收、对环境的影响、美观与使用便利等因素。</div>
+<div class='callout'><b>化学观念：</b>物质的组成与结构决定性质，性质决定用途——这是认识材料的基本思路。</div>
+
+</div></section>
+
+<section class="slide"><div class="inner">
+
+<div class='kicker'>二、合金 · 教材 p4</div>
+<h2>在纯金属中熔合其他元素</h2>
+<div class='def'><span class='dt'>合金：</span>在纯金属中<b>加热熔合</b>某些金属或非金属，制得具有<b>金属特征</b>的物质。</div>
+<div class='grid2'><div class='card'><div class='ct'>生铁</div><p>含碳量 <b>2%~4.3%</b>，还含有硅、锰等。</p></div>
+<div class='card'><div class='ct'>钢</div><p>含碳量 <b>0.03%~2%</b>，不锈钢中还含铬、镍等。</p></div></div>
+<p>钢铁是使用最多的合金材料。钢并不是很纯的铁，而是含有少量碳及其他金属或非金属的铁合金。组成发生改变，性能也随之改变。</p>
+
+</div></section>
+
+<section class="slide"><div class="inner">
+
+<div class='kicker'>实验8-1 · 教材 p5</div>
+<h2>比较合金与纯金属的硬度</h2>
+<div class='exp'><div class='et'>【实验8-1】 比较光泽、颜色与硬度</div><p>比较黄铜片（铜锌合金）和铜片、硬铝片（铝合金）和铝片的光泽与颜色；将它们<b>互相刻画</b>，比较硬度。</p></div>
+<table><tr><th>性质比较</th><th>黄铜</th><th>铜</th><th>硬铝</th><th>铝</th></tr>
+<tr><td>光泽和颜色</td><td colspan='4'>观察并记录（合金与纯金属光泽、颜色可能不同）</td></tr>
+<tr><td>硬度</td><td>较硬</td><td>较软</td><td>较硬</td><td>较软</td></tr></table>
+<div class='def'><span class='dt'>结论：</span>合金的硬度一般比组成它们的纯金属<b>更大</b>；纯铁较软，生铁比纯铁硬，不锈钢比纯铁硬且抗锈蚀性能好得多。</div>
+
+</div></section>
+
+<section class="slide"><div class="inner">
+
+<div class='kicker'>思考与讨论 · 教材 p5</div>
+<h2>合金的熔点为什么更低？</h2>
+<table><tr><th>纯金属</th><th>铅</th><th>铋</th><th>锡</th><th>镉</th><th>合金</th><th>焊锡</th><th>伍德合金</th></tr>
+<tr><td>熔点/℃</td><td>327</td><td>271</td><td>232</td><td>321</td><td>熔点/℃</td><td>183</td><td>70</td></tr></table>
+<div class='callout'><b>启示：</b>合金的熔点一般低于其组分金属的熔点。焊锡熔点低，适合焊接金属；伍德合金熔点仅 70 ℃，可作保险丝等。</div>
+<p>目前已制得的纯金属只有几十种，但按一定组成和质量比制得的合金已达<b>几千种</b>。</p>
+
+</div></section>
+
+<section class="slide"><div class="inner">
+
+<div class='kicker'>常见合金 · 表8-2 · 教材 p6</div>
+<h2>不同合金，不同用途</h2>
+<table><tr><th>合金</th><th>主要成分</th><th>主要性能</th><th>主要用途</th></tr>
+<tr><td>不锈钢</td><td>铁、铬、镍</td><td>抗腐蚀性好</td><td>医疗器械、炊具、容器、反应釜</td></tr>
+<tr><td>锰钢</td><td>铁、锰、碳</td><td>韧性好、硬度大</td><td>钢轨、挖掘机铲斗、坦克装甲、自行车架</td></tr>
+<tr><td>黄铜</td><td>铜、锌</td><td>强度高、易加工、耐腐蚀</td><td>机器零件、仪表、日用品</td></tr>
+<tr><td>青铜</td><td>铜、锡</td><td>强度高、耐磨、耐腐蚀</td><td>轴承、齿轮</td></tr>
+<tr><td>焊锡</td><td>锡、铅</td><td>熔点低</td><td>焊接金属</td></tr>
+<tr><td>硬铝</td><td>铝、铜、镁、硅</td><td>强度高、硬度大</td><td>火箭、飞机、轮船</td></tr></table>
+<p class='note'>18K 黄金含金量达 75%；纯金属只有几十种，合金已达几千种，因此合金使用更广泛。</p>
+
+</div></section>
+
+<section class="slide"><div class="inner">
+
+<div class='kicker'>新型金属材料 · 教材 p7—8</div>
+<h2>钛与钛合金：21 世纪的重要金属材料</h2>
+<div class='grid2'><div class='card'><div class='ct'>优良性能</div><p>熔点高、密度小（钛的密度仅为 <b>4.5 g/cm³</b>）、可塑性好、易加工、机械性能好；抗腐蚀性能远优于不锈钢，放在海水中数年仍光亮如初。</p></div>
+<div class='card'><div class='ct'>广泛应用</div><p>火箭、导弹、航天器、船舶、化工设备、通信设备和医疗（如人造骨）。我国还生产出厚度仅 0.015 mm 的超薄不锈钢精密箔材。</p></div></div>
+<div class='callout'><b>科学态度与责任：</b>火箭发动机金属焊接需要高超技术与执着专注、精益求精、一丝不苟、追求卓越的工匠精神。形状记忆合金还用于人造卫星天线、牙齿矫正器等。</div>
+
+</div></section>
+
+<section class="slide"><div class="inner">
+
+<div class='kicker'>学完本课题你知道了什么 · 教材 p8</div>
+<h2>本课小结</h2>
+<ol><li>金属具有很多共同的物理性质：金属光泽，电和热的优良导体，有延展性，密度较大，熔点较高；但也有各自的特性。</li>
+<li>物质的性质在很大程度上决定物质的用途，但这不是唯一的决定因素。</li>
+<li>金属材料包括纯金属和合金；在纯金属中加热熔合某些金属或非金属制得合金，其性能会发生改变，用途更加广泛。</li></ol>
+<div class='biglaw' style='font-size:clamp(22px,2.6vw,32px);'><span class='lbl'>主线</span>组成改变 → 性能改变 → 用途改变</div>
+
+</div></section>
+
+<section class="slide quiz-slide"><div class="inner">
+  <span class="qno">课本练习 1</span>
+  <div class="qtext">（教材 p9 第1题）下列生活用品中，利用金属导电性的是（　）。</div>
+  <ul class="opts"><li>A. 铁锅</li><li>B. 铜导线</li><li>C. 铝箔包装纸</li><li>D. 金饰品</li></ul>
+  <div class="ans"><p><span class='key'>答案：B</span>　铜导线利用铜的导电性；铁锅利用导热性；铝箔利用延展性；金饰品利用金属光泽与稳定性。</p></div>
+  <div class="reveal-hint">按翻页键 / 空格 显示答案，再按一次继续</div>
+</div></section>
+
+<section class="slide quiz-slide"><div class="inner">
+  <span class="qno">课本练习 2</span>
+  <div class="qtext">（教材 p9 第4题）下列物质中，<b>不属于</b>合金的是（　）。</div>
+  <ul class="opts"><li>A. 18K黄金</li><li>B. 用来制作仪表的黄铜</li><li>C. 用来切割玻璃的金刚石</li><li>D. 建造国产航母的新型钢材</li></ul>
+  <div class="ans"><p><span class='key'>答案：C</span>　金刚石是碳单质，不是合金；18K黄金、黄铜、钢材都是合金。</p></div>
+  <div class="reveal-hint">按翻页键 / 空格 显示答案，再按一次继续</div>
+</div></section>
+
+<section class="slide quiz-slide"><div class="inner">
+  <span class="qno">课本练习 3</span>
+  <div class="qtext">（教材 p9 第3题）下列有关金属材料的说法中，正确的是（　）。</div>
+  <ul class="opts"><li>A. 焊锡是锡铅合金</li><li>B. 合金中只含金属元素</li><li>C. 钛的熔点高、密度大</li><li>D. 合金的硬度一般比其组成金属的小</li></ul>
+  <div class="ans"><p><span class='key'>答案：A</span>　合金中也可含非金属元素（如钢含碳）；钛密度小（4.5 g/cm³）；合金的硬度一般比组成金属大。</p></div>
+  <div class="reveal-hint">按翻页键 / 空格 显示答案，再按一次继续</div>
+</div></section>
+
+<section class="slide"><div class="inner cover">
+  <div class="rule" style="margin-bottom:32px;"></div>
+  <h1 style="font-size:clamp(42px,6.5vw,70px);">课题1 · 小结</h1>
+  <p class="muted" style="font-size:clamp(23px,2.9vw,32px);">金属的物理性质 · 合金的特性 · 性质与用途的关系</p>
+  <div class="hint" style="margin-top:40px;">按 <span class="kbd">Home</span> 回到第一页　·　按 <span class="kbd">End</span> 到末页</div>
+</div></section>
+
+</div>
+
+<div id="bar">
+  <div class="grp"><button class="navbtn" id="prevBtn">← 上一页</button><button class="navbtn" id="nextBtn">下一页 →</button><span id="counter">1 / 14</span></div>
+  <div class="grp"><span id="deckTitle">第八单元 课题1 金属材料</span><button class="navbtn" id="fullBtn">⛶ 全屏</button><button class="navbtn" id="helpBtn">? 操作</button></div>
+</div>
+<div id="help"><div class="helpcard">
+  <h3>翻页操作说明</h3>
+  <div class="row"><span>下一页</span><span><span class="kbd">PgDn</span> <span class="kbd">空格</span> <span class="kbd">→</span> <span class="kbd">↓</span></span></div>
+  <div class="row"><span>上一页</span><span><span class="kbd">PgUp</span> <span class="kbd">←</span> <span class="kbd">↑</span></span></div>
+  <div class="row"><span>首页 / 末页</span><span><span class="kbd">Home</span> / <span class="kbd">End</span></span></div>
+  <div class="row"><span>练习页显示答案</span><span>在题目页再按一次"下一页"</span></div>
+  <div class="row"><span>字号放大 / 缩小</span><span><span class="kbd">]</span> 放大 · <span class="kbd">[</span> 缩小 · <span class="kbd">0</span> 恢复默认</span></div>
+  <div class="row"><span>全屏放映</span><span><span class="kbd">F</span> 或点击"全屏"</span></div>
+  <button class="navbtn close" id="closeHelp">知道了</button>
+</div></div>
+
+<script>
+
+(function(){
+  const slides=Array.from(document.querySelectorAll('.slide'));let cur=0;
+  const counter=document.getElementById('counter'),progress=document.getElementById('progress'),prevBtn=document.getElementById('prevBtn'),nextBtn=document.getElementById('nextBtn'),help=document.getElementById('help');
+  const ZKEY='__deck_zoom__';
+  function zoom(){const z=parseFloat(localStorage.getItem(ZKEY));return (isNaN(z)||z<0.7||z>2.2)?1:z;}
+  function setZoom(z){z=Math.max(0.7,Math.min(2.2,Math.round(z*10)/10));localStorage.setItem(ZKEY,String(z));
+    document.querySelectorAll('.inner').forEach(el=>el.style.zoom=z);
+    const t=document.getElementById('zoomTip');if(t){t.textContent='字号 '+Math.round(z*100)+'%';t.style.opacity=1;clearTimeout(t._tm);t._tm=setTimeout(()=>t.style.opacity=0,1000);}}
+  document.addEventListener('keydown',function(e){if(e.ctrlKey||e.altKey||e.metaKey)return;
+    if(e.key===']'||e.key==='】'){e.preventDefault();setZoom(zoom()+0.1);}
+    else if(e.key==='['||e.key==='【'){e.preventDefault();setZoom(zoom()-0.1);}
+    else if(e.key==='0'){e.preventDefault();setZoom(1);}});
+  function render(){slides.forEach((s,i)=>s.classList.toggle('active',i===cur));counter.textContent=(cur+1)+' / '+slides.length;progress.style.width=((cur+1)/slides.length*100)+'%';prevBtn.disabled=cur===0;nextBtn.disabled=cur===slides.length-1;slides[cur].scrollTop=0;}
+  function isQuiz(i){return slides[i].classList.contains('quiz-slide');}
+  function shown(i){const a=slides[i].querySelector('.ans');return a&&a.classList.contains('show');}
+  function next(){if(cur>=slides.length-1)return;if(isQuiz(cur)&&!shown(cur)){const a=slides[cur].querySelector('.ans');if(a){a.classList.add('show');const h=slides[cur].querySelector('.reveal-hint');if(h)h.textContent='答案已显示 · 再按一次继续';return;}}cur++;render();}
+  function prev(){if(isQuiz(cur)&&shown(cur)){const a=slides[cur].querySelector('.ans');a.classList.remove('show');const h=slides[cur].querySelector('.reveal-hint');if(h)h.textContent='按翻页键 / 空格 显示答案，再按一次继续';return;}if(cur>0){cur--;render();}}
+  function go(n){if(n>=0&&n<slides.length){cur=n;render();}}
+  prevBtn.onclick=prev;nextBtn.onclick=next;
+  document.addEventListener('keydown',function(e){
+    if(help.classList.contains('show')){if(e.key==='Escape'||e.key==='h'||e.key==='H'){help.classList.remove('show');e.preventDefault();}return;}
+    const k=e.key;
+    if(['PageDown',' ','Spacebar','ArrowRight','ArrowDown','Enter'].includes(k)){e.preventDefault();next();return;}
+    if(['PageUp','ArrowLeft','ArrowUp','Backspace'].includes(k)){e.preventDefault();prev();return;}
+    if(k==='Home'){e.preventDefault();go(0);return;}if(k==='End'){e.preventDefault();go(slides.length-1);return;}
+    if(k==='h'||k==='H'||k==='?'){e.preventDefault();help.classList.add('show');return;}
+    if(k==='f'||k==='F'){e.preventDefault();toggleFull();return;}});
+  let tx=0,ty=0;document.addEventListener('touchstart',e=>{tx=e.changedTouches[0].clientX;ty=e.changedTouches[0].clientY;},{passive:true});
+  document.addEventListener('touchend',e=>{const dx=e.changedTouches[0].clientX-tx,dy=e.changedTouches[0].clientY-ty;if(Math.abs(dx)>60&&Math.abs(dx)>Math.abs(dy))dx<0?next():prev();},{passive:true});
+  function toggleFull(){if(!document.fullscreenElement)document.documentElement.requestFullscreen&&document.documentElement.requestFullscreen();else document.exitFullscreen&&document.exitFullscreen();}
+  document.getElementById('fullBtn').onclick=toggleFull;document.getElementById('helpBtn').onclick=()=>help.classList.add('show');document.getElementById('closeHelp').onclick=()=>help.classList.remove('show');help.onclick=e=>{if(e.target===help)help.classList.remove('show');};
+  document.querySelectorAll('.inner').forEach(el=>el.style.zoom=zoom());
+  render();
+})();
+
+</script>
+</body>
+</html>
